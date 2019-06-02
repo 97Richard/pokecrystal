@@ -14,14 +14,22 @@ AskRememberPassword::
 	ret
 
 .DoMenu:
+if !DEF(_CRYSTAL_EU)
 	lb bc, 14, 7
+elif DEF(_CRYSTAL_ES)
+	lb bc, 15, 7
+endc
 	push bc
 	ld hl, YesNoMenuHeader
 	call CopyMenuHeader
 	pop bc
 	ld a, b
 	ld [wMenuBorderLeftCoord], a
+if !DEF(_CRYSTAL_EU)
 	add $5
+elif DEF(_CRYSTAL_ES)
+	add $4
+endc
 	ld [wMenuBorderRightCoord], a
 	ld a, c
 	ld [wMenuBorderTopCoord], a

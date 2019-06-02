@@ -37,11 +37,19 @@ DisplayCaughtContestMonStats::
 	ld de, .This
 	call PlaceString
 
+if !DEF(_CRYSTAL_EU)
 	hlcoord 5, 4
+elif DEF(_CRYSTAL_ES)
+	hlcoord 4, 4
+endc
 	ld de, .Health
 	call PlaceString
 
+if !DEF(_CRYSTAL_EU)
 	hlcoord 5, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 4, 10
+endc
 	ld de, .Health
 	call PlaceString
 
@@ -68,12 +76,20 @@ DisplayCaughtContestMonStats::
 	ld [wTempMonLevel], a
 	call PrintLevel
 
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 4
+elif DEF(_CRYSTAL_ES)
+	hlcoord 10, 4
+endc
 	ld de, wContestMonMaxHP
 	lb bc, 2, 3
 	call PrintNum
 
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 10, 10
+endc
 	ld de, wEnemyMonMaxHP
 	call PrintNum
 
@@ -89,12 +105,15 @@ DisplayCaughtContestMonStats::
 	call SetPalettes
 	ret
 
-.Health:
-	db "HEALTH@"
-.Stock:
-	db " STOCK <PKMN> @"
-.This:
-	db " THIS <PKMN>  @"
+if !DEF(_CRYSTAL_EU)
+.Health: db "HEALTH@"
+.Stock:  db " STOCK <PKMN> @"
+.This:   db " THIS <PKMN>  @"
+elif DEF(_CRYSTAL_ES)
+.Health: db " SALUD@"
+.Stock:  db " GUARDA <PKMN> @"
+.This:   db " ESTE <PKMN> @"
+endc
 
 ContestAskSwitchText:
 	text_far _ContestAskSwitchText

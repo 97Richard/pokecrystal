@@ -5,7 +5,7 @@ name = poke$(version)
 version := crystal
 
 # All of the available versions
-versions := crystal crystal11 crystal-au
+versions := crystal crystal11 crystal-au crystal-es
 
 
 # Variables used to locate the sources
@@ -181,9 +181,9 @@ endif
 # If the hash of the uncompressed file matches, use this .lz instead.
 # This allows pngs to be used for compressed graphics and still match.
 
-hash = $(shell $(dir_tools)/md5 $< | cut -c 1-8)
 %.lz: % $(dir_tools)/md5 $(dir_tools)/lzcomp
-	$(eval filename := $(dir_source)/$*.lz.$(hash))
+	$(eval hash := $(shell $(dir_tools)/md5 $< | cut -c 1-8))
+	$(eval filename := $(word 1,$(wildcard $(dir_version)/$*.lz.$(hash) $(dir_source)/$*.lz.$(hash))))
 	$(if $(wildcard $(filename)),\
 		cp $(filename) $@,\
 		$(dir_tools)/lzcomp -- $< $@)

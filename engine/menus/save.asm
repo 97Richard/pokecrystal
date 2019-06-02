@@ -211,7 +211,11 @@ SaveTheGame_yesorno:
 	ld b, BANK(WouldYouLikeToSaveTheGameText)
 	call MapTextbox
 	call LoadMenuTextbox
+if !DEF(_CRYSTAL_EU)
 	lb bc, 0, 7
+elif DEF(_CRYSTAL_ES)
+	lb bc, 0, 9
+endc
 	call PlaceYesNoBox
 	ld a, [wMenuCursorY]
 	dec a

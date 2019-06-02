@@ -86,6 +86,7 @@ CheckMagikarpLength::
 	text_far _MagikarpGuruMeasureText
 	text_end
 
+if !DEF(_CRYSTAL_ES)
 Magikarp_LoadFeetInchesChars:
 	ld hl, vTiles2 tile "′" ; $6e
 	ld de, .feetinchchars
@@ -111,6 +112,34 @@ PrintMagikarpLength:
 	inc hl
 	ld [hl], "@"
 	ret
+else
+PrintMagikarpLength:
+	ld hl, wStringBuffer1
+	ld de, wMagikarpLength
+	lb bc, PRINTNUM_LEADINGZEROS | 2, 4
+	call PrintNum
+
+	; Make sure the string is terminated
+	ld a, "@"
+	ld [wStringBuffer1 + 5], a
+
+	; The last character is a fraction
+	ld a, [wStringBuffer1 + 3]
+	ld [wStringBuffer1 + 4], a
+	ld a, "."
+	ld [wStringBuffer1 + 3], a
+
+	; Strip any leading zeros
+	ld hl, wStringBuffer1
+.loop
+	ld a, [hli]
+	cp "0"
+	jr z, .loop
+	dec hl
+	ld de, wStringBuffer1
+	ld bc, 6
+	jp CopyBytes
+endc
 
 CalcMagikarpLength::
 ; Return Magikarp's length (in feet and inches) at wMagikarpLength (big endian).
@@ -251,6 +280,7 @@ CalcMagikarpLength::
 	ld e, l
 
 .done
+if !DEF(_CRYSTAL_ES)
 	; convert from mm to feet and inches
 	; in = mm / 25.4
 	; ft = in / 12
@@ -281,6 +311,7 @@ CalcMagikarpLength::
 	jr .mod_12
 .ok
 	ld e, a
+endc
 
 	ld hl, wMagikarpLength
 	ld [hl], d ; ft

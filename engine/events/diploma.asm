@@ -27,12 +27,20 @@ PlaceDiplomaOnScreen::
 	ld de, .Player
 	hlcoord 2, 5
 	call PlaceString
+if !DEF(_CRYSTAL_ES)
 	ld de, .EmptyString
 	hlcoord 15, 5
 	call PlaceString
 	ld de, wPlayerName
 	hlcoord 9, 5
 	call PlaceString
+else
+	ld de, wPlayerName
+	ld h, b
+	ld l, c
+	inc hl
+	call PlaceString
+endc
 	ld de, .Certification
 	hlcoord 2, 8
 	call PlaceString
@@ -45,18 +53,29 @@ PlaceDiplomaOnScreen::
 	ret
 
 .Player:
+if !DEF(_CRYSTAL_EU)
 	db "PLAYER@"
+elif DEF(_CRYSTAL_ES)
+	db "JUGADOR@"
+endc
 
 .EmptyString:
 	db "@"
 
 .Certification:
+if !DEF(_CRYSTAL_EU)
 	db   "This certifies"
 	next "that you have"
 	next "completed the"
 	next "new #DEX."
-	next "Congratulations!"
-	db   "@"
+	next "Congratulations!@"
+elif DEF(_CRYSTAL_ES)
+	db   "Esto certifica"
+	next "que has"
+	next "completado la"
+	next "nueva #DEX."
+	next "¡Enhorabuena!@"
+endc
 
 PrintDiplomaPage2::
 	hlcoord 0, 0
@@ -71,7 +90,11 @@ PrintDiplomaPage2::
 	hlcoord 8, 0
 	call PlaceString
 	ld de, .PlayTime
+if !DEF(_CRYSTAL_EU)
 	hlcoord 3, 15
+elif DEF(_CRYSTAL_ES)
+	hlcoord 3, 14
+endc
 	call PlaceString
 	hlcoord 12, 15
 	ld de, wGameTimeHours
@@ -84,7 +107,11 @@ PrintDiplomaPage2::
 	call PrintNum
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .PlayTime: db "PLAY TIME@"
+elif DEF(_CRYSTAL_ES)
+.PlayTime: db "TIEMPO J.@"
+endc
 .GameFreak: db "GAME FREAK@"
 
 DiplomaGFX:

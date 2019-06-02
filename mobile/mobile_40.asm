@@ -5701,7 +5701,11 @@ Function1027eb:
 	ret
 
 .Stats_Trade:
+if !DEF(_CRYSTAL_EU)
 	db "STATS     TRADE@"
+elif DEF(_CRYSTAL_ES)
+	db "ESTAD.    TRATO@"
+endc
 
 Function102814:
 	ld a, [wMenuCursorY]
@@ -6003,9 +6007,15 @@ Function1029fe:
 	ret
 
 String_102a26:
+if !DEF(_CRYSTAL_EU)
 	db   "TRADE"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+	db   "TRATO"
+	next "CANCELAR"
+	db   "@"
+endc
 
 MenuData3_102a33:
 	db 8, 11
@@ -6511,7 +6521,11 @@ Function102e07:
 	ret
 
 .waiting
+if !DEF(_CRYSTAL_EU)
 	db "Waiting...!@"
+elif DEF(_CRYSTAL_ES)
+	db "¡ESPERA.…!@"
+endc
 
 Function102e3e:
 	ld de, .CANCEL
@@ -6520,7 +6534,11 @@ Function102e3e:
 	ret
 
 .CANCEL:
+if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "CANCELAR@"
+endc
 
 Function102e4f:
 	farcall Function16d42e
@@ -6608,9 +6626,14 @@ Function102ee7:
 	ret
 
 String_102ef4:
+if !DEF(_CRYSTAL_EU)
 	db   "Too bad! The trade"
-	next "was canceled!"
+	next "was canceled!@"
+elif DEF(_CRYSTAL_ES)
+	db   "¡Mal! ¡El trato"
+	next "está cancelado!"
 	db   "@"
+endc
 
 Function102f15:
 	call Function102dc3
@@ -6630,7 +6653,11 @@ Function102f32:
 	ret
 
 .TradeCompleted:
+if !DEF(_CRYSTAL_EU)
 	db "Trade completed!@"
+elif DEF(_CRYSTAL_ES)
+	db "TRATO COMPLETADO@"
+endc
 
 Function102f50:
 	call Function102dc3

@@ -1,3 +1,4 @@
+INCLUDE "macros/rst.inc"
 INCLUDE "constants/charmap.inc"
 INCLUDE "constants/text_constants.inc"
 
@@ -16,6 +17,17 @@ InitName::
 _InitString:
 ; if the string pointed to by hl is empty (defined as "zero or more spaces
 ; followed by a null"), then initialize it to the string pointed to by de.
+
+if DEF(_CRYSTAL_ES)
+	push de
+	push hl
+	ld d, h
+	ld e, l
+	farcall StripString
+	pop hl
+	pop de
+endc
+
 	push bc
 .loop
 	ld a, [hli]

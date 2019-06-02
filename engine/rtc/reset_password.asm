@@ -29,6 +29,14 @@ _ResetClock::
 	cp $1
 	ret z
 	call ClockResetPassword
+if DEF(_CRYSTAL_ES)
+	push af
+	hlcoord 7, 6
+	ld bc, 5
+	ld a, " "
+	call ByteFill
+	pop af
+endc
 	jr c, .wrongpassword
 	ld a, BANK(sRTCStatusFlags)
 	call GetSRAMBank
@@ -58,15 +66,24 @@ _ResetClock::
 
 .NoYes_MenuHeader:
 	db 0 ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_ES)
+	menu_coords 15, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+endc
 	dw .NoYes_MenuData
 	db 1 ; default option
 
 .NoYes_MenuData:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
 	db 2 ; items
+if !DEF(_CRYSTAL_EU)
 	db "NO@"
 	db "YES@"
+elif DEF(_CRYSTAL_ES)
+	db "NO@"
+	db "SÍ@"
+endc
 
 ClockResetPassword:
 	call .CalculatePassword
@@ -116,7 +133,11 @@ ClockResetPassword:
 	text_end
 
 .updateIDdisplay
+if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 15
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 5
+endc
 	ld de, wStringBuffer2
 	ld c, 5
 .loop3
@@ -126,11 +147,19 @@ ClockResetPassword:
 	inc de
 	dec c
 	jr nz, .loop3
+if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 16
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 6
+endc
 	ld bc, 5
 	ld a, " "
 	call ByteFill
+if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 16
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 6
+endc
 	ld a, [wStringBuffer2 + 5]
 	ld e, a
 	ld d, $0

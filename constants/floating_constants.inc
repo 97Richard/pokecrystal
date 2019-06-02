@@ -22,9 +22,13 @@ BANK_MUSIC_ROCKET_ENCOUNTER  EQU $3d
 
 ; Maps
 BANK_MAP_RUINS_OF_ALPH_RESEARCH_CENTER EQU $16 ; RuinsOfAlphKabutoChamberScientistScript -> RuinsOfAlphResearchCenterScientist1Text_GotAllUnown
-BANK_MAP_ROUTE_35_NATIONAL_PARK_GATE   EQU $1a ; Route36NationalParkGate_MapEvents -> BugCatchingContestExplanationSign
+BANK_MAP_ROUTE_35_NATIONAL_PARK_GATE   EQU $1a ; Route36NationalParkGate_MapEvents -> BugCatchingContestExplanationSign (Only in US release)
 BANK_MAP_CELADON_DEPT_STORE_1F         EQU $1c ; CeladonDeptStore6F_MapEvents -> CeladonDeptSotre1FElevatorButton
+if !DEF(_CRYSTAL_EU)
 BANK_MAP_BATTLE_TOWER                  EQU $27
+elif DEF(_CRYSTAL_ES)
+BANK_MAP_BATTLE_TOWER                  EQU $76
+endc
 BANK_MAP_COLOSSEUM                     EQU $64 ; TradeCenter_MapEvents -> CableClubFriendScript
 
 ; Code

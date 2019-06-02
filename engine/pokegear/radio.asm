@@ -606,7 +606,11 @@ OaksPKMNTalk12:
 	jp PlaceRadioString
 
 .pokemon_channel_string
+if !DEF(_CRYSTAL_EU)
 	db "#MON Channel@"
+elif DEF(_CRYSTAL_ES)
+	db "Canal #MON@"
+endc
 
 OaksPKMNTalk13:
 	ld hl, wRadioTextDelay
@@ -728,9 +732,15 @@ PokedexShow2:
 	pop hl
 	pop af
 	call CopyDexEntryPart2
+if !DEF(_CRYSTAL_EU)
 rept 4
 	inc hl
 endr
+elif DEF(_CRYSTAL_ES)
+rept 3
+	inc hl
+endr
+endc
 	ld a, l
 	ld [wPokedexShowPointerAddr], a
 	ld a, h
@@ -1728,7 +1738,11 @@ BuenasPasswordCheckTime:
 	ret
 
 BuenasPasswordChannelName:
+if !DEF(_CRYSTAL_EU)
 	db "BUENA'S PASSWORD@"
+elif DEF(_CRYSTAL_ES)
+	db "CÓDIGO DE BUENA@"
+endc
 
 BuenaRadioText1:
 	text_far _BuenaRadioText1

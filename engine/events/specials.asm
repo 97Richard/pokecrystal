@@ -125,7 +125,11 @@ NameRival:
 	ret
 
 .default
+if !DEF(_CRYSTAL_EU)
 	db "SILVER@"
+elif DEF(_CRYSTAL_ES)
+	db "PLATA@"
+endc
 
 
 SECTION "engine/events/specials@NameRater", ROMX

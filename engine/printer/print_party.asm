@@ -121,6 +121,8 @@ SECTION "engine/printer/print_party@GBPrinterStrings", ROMX
 
 GBPrinterStrings:: ; used only for BANK(GBPrinterStrings)
 GBPrinterString_Null:: db "@"
+
+if !DEF(_CRYSTAL_EU)
 GBPrinterString_CheckingLink:: next " CHECKING LINK...@"
 GBPrinterString_Transmitting:: next "  TRANSMITTING...@"
 GBPrinterString_Printing:: next "    PRINTING...@"
@@ -148,6 +150,35 @@ GBPrinterString_PrinterError4::
 	next "Check the Game Boy"
 	next "Printer Manual."
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+GBPrinterString_CheckingLink:: next "  COMPROBANDO...@"
+GBPrinterString_Transmitting:: next " TRANSMITIENDO...@"
+GBPrinterString_Printing:: next "  IMPRIMIENDO...@"
+GBPrinterString_PrinterError1::
+	db   "  Error 1 Impres."
+	next ""
+	next "Verifica el manual"
+	next "de impresora GB"
+	db   "@"
+GBPrinterString_PrinterError2::
+	db   "  Error 2 Impres."
+	next ""
+	next "Verifica el manual"
+	next "de impresora GB"
+	db   "@"
+GBPrinterString_PrinterError3::
+	db   "  Error 3 Impres."
+	next ""
+	next "Verifica el manual"
+	next "de impresora GB"
+	db   "@"
+GBPrinterString_PrinterError4::
+	db   "  Error 4 Impres."
+	next ""
+	next "Verifica el manual"
+	next "de impresora GB"
+	db   "@"
+endc
 
 
 SECTION "engine/printer/print_party@PrintPartyMon", ROMX
@@ -348,6 +379,7 @@ Function1dc52c:
 	ld [hl], "⁂"
 	ret
 
+if !DEF(_CRYSTAL_EU)
 String1dc550:
 	db "OT/@"
 
@@ -364,6 +396,24 @@ String1dc55d:
 	next "SPCL.DEF"
 	next "SPEED"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+String1dc550:
+	db "EO/@"
+
+String1dc554:
+	db "MOVER@"
+
+String1dc559:
+	db "№<ID> @"
+
+String1dc55d:
+	db   "ATAQUE"
+	next "DEFENSA"
+	next "AT. ESP"
+	next "DEF. ESP"
+	next "VELOCID."
+	db   "@"
+endc
 
 String1dc584:
 	db "------------@"

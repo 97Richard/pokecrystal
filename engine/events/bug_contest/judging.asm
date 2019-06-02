@@ -126,7 +126,11 @@ LoadContestantName:
 ; Append the name to wBugContestWinnerName.
 	ld hl, wStringBuffer1
 	pop de
+if !DEF(_CRYSTAL_EU)
 	ld bc, NAME_LENGTH - 1
+elif DEF(_CRYSTAL_ES)
+	ld bc, NAME_LENGTH
+endc
 	jp CopyBytes
 
 .player

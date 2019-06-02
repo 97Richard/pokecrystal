@@ -1,5 +1,10 @@
+if !DEF(_CRYSTAL_EU)
 TRADEANIM_RIGHT_ARROW EQU "▶" ; $ed
 TRADEANIM_LEFT_ARROW  EQU "▼" ; $ee
+elif DEF(_CRYSTAL_ES)
+TRADEANIM_RIGHT_ARROW EQU "▶" ; $ed
+TRADEANIM_LEFT_ARROW  EQU "▷" ; $ec
+endc
 
 ; TradeAnim_TubeAnimJumptable.Jumptable indexes
 	const_def
@@ -938,10 +943,17 @@ TrademonStats_MonTemplate:
 	ret
 
 .OTMonData:
+if !DEF(_CRYSTAL_EU)
 	db   "─── №."
 	next ""
 	next "OT/"
 	next "<ID>№.@"
+elif DEF(_CRYSTAL_ES)
+	db   "─── №."
+	next ""
+	next "EO/"
+	next "№<ID> @"
+endc
 
 TrademonStats_Egg:
 	call WaitTop
@@ -959,9 +971,15 @@ TrademonStats_Egg:
 	ret
 
 .EggData:
+if !DEF(_CRYSTAL_EU)
 	db   "EGG"
 	next "OT/?????"
 	next "<ID>№.?????@"
+elif DEF(_CRYSTAL_ES)
+	db   "HUEVO"
+	next "EO/¿¿??"
+	next "№<ID> ¿¿??@"
+endc
 
 TrademonStats_WaitBGMap:
 	call WaitBGMap

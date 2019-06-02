@@ -187,7 +187,11 @@ TownMapBubble:
 	ret
 
 .Where:
+if !DEF(_CRYSTAL_EU)
 	db "Where?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿Dónde?@"
+endc
 
 .Name:
 ; We need the map location of the default flypoint
@@ -481,6 +485,7 @@ Pokedex_GetArea::
 	ld a, $07
 	call ByteFill
 	ld [hl], $17
+if !DEF(_CRYSTAL_EU)
 	call GetPokemonName
 	hlcoord 2, 0
 	call PlaceString
@@ -488,10 +493,23 @@ Pokedex_GetArea::
 	ld l, c
 	ld de, .String_SNest
 	call PlaceString
+elif DEF(_CRYSTAL_ES)
+	hlcoord 1, 0
+	ld de, .String_SNest
+	call PlaceString
+	push bc
+	call GetPokemonName
+	pop hl
+	call PlaceString
+endc
 	ret
 
 .String_SNest:
+if !DEF(_CRYSTAL_EU)
 	db "'S NEST@"
+elif DEF(_CRYSTAL_ES)
+	db "NIDO DE @"
+endc
 
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a

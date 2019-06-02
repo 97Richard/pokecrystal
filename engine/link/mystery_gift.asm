@@ -138,11 +138,19 @@ DoMysteryGift::
 	ret
 
 .String_PressAToLink_BToCancel:
+if !DEF(_CRYSTAL_EU)
 	db   "Press A to"
 	next "link IR-Device"
 	next "Press B to"
 	next "cancel it."
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+	db   "Pulsa A para"
+	next "enlace IR."
+	next "Pulsa B para"
+	next "cancelar."
+	db   "@"
+endc
 
 .MysteryGiftCanceledText:
 	text_far _MysteryGiftCanceledText
@@ -351,7 +359,11 @@ Function104b49:
 	ldh a, [hPrintNumBuffer]
 	cp $96
 	jp nz, Function104d32
+if !DEF(_CRYSTAL_EU)
 	ld a, $90
+elif DEF(_CRYSTAL_ES)
+	ld a, $96
+endc
 	ldh [hPrintNumBuffer], a
 	call Function104d38
 	ret nz
@@ -397,7 +409,11 @@ Function104b88:
 	cp $6c
 	ret nz
 	ldh a, [hPrintNumBuffer]
+if !DEF(_CRYSTAL_EU)
 	cp $90
+elif DEF(_CRYSTAL_ES)
+	cp $96
+endc
 	jp nz, Function104d32
 	call Function104d38
 	ret nz

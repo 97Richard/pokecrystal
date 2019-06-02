@@ -342,7 +342,11 @@ InitPokegearTilemap:
 	ret
 
 .switch
+if !DEF(_CRYSTAL_EU)
 	db " SWITCH▶@"
+elif DEF(_CRYSTAL_ES)
+	db " CAMBIO▶@"
+endc
 
 .Map:
 	ld a, [wPokegearMapPlayerIconLandmark]
@@ -1281,10 +1285,17 @@ PokegearPhoneContactSubmenu:
 .CallDeleteCancelStrings:
 	dwcoord 10, 6
 	db 3
+if !DEF(_CRYSTAL_EU)
 	db   "CALL"
 	next "DELETE"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+	db   "LLAMAR"
+	next "BORRAR"
+	next "SALIR"
+	db   "@"
+endc
 
 .CallDeleteCancelJumptable:
 	dw .Call
@@ -1294,9 +1305,15 @@ PokegearPhoneContactSubmenu:
 .CallCancelStrings:
 	dwcoord 10, 8
 	db 2
+if !DEF(_CRYSTAL_EU)
 	db   "CALL"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+	db   "LLAMAR"
+	next "SALIR"
+	db   "@"
+endc
 
 .CallCancelJumptable:
 	dw .Call
@@ -1646,7 +1663,11 @@ LoadStation_BuenasPassword:
 	ld de, BuenasPasswordName
 	ret
 
+if !DEF(_CRYSTAL_EU)
 BuenasPasswordName:    db "BUENA'S PASSWORD@"
+elif DEF(_CRYSTAL_ES)
+BuenasPasswordName:    db "CÓDIGO DE BUENA@"
+endc
 NotBuenasPasswordName: db "@"
 
 LoadStation_UnownRadio:
@@ -1778,6 +1799,7 @@ NoRadioName::
 	call Textbox
 	ret
 
+if !DEF(_CRYSTAL_EU)
 OaksPKMNTalkName:     db "OAK's <PK><MN> Talk@"
 PokedexShowName:      db "#DEX Show@"
 PokemonMusicName:     db "#MON Music@"
@@ -1787,6 +1809,17 @@ UnownStationName:     db "?????@"
 PlacesAndPeopleName:  db "Places & People@"
 LetsAllSingName:      db "Let's All Sing!@"
 PokeFluteStationName: db "# FLUTE@"
+elif DEF(_CRYSTAL_ES)
+OaksPKMNTalkName:     db "La Hora de OAK@"
+PokedexShowName:      db "Ver #DEX@"
+PokemonMusicName:     db "Música #MON@"
+LuckyChannelName:     db "Canal Suerte@"
+UnownStationName:     db "¿¿??@"
+
+PlacesAndPeopleName:  db "Lugares y Gente@"
+LetsAllSingName:      db "Cantemos todos@"
+PokeFluteStationName: db "FLAUTA #MON@"
+endc
 
 _TownMap::
 	ld hl, wOptions

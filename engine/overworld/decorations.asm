@@ -56,7 +56,11 @@ _PlayerDecorationMenu::
 
 .MenuHeader:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 5, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_ES)
+	menu_coords 4, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+endc
 	dw .MenuData
 	db 1 ; default option
 
@@ -77,6 +81,7 @@ _PlayerDecorationMenu::
 	dw DecoBigDollMenu, .big_doll
 	dw DecoExitMenu, .exit
 
+if !DEF(_CRYSTAL_EU)
 .bed      db "BED@"
 .carpet   db "CARPET@"
 .plant    db "PLANT@"
@@ -85,6 +90,16 @@ _PlayerDecorationMenu::
 .ornament db "ORNAMENT@"
 .big_doll db "BIG DOLL@"
 .exit     db "EXIT@"
+elif DEF(_CRYSTAL_ES)
+.bed      db "EDREDÓN@"
+.carpet   db "ALFOMBRA@"
+.plant    db "PLANTA@"
+.poster   db "PÓSTER@"
+.game     db "CONSOLA@"
+.ornament db "ADORNO@"
+.big_doll db "MUÑECO GRANDE@"
+.exit     db "SALIR@"
+endc
 
 .FindCategoriesWithOwnedDecos:
 	xor a
@@ -539,34 +554,69 @@ GetDecoName:
 	jr .getdeconame
 
 .bed
+if !DEF(_CRYSTAL_ES)
 	call .plant
 	ld a, _BED
 	jr .getdeconame
+else
+	ld a, _BED
+	jr .unused
+endc
 
 .carpet
+if !DEF(_CRYSTAL_ES)
 	call .plant
 	ld a, _CARPET
 	jr .getdeconame
+else
+	ld a, _CARPET
+	jr .unused
+endc
 
 .poster
+if !DEF(_CRYSTAL_ES)
 	ld a, e
 	call .getpokename
 	ld a, _POSTER
 	jr .getdeconame
+else
+	push de
+	ld a, _POSTER
+	call .getdeconame
+	pop de
+	ld a, e
+	jr .getpokename
+endc
 
 .doll
+if !DEF(_CRYSTAL_ES)
 	ld a, e
 	call .getpokename
 	ld a, _DOLL
 	jr .getdeconame
+else
+	push de
+	ld a, _DOLL
+	call .getdeconame
+	pop de
+	ld a, e
+	jr .getpokename
+endc
 
 .bigdoll
+if !DEF(_CRYSTAL_ES)
 	push de
 	ld a, BIG_
 	call .getdeconame
 	pop de
 	ld a, e
 	jr .getpokename
+else
+	ld a, e
+	call .getpokename
+	ld a, BIG_
+	jr .getdeconame
+endc
 
 .unused
 	push de
@@ -888,16 +938,26 @@ QueryWhichSide:
 
 MenuHeader_0x26eab:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 13, 7
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 12, 7
+endc
 	dw MenuData_0x26eb3
 	db 1 ; default option
 
 MenuData_0x26eb3:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
+if !DEF(_CRYSTAL_EU)
 	db "RIGHT SIDE@"
 	db "LEFT SIDE@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "DERECHA@"
+	db "IZQUIERDA@"
+	db "SALIR@"
+endc
 
 PutAwayTheDecoText:
 	text_far _PutAwayTheDecoText

@@ -53,6 +53,7 @@ PrintDayOfWeek::
 	call PlaceString
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Days:
 	db "SUN@"
 	db "MON@"
@@ -64,6 +65,19 @@ PrintDayOfWeek::
 
 .Day:
 	db "DAY@"
+elif DEF(_CRYSTAL_ES)
+.Days:
+	db "DOMINGO@"
+	db "LUNES@"
+	db "MARTES@"
+	db "MIÉRCOLES@"
+	db "JUEVES@"
+	db "VIERNES@"
+	db "SÁBADO@"
+
+.Day:
+	db "@"
+endc
 
 NewGame_ClearTilemapEtc:
 	xor a
@@ -281,20 +295,35 @@ SetDefaultBoxNames:
 	ret
 
 .Box:
+if !DEF(_CRYSTAL_EU)
 	db "BOX@"
+elif DEF(_CRYSTAL_ES)
+	db "CAJA @"
+endc
 
 InitializeMagikarpHouse:
 	ld hl, wBestMagikarpLengthFeet
+if !DEF(_CRYSTAL_ES)
 	ld a, $3
 	ld [hli], a
 	ld a, $6
 	ld [hli], a
+else
+	ld a, $4
+	ld [hli], a
+	ld a, $1d
+	ld [hli], a
+endc
 	ld de, .Ralph
 	call CopyName2
 	ret
 
 .Ralph:
+if !DEF(_CRYSTAL_EU)
 	db "RALPH@"
+elif DEF(_CRYSTAL_ES)
+	db "JOSERRA@"
+endc
 
 InitializeNPCNames:
 	ld hl, .Rival
@@ -317,10 +346,17 @@ InitializeNPCNames:
 	call CopyBytes
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Rival:  db "???@"
 .Red:    db "RED@"
 .Green:  db "GREEN@"
 .Mom:    db "MOM@"
+elif DEF(_CRYSTAL_ES)
+.Rival:  db "¿¿??@"
+.Red:    db "ROJO@"
+.Green:  db "VERDE@"
+.Mom:    db "MAMÁ@"
+endc
 
 InitializeWorld:
 	call ShrinkPlayer
@@ -502,17 +538,29 @@ DisplaySaveInfoOnContinue:
 	call CheckRTCStatus
 	and %10000000
 	jr z, .clock_ok
+if !DEF(_CRYSTAL_EU)
 	lb de, 4, 8
+elif DEF(_CRYSTAL_ES)
+	lb de, 2, 8
+endc
 	call DisplayContinueDataWithRTCError
 	ret
 
 .clock_ok
+if !DEF(_CRYSTAL_EU)
 	lb de, 4, 8
+elif DEF(_CRYSTAL_ES)
+	lb de, 2, 8
+endc
 	call DisplayNormalContinueData
 	ret
 
 DisplaySaveInfoOnSave::
+if !DEF(_CRYSTAL_EU)
 	lb de, 4, 0
+elif DEF(_CRYSTAL_ES)
+	lb de, 2, 0
+endc
 	jr DisplayNormalContinueData
 
 DisplayNormalContinueData:
@@ -548,46 +596,80 @@ Continue_LoadMenuHeader:
 
 .MenuHeader_Dex:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 9
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 17, 9
+endc
 	dw .MenuData_Dex
 	db 1 ; default option
 
 .MenuData_Dex:
 	db 0 ; flags
 	db 4 ; items
+if !DEF(_CRYSTAL_EU)
 	db "PLAYER@"
 	db "BADGES@"
 	db "#DEX@"
 	db "TIME@"
+elif DEF(_CRYSTAL_ES)
+	db "JUGAD.@"
+	db "MEDALLAS@"
+	db "#DEX@"
+	db "TIEMPO J.@"
+endc
 
 .MenuHeader_NoDex:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 9
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 17, 9
+endc
 	dw .MenuData_NoDex
 	db 1 ; default option
 
 .MenuData_NoDex:
 	db 0 ; flags
 	db 4 ; items
+if !DEF(_CRYSTAL_EU)
 	db "PLAYER <PLAYER>@"
 	db "BADGES@"
 	db " @"
 	db "TIME@"
+elif DEF(_CRYSTAL_ES)
+	db "JUGAD.@"
+	db "MEDALLAS@"
+	db " @"
+	db "TIEMPO J.@"
+endc
 
 Continue_DisplayBadgesDexPlayerName:
 	call MenuBoxCoord2Tile
 	push hl
+if !DEF(_CRYSTAL_EU)
 	decoord 13, 4, 0
+elif DEF(_CRYSTAL_ES)
+	decoord 15, 4, 0
+endc
 	add hl, de
 	call Continue_DisplayBadgeCount
 	pop hl
 	push hl
+if !DEF(_CRYSTAL_EU)
 	decoord 12, 6, 0
+elif DEF(_CRYSTAL_ES)
+	decoord 14, 6, 0
+endc
 	add hl, de
 	call Continue_DisplayPokedexNumCaught
 	pop hl
 	push hl
+if !DEF(_CRYSTAL_EU)
 	decoord 8, 2, 0
+elif DEF(_CRYSTAL_ES)
+	decoord 10, 2, 0
+endc
 	add hl, de
 	ld de, .Player
 	call PlaceString
@@ -598,20 +680,32 @@ Continue_DisplayBadgesDexPlayerName:
 	db "<PLAYER>@"
 
 Continue_PrintGameTime:
+if !DEF(_CRYSTAL_EU)
 	decoord 9, 8, 0
+elif DEF(_CRYSTAL_ES)
+	decoord 11, 8, 0
+endc
 	add hl, de
 	call Continue_DisplayGameTime
 	ret
 
 Continue_UnknownGameTime:
+if !DEF(_CRYSTAL_EU)
 	decoord 9, 8, 0
+elif DEF(_CRYSTAL_ES)
+	decoord 11, 8, 0
+endc
 	add hl, de
 	ld de, .three_question_marks
 	call PlaceString
 	ret
 
 .three_question_marks
+if !DEF(_CRYSTAL_EU)
 	db " ???@"
+elif DEF(_CRYSTAL_ES)
+	db " ¿?@"
+endc
 
 Continue_DisplayBadgeCount:
 	push hl
@@ -801,10 +895,13 @@ NamePlayer:
 	call InitName
 	ret
 
-.Chris:
-	db "CHRIS@@@@@@"
-.Kris:
-	db "KRIS@@@@@@@"
+if !DEF(_CRYSTAL_EU)
+.Chris: db "CHRIS@@@@@@"
+.Kris:  db "KRIS@@@@@@@"
+elif DEF(_CRYSTAL_ES)
+.Chris: db "ANTONIO@@@@"
+.Kris:  db "CRIS@@@@@@@"
+endc
 
 Unreferenced_Function60e9:
 	call LoadMenuHeader

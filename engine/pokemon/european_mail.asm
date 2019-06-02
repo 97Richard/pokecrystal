@@ -59,13 +59,13 @@ ConvertFrenchGermanMailToEnglish::
 	ld a, [hl]
 	cp $dc ; 's in French/German font
 	jr nz, .check_intermediate_chars
-	ld a, "'s"
+	ld a, $d4
 	jr .replace
 
 .check_intermediate_chars
-	sub "'s"
+	sub $d4
 	jr c, .dont_replace
-	cp "'v" - "'s" + 1
+	cp $d6 - $d4 + 1
 	jr nc, .dont_replace
 	add $cd
 
@@ -89,7 +89,7 @@ ConvertEnglishMailToFrenchGerman::
 	ld l, e
 .loop
 	ld a, [hl]
-	cp "'s"
+	cp $d4
 	jr nz, .check_intermediate_chars
 	ld a, $dc ; 's in French/German font
 	jr .replace
@@ -97,9 +97,9 @@ ConvertEnglishMailToFrenchGerman::
 .check_intermediate_chars
 	sub $cd
 	jr c, .dont_replace
-	cp "'v" - "'s" + 1
+	cp $d6 - $d4 + 1
 	jr nc, .dont_replace
-	add "'s"
+	add $d4
 
 .replace
 	ld [hl], a

@@ -46,13 +46,23 @@ LinkCommunications:
 	call LoadFontsBattleExtra
 	farcall LinkComms_LoadPleaseWaitTextboxBorderGFX
 	call WaitBGMap2
+if !DEF(_CRYSTAL_EU)
 	hlcoord 3, 8
 	ld b, 2
 	ld c, 12
+elif DEF(_CRYSTAL_ES)
+	hlcoord 4, 8
+	ld b, 2
+	ld c, 10
+endc
 	ld d, h
 	ld e, l
 	farcall LinkTextbox2
+if !DEF(_CRYSTAL_EU)
 	hlcoord 4, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 5, 10
+endc
 	ld de, String_PleaseWait
 	call PlaceString
 	call SetTradeRoomBGPals
@@ -573,7 +583,11 @@ ExchangeBytes:
 	ret
 
 String_PleaseWait:
+if !DEF(_CRYSTAL_EU)
 	db "PLEASE WAIT!@"
+elif DEF(_CRYSTAL_ES)
+	db "¡ESPERA.…!@"
+endc
 
 ClearLinkData:
 	ld hl, wLinkData
@@ -1521,7 +1535,11 @@ Function28926:
 	text_end
 
 .String_Stats_Trade:
+if !DEF(_CRYSTAL_EU)
 	db "STATS     TRADE@"
+elif DEF(_CRYSTAL_ES)
+	db "ESTAD.    TRATO@"
+endc
 
 .LinkAbnormalMonText:
 	text_far _LinkAbnormalMonText
@@ -1605,14 +1623,25 @@ Unreferenced_Function28b42:
 	jp PlaceString
 
 .Cancel:
+if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "CANCELAR@"
+endc
 
 Function28b68:
 	ld a, [wOtherPlayerLinkMode]
 	hlcoord 6, 9
 	ld bc, SCREEN_WIDTH
 	call AddNTimes
+if !DEF(_CRYSTAL_ES)
 	ld [hl], "▷"
+else
+	ld [hl], "¯"
+	ld bc, MON_NAME_LENGTH
+	add hl, bc
+	ld [hl], "¯"
+endc
 	ret
 
 LinkEngine_FillBox:
@@ -1664,16 +1693,30 @@ LinkTrade:
 	bccoord 1, 14
 	call PlaceHLTextAtBC
 	call LoadStandardMenuHeader
+if !DEF(_CRYSTAL_EU)
 	hlcoord 10, 7
 	ld b, 3
 	ld c, 7
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 7
+	ld b, 3
+	ld c, 10
+endc
 	call LinkTextboxAtHL
 	ld de, String28eab
+if !DEF(_CRYSTAL_EU)
 	hlcoord 12, 8
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 8
+endc
 	call PlaceString
 	ld a, 8
 	ld [w2DMenuCursorInitY], a
+if !DEF(_CRYSTAL_EU)
 	ld a, 11
+elif DEF(_CRYSTAL_ES)
+	ld a, 8
+endc
 	ld [w2DMenuCursorInitX], a
 	ld a, 1
 	ld [w2DMenuNumCols], a
@@ -1972,19 +2015,33 @@ Function28ea3:
 	jp InitTradeMenuDisplay
 
 String28eab:
+if !DEF(_CRYSTAL_EU)
 	db   "TRADE"
 	next "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db   "TRATO"
+	next "CANCELAR@"
+endc
 
 LinkAskTradeForText:
 	text_far _LinkAskTradeForText
 	text_end
 
 String28ebd:
+if !DEF(_CRYSTAL_EU)
 	db   "Trade completed!@"
+elif DEF(_CRYSTAL_ES)
+	db   "TRATO COMPLETADO@"
+endc
 
 String_TooBadTheTradeWasCanceled:
+if !DEF(_CRYSTAL_EU)
 	db   "Too bad! The trade"
 	next "was canceled!@"
+elif DEF(_CRYSTAL_ES)
+	db   "¡Mal! ¡El trato"
+	next "está cancelado!@"
+endc
 
 LinkTextboxAtHL::
 	ld d, h

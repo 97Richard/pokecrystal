@@ -564,14 +564,25 @@ MailboxPC:
 
 .SubMenuHeader:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 13, 9
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 15, 9
+endc
 	dw .SubMenuData
 	db 1 ; default option
 
 .SubMenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
+if !DEF(_CRYSTAL_EU)
 	db "READ MAIL@"
 	db "PUT IN PACK@"
 	db "ATTACH MAIL@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "LEER CARTA@"
+	db "A LA MOCHILA@"
+	db "UNIR CARTA@"
+	db "SALIR@"
+endc

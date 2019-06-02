@@ -208,6 +208,7 @@ StartMenu::
 	dw StartMenu_Pokegear, .PokegearString, .PokegearDesc
 	dw StartMenu_Quit,     .QuitString,     .QuitDesc
 
+if !DEF(_CRYSTAL_EU)
 .PokedexString:  db "#DEX@"
 .PartyString:    db "#MON@"
 .PackString:     db "PACK@"
@@ -253,6 +254,53 @@ StartMenu::
 .QuitDesc:
 	db   "Quit and"
 	next "be judged.@"
+elif DEF(_CRYSTAL_ES)
+.PokedexString:  db "#DEX@"
+.PartyString:    db "#MON@"
+.PackString:     db "MOCHILA@"
+.StatusString:   db "<PLAYER>@"
+.SaveString:     db "GUARDAR@"
+.OptionString:   db "OPCIÓN@"
+.ExitString:     db "SALIR@"
+.PokegearString: db "<POKE>GEAR@"
+.QuitString:     db "HECHO@"
+
+.PokedexDesc:
+	db   "Base de"
+	next "datos <PKMN>@"
+
+.PartyDesc:
+	db   "Estado de"
+	next "los <PKMN>@"
+
+.PackDesc:
+	db   "Contiene"
+	next "objetos@"
+
+.PokegearDesc:
+	db   "Disp."
+	next "clave@"
+
+.StatusDesc:
+	db   "Tu"
+	next "estado@"
+
+.SaveDesc:
+	db   "Guardar"
+	next "el juego@"
+
+.OptionDesc:
+	db   "Cambiar"
+	next "opciones@"
+
+.ExitDesc:
+	db   "Salir"
+	next "del menú@"
+
+.QuitDesc:
+	db   "Salir"
+	next "y evaluar@"
+endc
 
 .OpenMenu:
 	ld a, [wMenuSelection]

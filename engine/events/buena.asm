@@ -159,7 +159,9 @@ BuenaPrize::
 	ld hl, .BuenaComeAgainText
 	call PrintText
 	call JoyWaitAorB
+if !DEF(_CRYSTAL_ES)
 	call PlayClickSFX
+endc
 	ret
 
 .BuenaAskWhichPrizeText:
@@ -221,7 +223,11 @@ PrintBlueCardBalance:
 	ret
 
 .Points_string:
+if !DEF(_CRYSTAL_EU)
 	db "Points@"
+elif DEF(_CRYSTAL_ES)
+	db "Puntos@"
+endc
 
 BlueCardBalanceMenuHeader:
 	db MENU_BACKUP_TILES ; flags

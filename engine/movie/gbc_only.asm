@@ -134,10 +134,17 @@ DrawGBCOnlyGraphic:
 	ret
 
 GBCOnlyString:
+if !DEF(_CRYSTAL_EU)
 	db   "This Game Pak is"
 	next "designed only for"
 	next "use on the"
 	next "Game Boy Color.@"
+elif DEF(_CRYSTAL_ES)
+	db   "Este cartucho está"
+	next "diseñado para ser"
+	next "usado únicamente"
+	next "en Game Boy Color.@"
+endc
 
 GBCOnlyGFX:
 INCBIN "gfx/sgb/gbc_only.2bpp.lz"

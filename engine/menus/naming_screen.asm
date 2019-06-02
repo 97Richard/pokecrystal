@@ -52,6 +52,13 @@ NamingScreen::
 .loop
 	call NamingScreenJoypadLoop
 	jr nc, .loop
+if DEF(_CRYSTAL_ES)
+	ld a, [wNamingScreenDestinationPointer + 0]
+	ld e, a
+	ld a, [wNamingScreenDestinationPointer + 1]
+	ld d, a
+	farcall StripString
+endc
 	pop af
 	ldh [hInMenu], a
 	pop af
@@ -133,8 +140,13 @@ NamingScreen::
 	ret
 
 .NicknameStrings:
+if !DEF(_CRYSTAL_EU)
 	db "'S@"
 	db "NICKNAME?@"
+elif DEF(_CRYSTAL_ES)
+	db "@"
+	db "¿APODO?@"
+endc
 
 .Player:
 	farcall GetPlayerIcon
@@ -146,7 +158,11 @@ NamingScreen::
 	ret
 
 .PlayerNameString:
+if !DEF(_CRYSTAL_EU)
 	db "YOUR NAME?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿TU NOMBRE?@"
+endc
 
 .Rival:
 	ld de, SilverSpriteGFX
@@ -159,7 +175,11 @@ NamingScreen::
 	ret
 
 .RivalNameString:
+if !DEF(_CRYSTAL_EU)
 	db "RIVAL'S NAME?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿NOMBRE RIVAL?@"
+endc
 
 .Mom:
 	ld de, MomSpriteGFX
@@ -172,7 +192,11 @@ NamingScreen::
 	ret
 
 .MomNameString:
+if !DEF(_CRYSTAL_EU)
 	db "MOTHER'S NAME?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿NOMBRE MATERNO?@"
+endc
 
 .Box:
 	ld de, PokeBallSpriteGFX
@@ -196,7 +220,11 @@ NamingScreen::
 	ret
 
 .BoxNameString:
+if !DEF(_CRYSTAL_EU)
 	db "BOX NAME?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿NOMBRE CAJA?@"
+endc
 
 .Tomodachi:
 	hlcoord 3, 2
@@ -509,9 +537,31 @@ NamingScreen_GetCursorPosition:
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
+if !DEF(_CRYSTAL_ES)
 	cp $3
+else
+	push bc
+	ld b, $3
+	call NamingScreen_IsTargetBox
+	jr nz, .not_box_2
+	ld b, $4
+.not_box_2
+	cp b
+	pop bc
+endc
 	jr c, .case_switch
+if !DEF(_CRYSTAL_ES)
 	cp $6
+else
+	push bc
+	ld b, $6
+	call NamingScreen_IsTargetBox
+	jr nz, .not_box_3
+	ld b, $8
+.not_box_3
+	cp b
+	pop bc
+endc
 	jr c, .delete
 	ld a, $3
 	ret
@@ -544,10 +594,26 @@ NamingScreen_AnimateCursor::
 	inc d
 .ok
 	cp d
+if DEF(_CRYSTAL_ES)
+	push af
+endc
 	ld de, .LetterEntries
+if DEF(_CRYSTAL_ES)
+	call NamingScreen_IsTargetBox
+	jr nz, .not_box_1
+	ld de, .LetterEntries_Box
+.not_box_1
+	pop af
+endc
 	ld a, SPRITE_ANIM_FRAMESET_TEXT_ENTRY_CURSOR - SPRITE_ANIM_FRAMESET_TEXT_ENTRY_CURSOR ; 0
 	jr nz, .ok2
 	ld de, .CaseDelEnd
+if DEF(_CRYSTAL_ES)
+	call NamingScreen_IsTargetBox
+	jr nz, .not_box_2
+	ld de, .CaseDelEnd_Box
+.not_box_2
+endc
 	ld a, SPRITE_ANIM_FRAMESET_TEXT_ENTRY_CURSOR_BIG - SPRITE_ANIM_FRAMESET_TEXT_ENTRY_CURSOR ; 1
 .ok2
 	ld hl, SPRITEANIMSTRUCT_0E
@@ -573,6 +639,14 @@ NamingScreen_AnimateCursor::
 .CaseDelEnd:
 	db $00, $00, $00, $30, $30, $30, $60, $60, $60
 
+if DEF(_CRYSTAL_ES)
+.LetterEntries_Box:
+	db $10, $18, $20, $28, $30, $38, $40, $48, $50, $58, $60, $68, $70
+
+.CaseDelEnd_Box:
+	db $00, $00, $00, $00, $30, $30, $30, $30, $60, $60, $60, $60, $60
+endc
+
 .GetDPad:
 	ld hl, hJoyLast
 	ld a, [hl]
@@ -596,7 +670,18 @@ NamingScreen_AnimateCursor::
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
+if !DEF(_CRYSTAL_ES)
 	cp $8
+else
+	push bc
+	ld b, $8
+	call NamingScreen_IsTargetBox
+	jr nz, .not_box
+	ld b, $c
+.not_box
+	cp b
+	pop bc
+endc
 	jr nc, .asm_11ab4
 	inc [hl]
 	ret
@@ -610,9 +695,14 @@ NamingScreen_AnimateCursor::
 	jr nz, .asm_11abc
 	xor a
 .asm_11abc
+if !DEF(_CRYSTAL_ES)
 	ld e, a
 	add a
 	add e
+else
+	add a
+	add a
+endc
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld [hl], a
@@ -632,6 +722,11 @@ NamingScreen_AnimateCursor::
 
 .asm_11ad5
 	ld [hl], $8
+if DEF(_CRYSTAL_ES)
+	call NamingScreen_IsTargetBox
+	ret nz
+	ld [hl], $c
+endc
 	ret
 
 .asm_11ad8
@@ -641,9 +736,14 @@ NamingScreen_AnimateCursor::
 .asm_11ade
 	dec a
 	dec a
+if !DEF(_CRYSTAL_ES)
 	ld e, a
 	add a
 	add e
+else
+	add a
+	add a
+endc
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld [hl], a
@@ -1146,7 +1246,11 @@ INCBIN "gfx/icons/mail_big.2bpp"
 	ld b, [hl]
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
+if !DEF(_CRYSTAL_EU)
 	ld [hl], $9
+elif DEF(_CRYSTAL_ES)
+	ld [hl], $c
+endc
 	ld hl, SPRITEANIMSTRUCT_0D
 	add hl, bc
 	ld [hl], $5
@@ -1223,10 +1327,18 @@ ComposeMail_AnimateCursor::
 	ret
 
 .LetterEntries:
+if !DEF(_CRYSTAL_EU)
 	db $00, $10, $20, $30, $40, $50, $60, $70, $80, $90
+elif DEF(_CRYSTAL_ES)
+	db $18, $20, $28, $30, $38, $40, $48, $50, $58, $60, $68, $70, $78
+endc
 
 .CaseDelEnd:
+if !DEF(_CRYSTAL_EU)
 	db $00, $00, $00, $30, $30, $30, $60, $60, $60, $60
+elif DEF(_CRYSTAL_ES)
+	db $00, $00, $00, $00, $30, $30, $30, $30, $60, $60, $60, $60, $60
+endc
 
 .GetDPad:
 	ld hl, hJoyLast
@@ -1251,7 +1363,11 @@ ComposeMail_AnimateCursor::
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
+if !DEF(_CRYSTAL_EU)
 	cp $9
+elif DEF(_CRYSTAL_ES)
+	cp $c
+endc
 	jr nc, .wrap_around_letter_right
 	inc [hl]
 	ret
@@ -1265,9 +1381,14 @@ ComposeMail_AnimateCursor::
 	jr nz, .wrap_around_command_right
 	xor a
 .wrap_around_command_right
+if !DEF(_CRYSTAL_ES)
 	ld e, a
 	add a
 	add e
+else
+	add a
+	add a
+endc
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld [hl], a
@@ -1286,7 +1407,11 @@ ComposeMail_AnimateCursor::
 	ret
 
 .wrap_around_letter_left
+if !DEF(_CRYSTAL_EU)
 	ld [hl], $9
+elif DEF(_CRYSTAL_ES)
+	ld [hl], $c
+endc
 	ret
 
 .caps_del_done_left
@@ -1296,9 +1421,14 @@ ComposeMail_AnimateCursor::
 .wrap_around_command_left
 	dec a
 	dec a
+if !DEF(_CRYSTAL_ES)
 	ld e, a
 	add a
 	add e
+else
+	add a
+	add a
+endc
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld [hl], a
@@ -1345,9 +1475,17 @@ ComposeMail_GetCursorPosition:
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
+if !DEF(_CRYSTAL_EU)
 	cp $3
+elif DEF(_CRYSTAL_ES)
+	cp $4
+endc
 	jr c, .case
+if !DEF(_CRYSTAL_EU)
 	cp $6
+elif DEF(_CRYSTAL_ES)
+	cp $8
+endc
 	jr c, .del
 	ld a, $3
 	ret

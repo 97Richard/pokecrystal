@@ -145,9 +145,11 @@ SpeechTextbox::
 	ld c, TEXTBOX_INNERW
 	jp Textbox
 
+if !DEF(_CRYSTAL_ES)
 TestText:
 	text "ゲームフりーク！"
 	done
+endc
 
 RadioTerminator::
 	ld hl, .stop
@@ -207,6 +209,9 @@ if STRSUB("\2", 1, 1) == "\""
 ; Replace a character with another one
 	jr nz, ._\@
 	ld a, \2
+if DEF(_CRYSTAL_ES)
+	jr .place
+endc
 ._\@:
 elif STRSUB("\2", 1, 1) == "."
 ; Locals can use a short jump
@@ -247,12 +252,17 @@ ENDM
 	dict "<POKE>",    PlacePOKE
 	dict "%",         NextChar
 	dict "¯",         " "
+if DEF(_CRYSTAL_ES)
+	dict "<¯>",       NextChar
+	dict "<->",       PlaceHyphenSplit
+endc
 	dict "<DEXEND>",  PlaceDexEnd
 	dict "<TARGET>",  PlaceMoveTargetsName
 	dict "<USER>",    PlaceMoveUsersName
 	dict "<ENEMY>",   PlaceEnemysName
 	dict "<PLAY_G>",  PlaceGenderedPlayerName
 	dict "ﾟ",         .place ; should be .diacritic
+if !DEF(_CRYSTAL_ES)
 	dict "ﾞ",         .place ; should be .diacritic
 	jr .not_diacritic
 
@@ -290,6 +300,9 @@ ENDM
 .katakana_handakuten
 	ld b, "ﾟ" ; handakuten
 	call Diacritic
+else
+	jr .place
+endc
 
 .place
 	ld [hli], a
@@ -323,6 +336,11 @@ PlaceKougeki: print_name KougekiText
 SixDotsChar:  print_name SixDotsCharText
 PlacePKMN:    print_name PlacePKMNText
 PlacePOKE:    print_name PlacePOKEText
+if DEF(_CRYSTAL_ES)
+PlaceHyphenSplit:
+	ld [hl], "-"
+	jp LineFeedChar
+endc
 PlaceJPRoute: print_name PlaceJPRouteText
 PlaceWatashi: print_name PlaceWatashiText
 PlaceKokoWa:  print_name PlaceKokoWaText
@@ -364,6 +382,7 @@ PlaceEnemysName:
 	cp RIVAL2
 	jr z, .rival
 
+if !DEF(_CRYSTAL_ES)
 	ld de, wOTClassName
 	call PlaceString
 	ld h, b
@@ -375,6 +394,19 @@ PlaceEnemysName:
 	pop hl
 	ld de, wStringBuffer1
 	jr PlaceCommandCharacter
+else
+	push hl
+	callfar Battle_GetTrainerName
+	pop hl
+	ld de, wStringBuffer1
+	call PlaceString
+	ld h, b
+	ld l, c
+	ld a, " "
+	ld [hli], a
+	ld de, wOTClassName
+	jr PlaceCommandCharacter
+endc
 
 .rival
 	ld de, wRivalName
@@ -404,6 +436,7 @@ PlaceCommandCharacter:
 	pop de
 	jp NextChar
 
+if !DEF(_CRYSTAL_EU)
 TMCharText:      db "TM@"
 TrainerCharText: db "TRAINER@"
 PCCharText:      db "PC@"
@@ -412,6 +445,16 @@ PlacePOKeText:   db "POKé@"
 KougekiText:     db "こうげき@"
 SixDotsCharText: db "……@"
 EnemyText:       db "Enemy @"
+elif DEF(_CRYSTAL_ES)
+TMCharText:      db "MT@"
+TrainerCharText: db "ENTREN.@"
+PCCharText:      db "PC@"
+RocketCharText:  db "ROCKET@"
+PlacePOKeText:   db "POKé@"
+KougekiText:     db "こうげき@"
+SixDotsCharText: db "……@"
+EnemyText:       db "Enem. @"
+endc
 PlacePKMNText:   db "<PK><MN>@"
 PlacePOKEText:   db "<PO><KE>@"
 String_Space:    db " @"
@@ -1028,7 +1071,11 @@ TextCommand_LINK_PROMPT_BUTTON:
 ; display arrow
 	push hl
 	push bc
+if !DEF(_CRYSTAL_ES)
 	call PromptButton
+else
+	call WaitButton
+endc
 	pop bc
 	pop hl
 	ret
@@ -1096,6 +1143,7 @@ TextCommand_DAY:
 	dw .Fri
 	dw .Satur
 
+if !DEF(_CRYSTAL_EU)
 .Sun:    db "SUN@"
 .Mon:    db "MON@"
 .Tues:   db "TUES@"
@@ -1104,3 +1152,13 @@ TextCommand_DAY:
 .Fri:    db "FRI@"
 .Satur:  db "SATUR@"
 .Day:    db "DAY@"
+elif DEF(_CRYSTAL_ES)
+.Sun:    db "DOMINGO@"
+.Mon:    db "LUNES@"
+.Tues:   db "MARTES@"
+.Wednes: db "MIÉRCOLES@"
+.Thurs:  db "JUEVES@"
+.Fri:    db "VIERNES@"
+.Satur:  db "SÁBADO@"
+.Day:    db "@"
+endc

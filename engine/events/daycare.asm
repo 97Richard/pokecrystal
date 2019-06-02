@@ -735,4 +735,8 @@ DayCare_InitBreeding:
 	ret
 
 .String_EGG:
+if !DEF(_CRYSTAL_EU)
 	db "EGG@"
+elif DEF(_CRYSTAL_ES)
+	db "HUEVO@"
+endc

@@ -20,15 +20,24 @@ InitGender::
 
 .MenuHeader:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 6, 4, 12, 9
+elif DEF(_CRYSTAL_ES)
+	menu_coords 6, 4, 13, 9
+endc
 	dw .MenuData
 	db 1 ; default option
 
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_WRAP | STATICMENU_DISABLE_B ; flags
 	db 2 ; items
+if !DEF(_CRYSTAL_EU)
 	db "Boy@"
 	db "Girl@"
+elif DEF(_CRYSTAL_ES)
+	db "Chico@"
+	db "Chica@"
+endc
 
 AreYouABoyOrAreYouAGirlText:
 	text_far _AreYouABoyOrAreYouAGirlText

@@ -376,15 +376,24 @@ TakePartyItem:
 
 GiveTakeItemMenuData:
 	db MENU_SPRITE_ANIMS | MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 12, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_ES)
+	menu_coords 11, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+endc
 	dw .Items
 	db 1 ; default option
 
 .Items:
 	db STATICMENU_CURSOR ; flags
 	db 2 ; # items
+if !DEF(_CRYSTAL_EU)
 	db "GIVE@"
 	db "TAKE@"
+elif DEF(_CRYSTAL_ES)
+	db "DAR@"
+	db "ENVIAR@"
+endc
 
 PokemonSwapItemText:
 	text_far _PokemonSwapItemText
@@ -449,6 +458,37 @@ ComposeMailMessage:
 	ld de, wTempMailAuthor
 	ld bc, NAME_LENGTH - 1
 	call CopyBytes
+
+if DEF(_CRYSTAL_ES)
+	; Look for a terminating byte in the first 8 characters of the player's name
+	ld b, -1
+	ld hl, wTempMailAuthor
+.find_terminator
+	inc b
+	ld a, b
+	cp PLAYER_NAME_LENGTH
+	jr nc, .continue
+	ld a, [hli]
+	cp "@"
+	jr nz, .find_terminator
+
+	; Redundant check?
+	ld a, b
+	cp PLAYER_NAME_LENGTH
+	jr nc, .continue
+
+	; If it's found, write the nationlity
+	ld hl, wTempMailAuthorNationality
+	ld a, "E"
+	ld [hli], a
+	ld a, "S"
+	ld [hl], a
+
+	; If the terminating byte isn't found, wTempMailAuthorNationality will hold
+	; the last two bytes copied from wPlayerName
+
+.continue
+endc
 	ld hl, wPlayerID
 	ld bc, 2
 	call CopyBytes
@@ -545,16 +585,26 @@ MonMailAction:
 
 .MenuHeader:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 12, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_ES)
+	menu_coords 11, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+endc
 	dw .MenuData
 	db 1 ; default option
 
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
+if !DEF(_CRYSTAL_EU)
 	db "READ@"
 	db "TAKE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_ES)
+	db "LEER@"
+	db "QUITAR@"
+	db "SALIR@"
+endc
 
 .MailLoseMessageText:
 	text_far _MailLoseMessageText
@@ -1085,7 +1135,11 @@ MoveScreenAttributes:
 	db D_UP | D_DOWN | D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
 
 String_MoveWhere:
+if !DEF(_CRYSTAL_EU)
 	db "Where?@"
+elif DEF(_CRYSTAL_ES)
+	db "¿Mover adónde?@"
+endc
 
 SetUpMoveScreenBG:
 	call ClearBGPalettes
@@ -1185,7 +1239,11 @@ PlaceMoveData:
 	hlcoord 0, 11
 	ld de, String_MoveType_Bottom
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 12, 12
+elif DEF(_CRYSTAL_ES)
+	hlcoord 11, 12
+endc
 	ld de, String_MoveAtk
 	call PlaceString
 	ld a, [wCurSpecies]
@@ -1221,10 +1279,17 @@ PlaceMoveData:
 
 String_MoveType_Top:
 	db "┌─────┐@"
+if !DEF(_CRYSTAL_EU)
 String_MoveType_Bottom:
 	db "│TYPE/└@"
 String_MoveAtk:
 	db "ATK/@"
+elif DEF(_CRYSTAL_ES)
+String_MoveType_Bottom:
+	db "│TIPO/└@"
+String_MoveAtk:
+	db "ATAQ/@"
+endc
 String_MoveNoPower:
 	db "---@"
 

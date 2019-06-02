@@ -68,6 +68,7 @@ InitClock::
 .loop
 	ld hl, OakTimeWhatTimeIsItText
 	call PrintText
+if !DEF(_CRYSTAL_EU)
 	hlcoord 3, 7
 	ld b, 2
 	ld c, 15
@@ -78,6 +79,18 @@ InitClock::
 	ld [hl], $2
 	hlcoord 4, 9
 	call DisplayHourOClock
+elif DEF(_CRYSTAL_ES)
+	hlcoord 1, 7
+	ld b, 2
+	ld c, 17
+	call Textbox
+	hlcoord 10, 7
+	ld [hl], $1
+	hlcoord 10, 10
+	ld [hl], $2
+	hlcoord 2, 9
+	call DisplayHourOClock
+endc
 	ld c, 10
 	call DelayFrames
 
@@ -184,12 +197,21 @@ SetHour:
 	ld [hl], a
 
 .okay
+if !DEF(_CRYSTAL_EU)
 	hlcoord 4, 9
 	ld a, " "
 	ld bc, 15
 	call ByteFill
 	hlcoord 4, 9
 	call DisplayHourOClock
+elif DEF(_CRYSTAL_ES)
+	hlcoord 2, 9
+	ld a, " "
+	ld bc, 17
+	call ByteFill
+	hlcoord 2, 9
+	call DisplayHourOClock
+endc
 	call WaitBGMap
 	and a
 	ret
@@ -204,10 +226,27 @@ DisplayHourOClock:
 	ld c, a
 	ld e, l
 	ld d, h
+if !DEF(_CRYSTAL_ES)
 	call PrintHour
 	inc hl
 	ld de, String_oclock
 	call PlaceString
+else
+	push bc
+	call PrintAdjustedHour
+	ld h, d
+	ld l, e
+	inc hl
+	ld de, String_oclock
+	call PlaceString
+	ld d, b
+	ld e, c
+	inc de
+	pop bc
+	call PrintTimeOfDay
+	ld b, d
+	ld c, e
+endc
 	pop hl
 	ret
 
@@ -313,19 +352,34 @@ OakTimeWhatTimeIsItText:
 	text_end
 
 String_oclock:
+if !DEF(_CRYSTAL_EU)
 	db "o'clock@"
+elif DEF(_CRYSTAL_ES)
+	db "en punto@"
+endc
 
 OakTimeWhatHoursText:
 	; What?@ @
 	text_far _OakTimeWhatHoursText
 	text_asm
 	hlcoord 1, 16
+if DEF(_CRYSTAL_ES)
+	ld [hl], "¿"
+	inc hl
+endc
 	call DisplayHourOClock
+if DEF(_CRYSTAL_ES)
+	ld a, "?"
+	ld [bc], a
+	inc bc
+endc
 	ld hl, .OakTimeHoursQuestionMarkText
 	ret
 
 .OakTimeHoursQuestionMarkText:
+if !DEF(_CRYSTAL_ES)
 	text_far _OakTimeHoursQuestionMarkText
+endc
 	text_end
 
 OakTimeHowManyMinutesText:
@@ -339,28 +393,65 @@ OakTimeWhoaMinutesText:
 	; Whoa!@ @
 	text_far _OakTimeWhoaMinutesText
 	text_asm
+if !DEF(_CRYSTAL_EU)
 	hlcoord 7, 14
+elif DEF(_CRYSTAL_ES)
+	hlcoord 8, 14
+endc
+if DEF(_CRYSTAL_ES)
+	ld [hl], "¿"
+	inc hl
+endc
 	call DisplayMinutesWithMinString
+if DEF(_CRYSTAL_ES)
+	ld a, "?"
+	ld [bc], a
+	inc bc
+endc
 	ld hl, .OakTimeMinutesQuestionMarkText
 	ret
 
 .OakTimeMinutesQuestionMarkText:
+if !DEF(_CRYSTAL_ES)
 	text_far _OakTimeMinutesQuestionMarkText
+endc
 	text_end
 
 OakText_ResponseToSetTime:
 	text_asm
 	decoord 1, 14
+if DEF(_CRYSTAL_ES)
+	ld a, "¡"
+	ld [de], a
+	inc de
+endc
 	ld a, [wInitHourBuffer]
 	ld c, a
+if !DEF(_CRYSTAL_ES)
 	call PrintHour
+else
+	push bc
+	call PrintAdjustedHour
+	ld h, d
+	ld l, e
+endc
 	ld [hl], ":"
 	inc hl
 	ld de, wInitMinuteBuffer
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
+if !DEF(_CRYSTAL_ES)
 	ld b, h
 	ld c, l
+else
+	ld d, h
+	ld e, l
+	inc de
+	pop bc
+	call PrintTimeOfDay
+	ld b, d
+	ld c, e
+endc
 	ld a, [wInitHourBuffer]
 	cp MORN_HOUR
 	jr c, .nite
@@ -531,6 +622,7 @@ SetDayOfWeek::
 	dw .Saturday
 	dw .Sunday
 
+if !DEF(_CRYSTAL_EU)
 .Sunday:    db " SUNDAY@"
 .Monday:    db " MONDAY@"
 .Tuesday:   db " TUESDAY@"
@@ -538,6 +630,15 @@ SetDayOfWeek::
 .Thursday:  db "THURSDAY@"
 .Friday:    db " FRIDAY@"
 .Saturday:  db "SATURDAY@"
+elif DEF(_CRYSTAL_ES)
+.Sunday:    db "DOMINGO@"
+.Monday:    db "LUNES@"
+.Tuesday:   db "MARTES@"
+.Wednesday: db "MIÉRCOLES@"
+.Thursday:  db "JUEVES@"
+.Friday:    db "VIERNES@"
+.Saturday:  db "SÁBADO@"
+endc
 
 .OakTimeWhatDayIsItText:
 	text_far _OakTimeWhatDayIsItText
@@ -686,6 +787,7 @@ DebugDisplayTime:
 	call PrintNum
 	ret
 
+if !DEF(_CRYSTAL_ES)
 PrintHour::
 	ld l, e
 	ld h, d
@@ -701,6 +803,24 @@ PrintHour::
 	ld de, wDeciramBuffer
 	call PrintTwoDigitNumberLeftAlign
 	ret
+else
+PrintHour::
+	call PrintTimeOfDay
+	inc de
+	call PrintAdjustedHour
+	ret
+
+PrintTimeOfDay:
+	push bc
+	ld h, d
+	ld l, e
+	call GetTimeOfDayString
+	call PlaceString
+	ld d, b
+	ld e, c
+	pop bc
+	ret
+endc
 
 GetTimeOfDayString:
 	ld a, c
@@ -720,9 +840,30 @@ GetTimeOfDayString:
 	ld de, .day_string
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .nite_string: db "NITE@"
 .morn_string: db "MORN@"
 .day_string:  db "DAY@"
+elif DEF(_CRYSTAL_ES)
+.nite_string: db "NOCH@"
+.morn_string: db "MAÑ@"
+.day_string:  db "DÍA@"
+endc
+
+if DEF(_CRYSTAL_ES)
+PrintAdjustedHour:
+	push bc
+	call AdjustHourForAMorPM
+	ld [wDeciramBuffer], a
+	ld h, d
+	ld l, e
+	ld de, wDeciramBuffer
+	call PrintTwoDigitNumberLeftAlign
+	ld d, h
+	ld e, l
+	pop bc
+	ret
+endc
 
 AdjustHourForAMorPM:
 ; Convert the hour stored in c (0-23) to a 1-12 value

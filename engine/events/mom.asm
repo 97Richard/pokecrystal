@@ -484,7 +484,11 @@ Mom_WithdrawDepositMenuJoypad:
 	xor a
 	ldh [hBGMapMode], a
 	hlcoord 12, 6
+if !DEF(_CRYSTAL_EU)
 	ld bc, 7
+elif DEF(_CRYSTAL_ES)
+	ld bc, 6
+endc
 	ld a, " "
 	call ByteFill
 	hlcoord 12, 6
@@ -494,7 +498,11 @@ Mom_WithdrawDepositMenuJoypad:
 	ldh a, [hVBlankCounter]
 	and $10
 	jr nz, .skip
+if !DEF(_CRYSTAL_EU)
 	hlcoord 13, 6
+elif DEF(_CRYSTAL_ES)
+	hlcoord 12, 6
+endc
 	ld a, [wMomBankDigitCursorPosition]
 	ld c, a
 	ld b, 0
@@ -661,17 +669,17 @@ MomJustDoWhatYouCanText:
 	text_far _MomJustDoWhatYouCanText
 	text_end
 
-Mom_SavedString:
-	db "SAVED@"
-
-Mon_WithdrawString:
-	db "WITHDRAW@"
-
-Mom_DepositString:
-	db "DEPOSIT@"
-
-Mom_HeldString:
-	db "HELD@"
+if !DEF(_CRYSTAL_EU)
+Mom_SavedString:    db "SAVED@"
+Mon_WithdrawString: db "WITHDRAW@"
+Mom_DepositString:  db "DEPOSIT@"
+Mom_HeldString:     db "HELD@"
+elif DEF(_CRYSTAL_ES)
+Mom_SavedString:    db "GUARDADO@"
+Mon_WithdrawString: db "SACAR@"
+Mom_DepositString:  db "DEJAR@"
+Mom_HeldString:     db "TIENES@"
+endc
 
 MenuHeader_0x166b5:
 	db MENU_BACKUP_TILES ; flags
@@ -682,7 +690,14 @@ MenuHeader_0x166b5:
 MenuData_0x166bd:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
+if !DEF(_CRYSTAL_EU)
 	db "GET@"
 	db "SAVE@"
 	db "CHANGE@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "COGER@"
+	db "GUARDA@"
+	db "CAMBIO@"
+	db "SALIR@"
+endc

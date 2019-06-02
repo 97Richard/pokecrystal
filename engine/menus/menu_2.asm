@@ -119,18 +119,25 @@ DisplayMoneyAndCoinBalance::
 	hlcoord 6, 3
 	ld de, CoinString
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 3
+elif DEF(_CRYSTAL_ES)
+	hlcoord 14, 3
+endc
 	ld de, wCoins
 	lb bc, 2, 4
 	call PrintNum
 	ret
 
-MoneyString:
-	db "MONEY@"
-CoinString:
-	db "COIN@"
-ShowMoney_TerminatorString:
-	db "@"
+if !DEF(_CRYSTAL_EU)
+MoneyString: db "MONEY@"
+CoinString:  db "COIN@"
+elif DEF(_CRYSTAL_ES)
+MoneyString: db "DIN.@"
+CoinString:  db "FICHAS@"
+endc
+
+ShowMoney_TerminatorString: db "@"
 
 
 SECTION "engine/menus/menu_2@Unreferenced_Function24b8f", ROMX
@@ -174,7 +181,11 @@ SECTION "engine/menus/menu_2@StartMenu_PrintBugContestStatus", ROMX
 StartMenu_DrawBugContestStatusBox::
 	hlcoord 0, 0
 	ld b, 5
+if !DEF(_CRYSTAL_EU)
 	ld c, 17
+elif DEF(_CRYSTAL_ES)
+	ld c, 18
+endc
 	call Textbox
 	ret
 
@@ -187,7 +198,11 @@ StartMenu_PrintBugContestStatus::
 	hlcoord 1, 5
 	ld de, .Balls_EN
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 8, 5
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 5
+endc
 	ld de, wParkBallsRemaining
 	lb bc, PRINTNUM_LEFTALIGN | 1, 2
 	call PrintNum
@@ -202,7 +217,11 @@ StartMenu_PrintBugContestStatus::
 	call GetPokemonName
 
 .no_contest_mon
+if !DEF(_CRYSTAL_EU)
 	hlcoord 8, 1
+elif DEF(_CRYSTAL_ES)
+	hlcoord 7, 1
+endc
 	call PlaceString
 	ld a, [wContestMon]
 	and a
@@ -224,14 +243,18 @@ StartMenu_PrintBugContestStatus::
 
 .Balls_JP:
 	db "ボール　　　こ@"
-.CAUGHT:
-	db "CAUGHT@"
-.Balls_EN:
-	db "BALLS:@"
-.None:
-	db "None@"
-.LEVEL:
-	db "LEVEL@"
+
+if !DEF(_CRYSTAL_EU)
+.CAUGHT:   db "CAUGHT@"
+.Balls_EN: db "BALLS:@"
+.None:     db "None@"
+.LEVEL:    db "LEVEL@"
+elif DEF(_CRYSTAL_ES)
+.CAUGHT:   db "ATR.:@"
+.Balls_EN: db "BALL:@"
+.None:     db "Ninguno@"
+.LEVEL:    db "NIVEL@"
+endc
 
 
 SECTION "engine/menus/menu_2@FindApricornsInBag", ROMX

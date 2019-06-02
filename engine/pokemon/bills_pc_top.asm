@@ -91,11 +91,19 @@ _BillsPC::
 	dw .strings
 
 .strings
+if !DEF(_CRYSTAL_EU)
 	db "WITHDRAW <PK><MN>@"
 	db "DEPOSIT <PK><MN>@"
 	db "CHANGE BOX@"
 	db "MOVE <PK><MN> W/O MAIL@"
 	db "SEE YA!@"
+elif DEF(_CRYSTAL_ES)
+	db "SACAR <PK><MN>@"
+	db "DEJAR <PK><MN>@"
+	db "CAMBIA CAJA@"
+	db "MOVER <PKMN> SIN CAR@"
+	db "¡NOS VEMOS!@"
+endc
 
 .Jumptable:
 	dw BillsPC_WithdrawMenu

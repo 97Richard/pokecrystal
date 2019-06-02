@@ -182,12 +182,20 @@ GetCaughtLevel:
 .unknown
 	ld de, wSeerCaughtLevelString
 	ld hl, .unknown_level
+if !DEF(_CRYSTAL_EU)
 	ld bc, 4
+elif DEF(_CRYSTAL_ES)
+	ld bc, 5
+endc
 	call CopyBytes
 	ret
 
 .unknown_level
+if !DEF(_CRYSTAL_EU)
 	db "???@"
+elif DEF(_CRYSTAL_ES)
+	db "¿¿??@"
+endc
 
 GetCaughtTime:
 	ld a, [wSeerCaughtData]
@@ -212,9 +220,15 @@ GetCaughtTime:
 	ret
 
 .times
+if !DEF(_CRYSTAL_EU)
 	db "Morning@"
 	db "Day@"
 	db "Night@"
+elif DEF(_CRYSTAL_ES)
+	db "MAÑ@"
+	db "DÍA@"
+	db "NOCH@"
+endc
 
 UnknownCaughtData:
 	ld hl, .unknown
@@ -223,7 +237,11 @@ UnknownCaughtData:
 	ret
 
 .unknown
+if !DEF(_CRYSTAL_EU)
 	db "Unknown@"
+elif DEF(_CRYSTAL_ES)
+	db "DESCON.@"
+endc
 
 GetCaughtLocation:
 	ld a, [wSeerCaughtGender]
@@ -235,10 +253,16 @@ GetCaughtLocation:
 	jr z, .fail
 	ld e, a
 	farcall GetLandmarkName
+if !DEF(_CRYSTAL_EU)
 	ld hl, wStringBuffer1
 	ld de, wSeerCaughtLocation
 	ld bc, 17
 	call CopyBytes
+elif DEF(_CRYSTAL_ES)
+	ld de, wStringBuffer1
+	ld hl, wSeerCaughtLocation
+	call CopyName2
+endc
 	and a
 	ret
 

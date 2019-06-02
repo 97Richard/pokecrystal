@@ -21,6 +21,45 @@ Unreferenced_Function1dd6a9:
 	ret
 
 
+if DEF(_CRYSTAL_ES)
+SECTION "engine/rtc/print_hours_mins@StripString", ROMX
+
+StripString::
+; Strips leading and trailing whitespace from string provided in de
+
+	push bc
+	ld h, d
+	ld l, e
+
+.strip_front
+	ld a, [hli]
+	cp " "
+	jr z, .strip_front
+	dec hl
+
+	ld b, d
+	ld c, e
+.copy
+	ld a, [hli]
+	ld [de], a
+	cp "@"
+	jr z, .done
+	inc de
+
+	cp " "
+	jr z, .copy
+	ld b, d
+	ld c, e
+	jr .copy
+
+.done
+	ld a, "@"
+	ld [bc], a
+	pop bc
+	ret
+endc
+
+
 SECTION "engine/rtc/print_hours_mins", ROMX
 
 PrintHoursMins::

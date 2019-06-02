@@ -385,7 +385,11 @@ TMHM_DisplayPocketItems:
 	push af
 	sub NUM_TMS
 	ld [wTempTMHM], a
+if !DEF(_CRYSTAL_EU)
 	ld [hl], "H"
+elif DEF(_CRYSTAL_ES)
+	ld [hl], "O"
+endc
 	inc hl
 	ld de, wTempTMHM
 	lb bc, PRINTNUM_LEFTALIGN | 1, 2
@@ -467,7 +471,11 @@ Unreferenced_Function2ca95:
 	ret
 
 TMHM_String_Cancel:
+if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "SALIR@"
+endc
 
 TMHM_GetCurrentPocketPosition:
 	ld hl, wTMsHMs

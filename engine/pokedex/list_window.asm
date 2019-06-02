@@ -96,11 +96,19 @@ DrawPokedexSearchResultsWindow::
 	ret
 
 .esults_D
+if !DEF(_CRYSTAL_EU)
 ; (SEARCH R)
 	db   "ESULTS"
 	next ""
 ; (### FOUN)
 	next "D!@"
+elif DEF(_CRYSTAL_ES)
+; (RESULT. )
+	db   "BUSCA"
+	next ""
+; (¡### HAL)
+	next "LADO(S)!@"
+endc
 
 DrawDexEntryScreenRightEdge::
 	ldh a, [hBGMapAddress]

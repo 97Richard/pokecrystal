@@ -250,7 +250,11 @@ TrainerCard_PrintTopHalfOfCard:
 	hlcoord 2, 4
 	ld de, .ID_No
 	call TrainerCardSetup_PlaceTilemapString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 7, 2
+elif DEF(_CRYSTAL_ES)
+	hlcoord 2, 2
+endc
 	ld de, wPlayerName
 	call PlaceString
 	hlcoord 5, 4
@@ -272,9 +276,15 @@ TrainerCard_PrintTopHalfOfCard:
 	ret
 
 .Name_Money:
+if !DEF(_CRYSTAL_EU)
 	db   "NAME/"
 	next ""
 	next "MONEY@"
+elif DEF(_CRYSTAL_ES)
+	db   ""
+	next ""
+	next "DIN.@"
+endc
 
 .ID_No:
 	db $27, $28, -1 ; ID NO
@@ -309,13 +319,22 @@ TrainerCard_Page1_PrintDexCaught_GameTime:
 	ret
 
 .Dex_PlayTime:
+if !DEF(_CRYSTAL_EU)
 	db   "#DEX"
 	next "PLAY TIME@"
+elif DEF(_CRYSTAL_ES)
+	db   "#DEX"
+	next "TIEMPO J.@"
+endc
 
 	db "@" ; unused
 
 .Badges:
+if !DEF(_CRYSTAL_EU)
 	db "  BADGES▶@"
+elif DEF(_CRYSTAL_ES)
+	db "MEDALLAS▶@"
+endc
 
 .StatusTilemap:
 	db $29, $2a, $2b, $2c, $2d, -1

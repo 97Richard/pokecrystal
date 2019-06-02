@@ -58,12 +58,21 @@ MainMenu::
 	dw .Strings
 
 .Strings:
+if !DEF(_CRYSTAL_EU)
 	db "CONTINUE@"
 	db "NEW GAME@"
 	db "OPTION@"
 	db "MYSTERY GIFT@"
 	db "MOBILE@"
 	db "MOBILE STUDIUM@"
+elif DEF(_CRYSTAL_ES)
+	db "CONTINUAR@"
+	db "JUEGO NUEVO@"
+	db "OPCIÓN@"
+	db "REGALO MIST@"
+	db "MOBILE@"
+	db "MOBILE STUDIUM@"
+endc
 
 .Jumptable:
 	dw MainMenu_Continue
@@ -295,7 +304,11 @@ MainMenu_PrintCurrentTimeAndDay:
 	ret
 
 .TimeNotSet:
+if !DEF(_CRYSTAL_EU)
 	db "TIME NOT SET@"
+elif DEF(_CRYSTAL_ES)
+	db "HORA NO FIJADA@"
+endc
 
 .MainMenuTimeUnknownText:
 	text_far _MainMenuTimeUnknownText
@@ -316,6 +329,7 @@ MainMenu_PrintCurrentTimeAndDay:
 	call PlaceString
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Days:
 	db "SUN@"
 	db "MON@"
@@ -326,6 +340,18 @@ MainMenu_PrintCurrentTimeAndDay:
 	db "SATUR@"
 .Day:
 	db "DAY@"
+elif DEF(_CRYSTAL_ES)
+.Days:
+	db "DOMINGO@"
+	db "LUNES@"
+	db "MARTES@"
+	db "MIÉRCOLES@"
+	db "JUEVES@"
+	db "VIERNES@"
+	db "SÁBADO@"
+.Day:
+	db "@"
+endc
 
 Function49ed0:
 	xor a

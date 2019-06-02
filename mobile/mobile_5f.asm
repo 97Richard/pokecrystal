@@ -521,16 +521,26 @@ MenuData_17d272:
 
 MenuHeader_ChallengeExplanationCancel:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 14, 7
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 15, 7
+endc
 	dw MenuData_ChallengeExplanationCancel
 	db 1 ; default option
 
 MenuData_ChallengeExplanationCancel:
 	db STATICMENU_CURSOR | STATICMENU_WRAP ; flags
 	db 3
+if !DEF(_CRYSTAL_EU)
 	db "Challenge@"
 	db "Explanation@"
 	db "Cancel@"
+elif DEF(_CRYSTAL_ES)
+	db "Desafío@"
+	db "Explicación@"
+	db "Cancelar@"
+endc
 
 
 SECTION "mobile/mobile_5f@Function17d2b6 - Function17d2c0", ROMX
@@ -4023,8 +4033,13 @@ Function17f220:
 	ret
 
 .Genders: dw .Boy, .Girl
+if !DEF(_CRYSTAL_EU)
 .Boy:     db "Boy@"
 .Girl:    db "Girl@"
+elif DEF(_CRYSTAL_ES)
+.Boy:     db "@"
+.Girl:    db "@"
+endc
 
 Function17f27b:
 	pop hl

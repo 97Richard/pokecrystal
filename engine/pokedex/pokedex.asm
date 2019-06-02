@@ -442,10 +442,17 @@ Pokedex_ReinitDexEntryScreen:
 
 DexEntryScreen_ArrowCursorData:
 	db D_RIGHT | D_LEFT, 4
+if !DEF(_CRYSTAL_EU)
 	dwcoord 1, 17  ; PAGE
 	dwcoord 6, 17  ; AREA
 	dwcoord 11, 17 ; CRY
 	dwcoord 15, 17 ; PRNT
+elif DEF(_CRYSTAL_ES)
+	dwcoord 1, 17  ; PAGE
+	dwcoord 5, 17  ; AREA
+	dwcoord 10, 17 ; CRY
+	dwcoord 15, 17 ; PRNT
+endc
 
 DexEntryScreen_MenuActionJumptable:
 	dw Pokedex_Page
@@ -1145,10 +1152,14 @@ Pokedex_DrawMainScreenBG:
 	call Pokedex_PlaceFrontpicTopLeftCorner
 	ret
 
-String_SEEN:
-	db "SEEN", -1
-String_OWN:
-	db "OWN", -1
+if !DEF(_CRYSTAL_EU)
+String_SEEN: db "SEEN", -1
+String_OWN:  db "OWN", -1
+elif DEF(_CRYSTAL_ES)
+String_SEEN: db "VIST", -1
+String_OWN:  db "TIEN", -1
+endc
+
 String_SELECT_OPTION:
 	db $3b, $48, $49, $4a, $44, $45, $46, $47 ; SELECT > OPTION
 	; fallthrough
@@ -1189,12 +1200,16 @@ Pokedex_DrawDexEntryScreenBG:
 
 .Unused:
 	db $5c, $5d, -1 ; No.
-.Height:
-	db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
-.Weight:
-	db "WT   ???lb", -1 ; WT   ???lb
-.MenuItems:
-	db $3b, " PAGE AREA CRY PRNT", -1
+
+if !DEF(_CRYSTAL_EU)
+.Height:    db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
+.Weight:    db "WT   ???lb", -1 ; WT   ???lb
+.MenuItems: db $3b, " PAGE AREA CRY PRNT", -1
+elif DEF(_CRYSTAL_ES)
+.Height:    db "AL   ¿? m", -1
+.Weight:    db "PE   ¿? kg", -1
+.MenuItems: db $3b, " PÁG ÁREA GRIT IMPR", -1
+endc
 
 Pokedex_DrawOptionScreenBG:
 	call Pokedex_FillBackgroundColor2
@@ -1218,6 +1233,7 @@ Pokedex_DrawOptionScreenBG:
 	call PlaceString
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Title:
 	db $3b, " OPTION ", $3c, -1
 
@@ -1229,6 +1245,19 @@ Pokedex_DrawOptionScreenBG:
 
 .UnownMode:
 	db "UNOWN MODE@"
+elif DEF(_CRYSTAL_ES)
+.Title:
+	db $3b, " OPCIÓN ", $3c, -1
+
+.Modes:
+	db   "M. #DEX NUEVA"
+	next "M. #DEX VIEJA"
+	next "MODO A a Z"
+	db   "@"
+
+.UnownMode:
+	db "MODO UNOWN@"
+endc
 
 Pokedex_DrawSearchScreenBG:
 	call Pokedex_FillBackgroundColor2
@@ -1252,6 +1281,7 @@ Pokedex_DrawSearchScreenBG:
 	call PlaceString
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Title:
 	db $3b, " SEARCH ", $3c, -1
 
@@ -1267,6 +1297,23 @@ Pokedex_DrawSearchScreenBG:
 	db   "BEGIN SEARCH!!"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+.Title:
+	db $3b, " BUSCA ", $3c, -1
+
+.TypeLeftRightArrows:
+	db $3d, "        ", $3e, -1
+
+.Types:
+	db   "TIPO1"
+	next "TIPO2"
+	db   "@"
+
+.Menu:
+	db   "¡INICIAR BUSCA!"
+	next "SALIR"
+	db   "@"
+endc
 
 Pokedex_DrawSearchResultsScreenBG:
 	call Pokedex_FillBackgroundColor2
@@ -1280,7 +1327,11 @@ Pokedex_DrawSearchResultsScreenBG:
 	ld de, .BottomWindowText
 	call PlaceString
 	ld de, wDexSearchResultCount
+if !DEF(_CRYSTAL_EU)
 	hlcoord 1, 16
+elif DEF(_CRYSTAL_ES)
+	hlcoord 2, 16
+endc
 	lb bc, 1, 3
 	call PrintNum
 	hlcoord 8, 0
@@ -1299,10 +1350,17 @@ Pokedex_DrawSearchResultsScreenBG:
 	ret
 
 .BottomWindowText:
+if !DEF(_CRYSTAL_EU)
 	db   "SEARCH RESULTS"
 	next "  TYPE"
 	next "    FOUND!"
 	db   "@"
+elif DEF(_CRYSTAL_ES)
+	db   "RESULT. BUSCA"
+	next "  TIPO"
+	next "¡    HALLADO(S)!"
+	db   "@"
+endc
 
 Pokedex_PlaceSearchResultsTypeStrings:
 	ld a, [wDexSearchMonType1]
@@ -1749,6 +1807,7 @@ Pokedex_DisplayModeDescription:
 	dw .ABCMode
 	dw .UnownMode
 
+if !DEF(_CRYSTAL_EU)
 .NewMode:
 	db   "<PK><MN> are listed by"
 	next "evolution type.@"
@@ -1764,6 +1823,23 @@ Pokedex_DisplayModeDescription:
 .UnownMode:
 	db   "UNOWN are listed"
 	next "in catching order.@"
+elif DEF(_CRYSTAL_ES)
+.NewMode:
+	db   "<PKMN> ordenados por"
+	next "tipo de evolución.@"
+
+.OldMode:
+	db   "<PKMN> ordenados"
+	next "por tipo oficial.@"
+
+.ABCMode:
+	db   "<PKMN> ordenados"
+	next "alfabéticamente.@"
+
+.UnownMode:
+	db   "UNOWN ordenados"
+	next "según capturados.@"
+endc
 
 Pokedex_DisplayChangingModesMessage:
 	xor a
@@ -1785,8 +1861,13 @@ Pokedex_DisplayChangingModesMessage:
 	ret
 
 String_ChangingModesPleaseWait:
+if !DEF(_CRYSTAL_EU)
 	db   "Changing modes."
 	next "Please wait.@"
+elif DEF(_CRYSTAL_ES)
+	db   "Cambiando modos."
+	next "Espera, por favor.@"
+endc
 
 Pokedex_UpdateSearchMonType:
 	ld a, [wDexArrowCursorPosIndex]
@@ -1985,8 +2066,13 @@ Pokedex_DisplayTypeNotFoundMessage:
 	ret
 
 .TypeNotFound:
+if !DEF(_CRYSTAL_EU)
 	db   "The specified type"
 	next "was not found.@"
+elif DEF(_CRYSTAL_ES)
+	db   "Tipo especificado"
+	next "no encontrado.@"
+endc
 
 Pokedex_UpdateCursorOAM:
 	ld a, [wCurDexMode]

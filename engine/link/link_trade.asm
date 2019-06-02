@@ -134,7 +134,11 @@ InitTradeSpeciesList::
 	ret
 
 .CANCEL:
+if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "CANCELAR@"
+endc
 
 _LoadTradeScreenBorder::
 	call __LoadTradeScreenBorder
@@ -192,7 +196,11 @@ Function16d6e1:
 	jp DelayFrames
 
 .Waiting:
+if !DEF(_CRYSTAL_EU)
 	db "WAITING..!@"
+elif DEF(_CRYSTAL_ES)
+	db "¡ESPERA.…!@"
+endc
 
 
 SECTION "engine/link/link_trade@LinkTradeMenu", ROMX

@@ -1,3 +1,9 @@
+if !DEF(_CRYSTAL_EU)
+ODD_EGG_NICK EQUS "\"EGG@@@@@@@@\""
+elif DEF(_CRYSTAL_ES)
+ODD_EGG_NICK EQUS "\"HUEVO@@@@@@\""
+endc
+
 prob: MACRO
 prob_total = prob_total + (\1)
 	dw prob_total * $ffff / 100
@@ -53,7 +59,7 @@ OddEggs:
 	bigdw 11 ; Spd
 	bigdw 8 ; SAtk
 	bigdw 8 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db PICHU
 	db NO_ITEM
@@ -79,7 +85,7 @@ OddEggs:
 	bigdw 12 ; Spd
 	bigdw 9 ; SAtk
 	bigdw 9 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db CLEFFA
 	db NO_ITEM
@@ -105,7 +111,7 @@ OddEggs:
 	bigdw 6 ; Spd
 	bigdw 9 ; SAtk
 	bigdw 10 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db CLEFFA
 	db NO_ITEM
@@ -131,7 +137,7 @@ OddEggs:
 	bigdw 7 ; Spd
 	bigdw 10 ; SAtk
 	bigdw 11 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db IGGLYBUFF
 	db NO_ITEM
@@ -157,7 +163,7 @@ OddEggs:
 	bigdw 6 ; Spd
 	bigdw 9 ; SAtk
 	bigdw 7 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db IGGLYBUFF
 	db NO_ITEM
@@ -183,7 +189,7 @@ OddEggs:
 	bigdw 7 ; Spd
 	bigdw 10 ; SAtk
 	bigdw 8 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db SMOOCHUM
 	db NO_ITEM
@@ -209,7 +215,7 @@ OddEggs:
 	bigdw 11 ; Spd
 	bigdw 13 ; SAtk
 	bigdw 11 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db SMOOCHUM
 	db NO_ITEM
@@ -235,7 +241,7 @@ OddEggs:
 	bigdw 12 ; Spd
 	bigdw 14 ; SAtk
 	bigdw 12 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db MAGBY
 	db NO_ITEM
@@ -261,7 +267,7 @@ OddEggs:
 	bigdw 13 ; Spd
 	bigdw 12 ; SAtk
 	bigdw 10 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db MAGBY
 	db NO_ITEM
@@ -287,7 +293,7 @@ OddEggs:
 	bigdw 14 ; Spd
 	bigdw 13 ; SAtk
 	bigdw 11 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db ELEKID
 	db NO_ITEM
@@ -313,7 +319,7 @@ OddEggs:
 	bigdw 14 ; Spd
 	bigdw 11 ; SAtk
 	bigdw 10 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db ELEKID
 	db NO_ITEM
@@ -339,7 +345,7 @@ OddEggs:
 	bigdw 15 ; Spd
 	bigdw 12 ; SAtk
 	bigdw 11 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db TYROGUE
 	db NO_ITEM
@@ -365,7 +371,7 @@ OddEggs:
 	bigdw 8 ; Spd
 	bigdw 8 ; SAtk
 	bigdw 8 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK
 
 	db TYROGUE
 	db NO_ITEM
@@ -391,4 +397,4 @@ OddEggs:
 	bigdw 9 ; Spd
 	bigdw 9 ; SAtk
 	bigdw 9 ; SDef
-	db "EGG@@@@@@@@"
+	db ODD_EGG_NICK

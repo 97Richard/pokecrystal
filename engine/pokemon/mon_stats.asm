@@ -131,12 +131,20 @@ PrintTempMonStats::
 	ret
 
 .StatNames:
+if !DEF(_CRYSTAL_EU)
 	db   "ATTACK"
 	next "DEFENSE"
 	next "SPCL.ATK"
 	next "SPCL.DEF"
 	next "SPEED"
 	next "@"
+elif DEF(_CRYSTAL_ES)
+	db   "ATAQUE"
+	next "DEFENSA"
+	next "AT. ESP"
+	next "DEF. ESP"
+	next "VELOCID.@"
+endc
 
 
 SECTION "engine/pokemon/mon_stats@GetGender", ROMX, BANK[BANK_PARTY_MENU]
@@ -416,7 +424,11 @@ PlaceStatusString::
 	ret
 
 FntString:
+if !DEF(_CRYSTAL_EU)
 	db "FNT@"
+elif DEF(_CRYSTAL_ES)
+	db "DEB@"
+endc
 
 CopyStatusString:
 	ld a, [de]
@@ -457,11 +469,19 @@ PlaceNonFaintStatus::
 	pop de
 	ret
 
+if !DEF(_CRYSTAL_EU)
 SlpString: db "SLP@"
 PsnString: db "PSN@"
 BrnString: db "BRN@"
 FrzString: db "FRZ@"
 ParString: db "PAR@"
+elif DEF(_CRYSTAL_ES)
+SlpString: db "DOR@"
+PsnString: db "ENV@"
+BrnString: db "QUE@"
+FrzString: db "CON@"
+ParString: db "PAR@"
+endc
 
 
 SECTION "engine/pokemon/mon_stats@ListMoves", ROMX

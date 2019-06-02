@@ -149,7 +149,11 @@ AnimateHallOfFame:
 	ret
 
 .String_NewHallOfFamer:
+if !DEF(_CRYSTAL_EU)
 	db "New Hall of Famer!@"
+elif DEF(_CRYSTAL_ES)
+	db "¡Nuevo Hall Fama!@"
+endc
 
 GetHallOfFameParty:
 	ld hl, wHallOfFamePokemonList
@@ -393,7 +397,11 @@ _HallOfFamePC::
 	ld de, .TimeFamer
 	hlcoord 1, 2
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 2, 2
+elif DEF(_CRYSTAL_ES)
+	hlcoord 1, 2
+endc
 	ld de, wHallOfFameTempWinCount
 	lb bc, 1, 3
 	call PrintNum
@@ -412,14 +420,15 @@ _HallOfFamePC::
 	and a
 	ret
 
-.EmptyString:
-	db "@"
+.EmptyString: db "@"
 
-.HOFMaster:
-	db "    HOF Master!@"
-
-.TimeFamer:
-	db "    -Time Famer@"
+if !DEF(_CRYSTAL_EU)
+.HOFMaster: db "    HOF Master!@"
+.TimeFamer: db "    -Time Famer@"
+elif DEF(_CRYSTAL_ES)
+.HOFMaster: db "¡Maestro HdF!@"
+.TimeFamer: db "    vez/veces HdF@"
+endc
 
 LoadHOFTeam:
 	ld a, [wJumptableIndex]
@@ -522,10 +531,17 @@ DisplayHOFMon:
 
 .print_id_no
 	hlcoord 7, 16
+if !DEF(_CRYSTAL_ES)
 	ld a, "<ID>"
 	ld [hli], a
 	ld a, "№"
 	ld [hli], a
+else
+	ld a, "№"
+	ld [hli], a
+	ld a, "<ID>"
+	ld [hli], a
+endc
 	ld [hl], "/"
 	hlcoord 10, 16
 	ld de, wTempMonID
@@ -592,10 +608,17 @@ HOF_AnimatePlayerPic:
 	ld de, wPlayerName
 	call PlaceString
 	hlcoord 1, 6
+if !DEF(_CRYSTAL_ES)
 	ld a, "<ID>"
 	ld [hli], a
 	ld a, "№"
 	ld [hli], a
+else
+	ld a, "№"
+	ld [hli], a
+	ld a, "<ID>"
+	ld [hli], a
+endc
 	ld [hl], "/"
 	hlcoord 4, 6
 	ld de, wPlayerID
@@ -618,4 +641,8 @@ HOF_AnimatePlayerPic:
 	ret
 
 .PlayTime:
+if !DEF(_CRYSTAL_EU)
 	db "PLAY TIME@"
+elif DEF(_CRYSTAL_ES)
+	db "TIEMPO J.@"
+endc

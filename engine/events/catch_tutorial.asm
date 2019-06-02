@@ -85,7 +85,11 @@ CatchTutorial::
 	ret
 
 .Dude:
+if !DEF(_CRYSTAL_EU)
 	db "DUDE@"
+elif DEF(_CRYSTAL_ES)
+	db "AMIGO@"
+endc
 
 .AutoInput:
 	db NO_INPUT, $ff ; end

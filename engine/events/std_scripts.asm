@@ -359,20 +359,24 @@ DayToTextScript:
 .Saturday:
 	getstring STRING_BUFFER_3, .SaturdayText
 	end
-.SundayText:
-	db "SUNDAY@"
-.MondayText:
-	db "MONDAY@"
-.TuesdayText:
-	db "TUESDAY@"
-.WednesdayText:
-	db "WEDNESDAY@"
-.ThursdayText:
-	db "THURSDAY@"
-.FridayText:
-	db "FRIDAY@"
-.SaturdayText:
-	db "SATURDAY@"
+
+if !DEF(_CRYSTAL_EU)
+.SundayText:    db "SUNDAY@"
+.MondayText:    db "MONDAY@"
+.TuesdayText:   db "TUESDAY@"
+.WednesdayText: db "WEDNESDAY@"
+.ThursdayText:  db "THURSDAY@"
+.FridayText:    db "FRIDAY@"
+.SaturdayText:  db "SATURDAY@"
+elif DEF(_CRYSTAL_ES)
+.SundayText:    db "DOMINGO@"
+.MondayText:    db "LUNES@"
+.TuesdayText:   db "MARTES@"
+.WednesdayText: db "MIÉRCOLES@"
+.ThursdayText:  db "JUEVES@"
+.FridayText:    db "VIERNES@"
+.SaturdayText:  db "SÁBADO@"
+endc
 
 
 SECTION "engine/events/std_scripts@GoldenrodRocketsScript", ROMX
@@ -2034,9 +2038,15 @@ CoinVendor_IntroScript:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
+if !DEF(_CRYSTAL_EU)
 	db " 50 :  ¥1000@"
 	db "500 : ¥10000@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db " 50 :  1000¥@"
+	db "500 : 10000¥@"
+	db "SALIR@"
+endc
 
 
 SECTION "engine/events/std_scripts@HappinessCheckScript", ROMX

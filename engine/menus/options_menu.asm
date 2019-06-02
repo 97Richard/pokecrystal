@@ -73,6 +73,7 @@ _OptionsMenu::
 	ret
 
 StringOptions:
+if !DEF(_CRYSTAL_EU)
 	db "TEXT SPEED<LF>"
 	db "        :<LF>"
 	db "BATTLE SCENE<LF>"
@@ -88,6 +89,23 @@ StringOptions:
 	db "FRAME<LF>"
 	db "        :TYPE<LF>"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+	db "VELOCIDAD TEXTO<LF>"
+	db "      :<LF>"
+	db "ANIMACIÓN BATALLA<LF>"
+	db "      :<LF>"
+	db "ESTILO BATALLA<LF>"
+	db "      :<LF>"
+	db "SONIDO<LF>"
+	db "      :<LF>"
+	db "IMPRIMIR<LF>"
+	db "      :<LF>"
+	db "DESCRIPCIÓN MENÚ<LF>"
+	db "      :<LF>"
+	db "IMAGEN<LF>"
+	db "      :TIPO<LF>"
+	db "SALIR@"
+endc
 
 GetOptionPointer:
 	ld a, [wJumptableIndex] ; load the cursor position to a
@@ -158,7 +176,11 @@ Options_TextSpeed:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 3
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 3
+endc
 	call PlaceString
 	and a
 	ret
@@ -169,9 +191,15 @@ Options_TextSpeed:
 	dw .Mid
 	dw .Slow
 
+if !DEF(_CRYSTAL_EU)
 .Fast: db "FAST@"
 .Mid:  db "MID @"
 .Slow: db "SLOW@"
+elif DEF(_CRYSTAL_ES)
+.Fast: db "3@"
+.Mid:  db "2@"
+.Slow: db "1@"
+endc
 
 GetTextSpeed:
 ; converts TEXT_DELAY_* value in a to OPT_TEXT_SPEED_* value in c,
@@ -228,13 +256,22 @@ Options_BattleScene:
 	ld de, .Off
 
 .Display:
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 5
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 5
+endc
 	call PlaceString
 	and a
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .On:  db "ON @"
 .Off: db "OFF@"
+elif DEF(_CRYSTAL_ES)
+.On:  db "SÍ@"
+.Off: db "NO@"
+endc
 
 Options_BattleStyle:
 	ld hl, wOptions
@@ -266,13 +303,22 @@ Options_BattleStyle:
 	ld de, .Set
 
 .Display:
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 7
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 7
+endc
 	call PlaceString
 	and a
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Shift: db "SHIFT@"
 .Set:   db "SET  @"
+elif DEF(_CRYSTAL_ES)
+.Shift: db "CAMBIAR @"
+.Set:   db "MANTENER@"
+endc
 
 Options_Sound:
 	ld hl, wOptions
@@ -311,13 +357,22 @@ Options_Sound:
 	ld de, .Stereo
 
 .Display:
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 9
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 9
+endc
 	call PlaceString
 	and a
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Mono:   db "MONO  @"
 .Stereo: db "STEREO@"
+elif DEF(_CRYSTAL_ES)
+.Mono:   db "MONO   @"
+.Stereo: db "ESTÉREO@"
+endc
 
 	const_def
 	const OPT_PRINT_LIGHTEST ; 0
@@ -365,7 +420,11 @@ Options_Print:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 11
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 11
+endc
 	call PlaceString
 	and a
 	ret
@@ -378,11 +437,19 @@ Options_Print:
 	dw .Darker
 	dw .Darkest
 
+if !DEF(_CRYSTAL_EU)
 .Lightest: db "LIGHTEST@"
 .Lighter:  db "LIGHTER @"
 .Normal:   db "NORMAL  @"
 .Darker:   db "DARKER  @"
 .Darkest:  db "DARKEST @"
+elif DEF(_CRYSTAL_ES)
+.Lightest: db "MÁS CLARO @"
+.Lighter:  db "CLARO     @"
+.Normal:   db "NORMAL    @"
+.Darker:   db "OSCURO    @"
+.Darkest:  db "MÁS OSCURO@"
+endc
 
 GetPrinterSetting:
 ; converts GBPRINTER_* value in a to OPT_PRINT_* value in c,
@@ -451,13 +518,22 @@ Options_MenuAccount:
 	ld de, .On
 
 .Display:
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 13
+elif DEF(_CRYSTAL_ES)
+	hlcoord 9, 13
+endc
 	call PlaceString
 	and a
 	ret
 
+if !DEF(_CRYSTAL_EU)
 .Off: db "OFF@"
 .On:  db "ON @"
+elif DEF(_CRYSTAL_ES)
+.Off: db "NO@"
+.On:  db "SÍ@"
+endc
 
 Options_Frame:
 	ld hl, wTextboxFrame
@@ -483,7 +559,11 @@ Options_Frame:
 	ld [hl], a
 UpdateFrame:
 	ld a, [wTextboxFrame]
+if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 15 ; where on the screen the number is drawn
+elif DEF(_CRYSTAL_ES)
+	hlcoord 14, 15 ; where on the screen the number is drawn
+endc
 	add "1"
 	ld [hl], a
 	call LoadFontsExtra

@@ -3880,6 +3880,7 @@ MenuData_119cff:
 String_119d07:
 	db "   ▼@"
 
+if !DEF(_CRYSTAL_EU)
 Strings_L10ToL100:
 	db " L:10 @@"
 	db " L:20 @@"
@@ -3902,6 +3903,30 @@ Strings_Ll0ToL40:
 
 String_119d8c:
 	db "CANCEL@"
+elif DEF(_CRYSTAL_ES)
+Strings_L10ToL100:
+	db " N:10 @@"
+	db " N:20 @@"
+	db " N:30 @@"
+	db " N:40 @@"
+	db " N:50 @@"
+	db " N:60 @@"
+	db " N:70 @@"
+	db " N:80 @@"
+	db " N:90 @@"
+	db " N:100@@"
+	db "SALIR @@"
+
+Strings_Ll0ToL40:
+	db " N:10 @@"
+	db " N:20 @@"
+	db " N:30 @@"
+	db " N:40 @@"
+	db " SALIR@@"
+
+String_119d8c:
+	db " SALIR@@"
+endc
 
 BattleTower_LevelCheck::
 	ldh a, [rSVBK]
@@ -4525,13 +4550,25 @@ BattleTowerRoomMenu2_PlaceYesNoMenu:
 	call MenuBox
 	call MenuBoxCoord2Tile
 	call ApplyTilemap
+if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 8
+elif DEF(_CRYSTAL_ES)
+	hlcoord 17, 8
+endc
 	ld de, String_11a2cf
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 17, 10
+endc
 	ld de, String_11a2d3
 	call PlaceString
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_ES)
+	hlcoord 16, 8
+endc
 	ld a, $ed
 	ld [hl], a
 	xor a
@@ -4566,10 +4603,18 @@ BattleTowerRoomMenu2_UpdateYesNoMenu:
 	jr z, .asm_11a24c
 	xor a
 	ld [wMobileInactivityTimerMinutes], a
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_ES)
+	hlcoord 16, 8
+endc
 	ld a, $ed
 	ld [hl], a
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 16, 10
+endc
 	ld a, $7f
 	ld [hl], a
 	jr .asm_11a24c
@@ -4583,10 +4628,18 @@ BattleTowerRoomMenu2_UpdateYesNoMenu:
 	jr nz, .asm_11a24c
 	inc a
 	ld [wMobileInactivityTimerMinutes], a
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_ES)
+	hlcoord 16, 8
+endc
 	ld a, $7f
 	ld [hl], a
+if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 10
+elif DEF(_CRYSTAL_ES)
+	hlcoord 16, 10
+endc
 	ld a, $ed
 	ld [hl], a
 	jr .asm_11a24c
@@ -4626,21 +4679,31 @@ BattleTowerRoomMenu2_UpdateYesNoMenu:
 	and a
 	ret
 
-String_11a2cf:
-	db "YES@"
-
-String_11a2d3:
-	db "NO@"
+if !DEF(_CRYSTAL_EU)
+String_11a2cf: db "YES@"
+String_11a2d3: db "NO@"
+elif DEF(_CRYSTAL_ES)
+String_11a2cf: db "SÍ@"
+String_11a2d3: db "NO@"
+endc
 
 MenuHeader_11a2d6:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 6, SCREEN_WIDTH - 1, 10
+elif DEF(_CRYSTAL_ES)
+	menu_coords 15, 6, SCREEN_WIDTH - 1, 10
+endc
 	dw NULL
 	db 0 ; default option
 
 MenuHeader_11a2de:
 	db MENU_BACKUP_TILES ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_ES)
+	menu_coords 15, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+endc
 	dw NULL
 	db 0 ; default option
 
@@ -5426,6 +5489,7 @@ Function11a9f4:
 	and a
 	ret
 
+if !DEF(_CRYSTAL_EU)
 Text_SaveFileWillBeSent:
 	text "SAVE FILE will be"
 	line "sent."
@@ -5524,6 +5588,122 @@ Text_ThisBattleRoomPleaseWait:
 	text "?"
 	cont "Please wait…"
 	done
+elif DEF(_CRYSTAL_ES)
+Text_SaveFileWillBeSent:
+	text "Se enviará el"
+	line "FICHERO GUARDADO."
+	done
+
+Text_SentSaveFileReadingNews:
+	text "FICHERO GUARDADO"
+	line "enviado."
+	cont "Leyendo NOTICIAS…"
+	done
+
+Text_ReadingNews:
+	text "Leyendo NOTICIAS…"
+	done
+
+Text_ReceivedNews:
+	text "¡NOTICIAS"
+	line "recibidas!"
+	done
+
+Text_QuitReadingNews:
+	text "¿Dejas de leer las"
+	line "NOTICIAS?"
+	done
+
+Text_CanceledSendingSaveFile:
+	text "Envío de FICHERO"
+	line "GUARDADO"
+	cont "cancelado."
+	done
+
+Text_ReceivedOddEgg:
+	text "¡Recibido"
+	line "HUEVO RARO!"
+	done
+
+Text_RegisteringRecord:
+	text "Registrando tu"
+	line "récord…"
+	done
+
+Text_BattleRoomVisitLimit:
+	text "¡Sólo puedes"
+	line "visitar una vez al"
+
+	para "día cada SALA"
+	line "BATALLA!"
+	done
+
+Text_PartyMonTopsThisLevel:
+	text "Uno o más #MON"
+	line "de tu equipo"
+	cont "superan ese nivel."
+	done
+
+Text_UberRestriction:
+	text_ram wcd49
+	text " puede"
+	line "ir sólo a SALAS"
+
+	para "BATALLA que sean"
+	line "de Nivel 70 o"
+	cont "superior."
+	done
+
+Text_CancelBattleRoomChallenge:
+	text "¿Cancelas tu"
+	line "desafío de SALA"
+	cont "BATALLA?"
+	done
+
+Text_ExitGymLeaderHonorRoll:
+	text "¿Sales de la LISTA"
+	line "de HONOR de los"
+	cont "LíD. de GIMNASIO?"
+	done
+
+Text_LinkingWithCenter:
+	text "Conectando con el"
+	line "CENTRO…"
+	done
+
+Text_WhatLevelDoYouWantToChallenge:
+	text "¿Contra qué nivel"
+	line "quieres combatir?"
+	done
+
+Text_CheckBattleRoomListByMaxLevel:
+	text "¿Compruebas la"
+	line "lista de SALAS"
+
+	para "BATALLA por nivel"
+	line "máximo?"
+	done
+
+Text_EnterWhichBattleRoom:
+	text "¿En qué SALA"
+	line "BATALLA entras?"
+	done
+
+Text_WhichBattleRoom:
+	text "¿Qué SALA"
+	line "BATALLA?"
+	done
+
+Text_ThisBattleRoomPleaseWait:
+	text "¿SALA @"
+	text_ram wStringBuffer4
+	text_start
+	line "de @"
+	text_ram wStringBuffer3
+	text "?"
+	cont "Por favor, espera…"
+	done
+endc
 
 Function11ac3e::
 	call SpeechTextbox

@@ -1232,7 +1232,11 @@ GiveEgg::
 	ret
 
 String_Egg:
+if !DEF(_CRYSTAL_EU)
 	db "EGG@"
+elif DEF(_CRYSTAL_ES)
+	db "HUEVO@"
+endc
 
 RemoveMonFromPartyOrBox::
 	ld hl, wPartyCount
@@ -1726,13 +1730,24 @@ GivePoke::
 	ld d, h
 	ld e, l
 	pop hl
+if DEF(_CRYSTAL_ES)
+	ld b, NAME_LENGTH
+endc
 .otnameloop
+if DEF(_CRYSTAL_ES)
+	push bc
+endc
 	ld a, [wScriptBank]
 	call GetFarByte
 	ld [de], a
 	inc hl
 	inc de
+if !DEF(_CRYSTAL_ES)
 	cp "@"
+else
+	pop bc
+	dec b
+endc
 	jr nz, .otnameloop
 	ld a, [wScriptBank]
 	call GetFarByte

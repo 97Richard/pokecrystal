@@ -212,6 +212,7 @@ _UnownPrinter::
 	call DelayFrames
 	ret
 
+if !DEF(_CRYSTAL_EU)
 AlphRuinsStampString:
 	db " ALPH RUINS STAMP@"
 
@@ -227,6 +228,24 @@ UnownDexMenuString:
 
 UnownDexVacantString:
 	db "VACANT@"
+
+elif DEF(_CRYSTAL_ES)
+AlphRuinsStampString:
+	db "SELLO RUINAS ALFA@"
+
+UnownDexDoWhatString:
+	db "¿Qué hacer?@"
+
+UnownDexMenuString:
+	db   UNOWNSTAMP_BOLD_A, " IMPR."
+	next UNOWNSTAMP_BOLD_B, " CANCELA"
+	next "← ANT."
+	next "→ SIG."
+	db   "@"
+
+UnownDexVacantString:
+	db " VACÍO@"
+endc
 
 UnownDexATile:
 INCBIN "gfx/printer/bold_a.1bpp"

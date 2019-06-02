@@ -1,3 +1,4 @@
+INCLUDE "macros/data.inc"
 INCLUDE "macros/scripts/text.inc"
 
 

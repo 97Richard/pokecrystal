@@ -626,7 +626,11 @@ Unreferenced_Function847bd:
 	ret
 
 String_PressBToCancel:
+if !DEF(_CRYSTAL_EU)
 	db "Press B to Cancel@"
+elif DEF(_CRYSTAL_ES)
+	db "B para cancelar@"
+endc
 
 PrinterStatusStringPointers:
 	dw GBPrinterString_Null ; @
@@ -675,7 +679,11 @@ PrintPCBox_Page1:
 	ret
 
 .String_PokemonList:
+if !DEF(_CRYSTAL_EU)
 	db "#MON LIST@"
+elif DEF(_CRYSTAL_ES)
+	db "LISTA #MON@"
+endc
 
 PrintPCBox_Page2:
 	hlcoord 0, 0

@@ -77,11 +77,13 @@ GiveShuckle::
 	ld [wScriptVar], a
 	ret
 
-SpecialShuckleOT:
-	db "MANIA@"
-
-SpecialShuckleNick:
-	db "SHUCKIE@"
+if !DEF(_CRYSTAL_EU)
+SpecialShuckleOT:   db "MANIA@"
+SpecialShuckleNick: db "SHUCKIE@"
+elif DEF(_CRYSTAL_ES)
+SpecialShuckleOT:   db "MANÍA@"
+SpecialShuckleNick: db "SHUCKI@"
+endc
 
 ReturnShuckle::
 	farcall SelectMonFromParty
