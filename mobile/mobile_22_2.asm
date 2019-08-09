@@ -69,7 +69,7 @@ Function8b363:
 	ret
 
 
-SECTION "mobile/mobile_22_2", ROMX, BANK[BANK_MOBILE_22]
+SECTION "mobile/mobile_22_2", ROMX
 
 Function8b36c::
 	; [bc + (0:4)] = -1

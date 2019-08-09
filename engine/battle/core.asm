@@ -30,6 +30,7 @@ INCLUDE "constants/wram_constants.inc"
 
 
 SECTION "engine/battle/core", ROMX
+BattleCore::
 
 ; Core components of the battle engine.
 

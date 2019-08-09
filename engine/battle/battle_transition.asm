@@ -25,7 +25,7 @@ BATTLETRANSITION_SQUARE EQU "8" ; $fe
 BATTLETRANSITION_BLACK  EQU "9" ; $ff
 
 
-SECTION "engine/battle/battle_transition", ROMX, BANK[BANK_BATTLE_TRANSITION]
+SECTION "engine/battle/battle_transition", ROMX
 
 DoBattleTransition::
 	call .InitGFX

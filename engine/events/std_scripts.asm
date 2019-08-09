@@ -396,7 +396,7 @@ RadioTowerRocketsScript:
 	end
 
 
-SECTION "engine/events/std_scripts@BugContestResultsScript", ROMX, BANK[BANK_BUG_CONTEST_RESULTS]
+SECTION "engine/events/std_scripts@BugContestResultsScript", ROMX
 
 BugContestResultsWarpScript:
 	special ClearBGPalettes
@@ -2065,7 +2065,7 @@ HappinessCheckScript:
 	end
 
 
-SECTION "engine/events/std_scripts@Movement_ContestResults_WalkAfterWarp", ROMX, BANK[BANK_BUG_CONTEST_RESULTS]
+SECTION "engine/events/std_scripts@Movement_ContestResults_WalkAfterWarp", ROMX
 
 Movement_ContestResults_WalkAfterWarp:
 	step RIGHT

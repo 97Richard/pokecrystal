@@ -31,7 +31,7 @@ INCLUDE "constants/wram_constants.inc"
 	const PACKSTATE_QUITRUNSCRIPT      ; 10
 
 
-SECTION "engine/items/pack", ROMX, BANK[BANK_PACK]
+SECTION "engine/items/pack", ROMX
 
 Pack::
 	ld hl, wOptions

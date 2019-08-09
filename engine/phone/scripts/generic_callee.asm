@@ -1267,7 +1267,7 @@ PhoneScript_MonFlavorText::
 	farsjump PhoneScript_HangUpText_Male
 
 
-SECTION "engine/phone/scripts/generic_callee@TiffanysFamilyMembers", ROMX, BANK[BANK_PHONE_TIFFANY]
+SECTION "engine/phone/scripts/generic_callee@TiffanysFamilyMembers", ROMX
 
 GrandmaString:: db "Grandma@"
 GrandpaString:: db "Grandpa@"

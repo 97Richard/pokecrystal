@@ -61,7 +61,7 @@ HealPartyMon::
 	ret
 
 
-SECTION "engine/pokemon/health@AnimateHPBar", ROMX, BANK[BANK_ANIMATE_HP_BAR]
+SECTION "engine/pokemon/health@AnimateHPBar", ROMX
 
 ComputeHPBarPixels::
 ; e = bc * (6 * 8) / de

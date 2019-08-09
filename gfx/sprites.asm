@@ -3,7 +3,7 @@ INCLUDE "constants/floating_constants.inc"
 
 ; FLOAT: The sprites sections break when placed in bank 1.
 ; See docs/bugs_and_glitches.md (the LoadSpriteGFX fix) for more information.
-SECTION "Sprites 1", ROMX, BANK[BANK_SPRITES + 0]
+SECTION "Sprites 1", ROMX
 
 ChrisSpriteGFX::               INCBIN "gfx/sprites/chris.2bpp"
 ChrisBikeSpriteGFX::           INCBIN "gfx/sprites/chris_bike.2bpp"
@@ -51,7 +51,7 @@ SuperNerdSpriteGFX::           INCBIN "gfx/sprites/super_nerd.2bpp"
 RockerSpriteGFX::              INCBIN "gfx/sprites/rocker.2bpp"
 
 
-SECTION "Sprites 2", ROMX, BANK[BANK_SPRITES + 1]
+SECTION "Sprites 2", ROMX
 
 PokefanMSpriteGFX::            INCBIN "gfx/sprites/pokefan_m.2bpp"
 PokefanFSpriteGFX::            INCBIN "gfx/sprites/pokefan_f.2bpp"

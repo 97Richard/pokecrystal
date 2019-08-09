@@ -9,7 +9,7 @@ INCLUDE "constants/scgb_constants.inc"
 INCLUDE "constants/tileset_constants.inc"
 
 
-SECTION "engine/gfx/crystal_layouts", ROMX, BANK[BANK_CRYSTAL]
+SECTION "engine/gfx/crystal_layouts", ROMX
 
 GetMysteryGift_MobileAdapterLayout::
 	ld a, b

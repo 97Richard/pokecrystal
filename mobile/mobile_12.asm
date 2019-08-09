@@ -12,7 +12,7 @@ INCLUDE "constants/scgb_constants.inc"
 INCLUDE "constants/wram_constants.inc"
 
 
-SECTION "mobile/mobile_12", ROMX, BANK[BANK_CRYSTAL]
+SECTION "mobile/mobile_12", ROMX
 
 InitCrystalData:
 	ld a, $1

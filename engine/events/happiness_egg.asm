@@ -7,7 +7,7 @@ INCLUDE "constants/pokemon_data_constants.inc"
 INCLUDE "constants/wram_constants.inc"
 
 
-SECTION "engine/events/happiness_egg@ChangeHappiness", ROMX, BANK[BANK_HAPPINESS]
+SECTION "engine/events/happiness_egg@ChangeHappiness", ROMX
 
 GetFirstPokemonHappiness::
 	ld hl, wPartyMon1Happiness

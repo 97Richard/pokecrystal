@@ -13,7 +13,7 @@ INCLUDE "constants/scgb_constants.inc"
 INCLUDE "constants/wram_constants.inc"
 
 
-SECTION "engine/menus/main_menu", ROMX, BANK[BANK_CRYSTAL]
+SECTION "engine/menus/main_menu", ROMX
 
 GFX_49c0c:
 INCBIN "gfx/unknown/049c0c.2bpp"

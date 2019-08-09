@@ -4,7 +4,7 @@ INCLUDE "constants/pokemon_constants.inc"
 INCLUDE "constants/pokemon_data_constants.inc"
 
 
-SECTION "engine/events/haircut", ROMX, BANK[BANK_HAPPINESS]
+SECTION "engine/events/haircut", ROMX
 
 BillsGrandfather::
 	farcall SelectMonFromParty

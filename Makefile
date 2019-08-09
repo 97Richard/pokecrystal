@@ -134,7 +134,7 @@ endif
 deps := $(objects:.o=.d)
 
 # Build flags
-RGBASMFLAGS := -L
+RGBASMFLAGS := -L -E
 RGBFIXFLAGS := -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -p 0 -r 3 -t PM_CRYSTAL
 
 include $(dir_source)/version/$(version).mk

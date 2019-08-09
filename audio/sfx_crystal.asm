@@ -227,7 +227,7 @@ Sfx_Tingle_Ch5:
 	duty_cycle 1
 	transpose 0, 11
 	note_type 1, 11, 1
-Sfx_Tingle_branch_17996c:
+.loop
 	octave 5
 	note C_, 3
 	octave 6
@@ -235,7 +235,7 @@ Sfx_Tingle_branch_17996c:
 	octave 5
 	note C_, 3
 	rest 2
-	sound_loop 2, Sfx_Tingle_branch_17996c
+	sound_loop 2, .loop
 	note C_, 2
 	volume_envelope 10, 1
 	note G_, 13

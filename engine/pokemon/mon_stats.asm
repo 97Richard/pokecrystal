@@ -139,7 +139,7 @@ PrintTempMonStats::
 	next "@"
 
 
-SECTION "engine/pokemon/mon_stats@GetGender", ROMX, BANK[BANK_PARTY_MENU]
+SECTION "engine/pokemon/mon_stats@GetGender", ROMX
 
 GetGender::
 ; Return the gender of a given monster (wCurPartyMon/wCurOTMon/wCurWildMon).
@@ -394,7 +394,7 @@ Unused_PlaceEnemyHPLevel::
 	ret
 
 
-SECTION "engine/pokemon/mon_stats@PlaceStatusString", ROMX, BANK[BANK_PARTY_MENU]
+SECTION "engine/pokemon/mon_stats@PlaceStatusString", ROMX
 
 PlaceStatusString::
 	push de
