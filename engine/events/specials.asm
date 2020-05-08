@@ -127,6 +127,8 @@ NameRival:
 .default
 if !DEF(_CRYSTAL_EU)
 	db "SILVER@"
+elif DEF(_CRYSTAL_DE)
+	db "SILBER@"
 elif DEF(_CRYSTAL_ES)
 	db "PLATA@"
 endc

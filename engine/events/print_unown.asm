@@ -228,7 +228,22 @@ UnownDexMenuString:
 
 UnownDexVacantString:
 	db "VACANT@"
+elif DEF(_CRYSTAL_DE)
+AlphRuinsStampString:
+	db "ALPH-RUINEN MARKE@"
 
+UnownDexDoWhatString:
+	db "Auswählen.@"
+
+UnownDexMenuString:
+	db   UNOWNSTAMP_BOLD_A, " DRUCKEN"
+	next UNOWNSTAMP_BOLD_B, " ZURÜCK"
+	next "← VORHER"
+	next "→ NÄCHSTE"
+	db   "@"
+
+UnownDexVacantString:
+	db "  LEER@"
 elif DEF(_CRYSTAL_ES)
 AlphRuinsStampString:
 	db "SELLO RUINAS ALFA@"

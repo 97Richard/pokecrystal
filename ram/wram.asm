@@ -1662,9 +1662,9 @@ NEXTU ; d002
 ; poke seer
 wSeerAction:: db
 wSeerNickname:: ds MON_NAME_LENGTH
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 wSeerCaughtLocation:: ds 17
-elif DEF(_CRYSTAL_ES)
+else
 wSeerCaughtLocation:: ds 18
 endc
 wSeerTimeOfDay:: ds NAME_LENGTH

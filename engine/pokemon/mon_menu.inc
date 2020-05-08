@@ -378,6 +378,8 @@ GiveTakeItemMenuData:
 	db MENU_SPRITE_ANIMS | MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 12, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 12, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 11, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 endc
@@ -390,6 +392,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "GIVE@"
 	db "TAKE@"
+elif DEF(_CRYSTAL_DE)
+	db "GIB@"
+	db "NIMM@"
 elif DEF(_CRYSTAL_ES)
 	db "DAR@"
 	db "ENVIAR@"
@@ -459,7 +464,7 @@ ComposeMailMessage:
 	ld bc, NAME_LENGTH - 1
 	call CopyBytes
 
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	; Look for a terminating byte in the first 8 characters of the player's name
 	ld b, -1
 	ld hl, wTempMailAuthor
@@ -481,7 +486,11 @@ if DEF(_CRYSTAL_ES)
 	ld hl, wTempMailAuthorNationality
 	ld a, "E"
 	ld [hli], a
+if DEF(_CRYSTAL_DE)
+	ld a, "G"
+elif DEF(_CRYSTAL_ES)
 	ld a, "S"
+endc
 	ld [hl], a
 
 	; If the terminating byte isn't found, wTempMailAuthorNationality will hold
@@ -587,6 +596,8 @@ MonMailAction:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 12, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 10, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 11, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 endc
@@ -600,6 +611,10 @@ if !DEF(_CRYSTAL_EU)
 	db "READ@"
 	db "TAKE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "LIES@"
+	db "NIMM@"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "LEER@"
 	db "QUITAR@"
@@ -1137,6 +1152,8 @@ MoveScreenAttributes:
 String_MoveWhere:
 if !DEF(_CRYSTAL_EU)
 	db "Where?@"
+elif DEF(_CRYSTAL_DE)
+	db "WO?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿Mover adónde?@"
 endc
@@ -1241,7 +1258,7 @@ PlaceMoveData:
 	call PlaceString
 if !DEF(_CRYSTAL_EU)
 	hlcoord 12, 12
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 11, 12
 endc
 	ld de, String_MoveAtk
@@ -1284,6 +1301,11 @@ String_MoveType_Bottom:
 	db "│TYPE/└@"
 String_MoveAtk:
 	db "ATK/@"
+elif DEF(_CRYSTAL_DE)
+String_MoveType_Bottom:
+	db "│TYP/ └@"
+String_MoveAtk:
+	db "ANGR/@"
 elif DEF(_CRYSTAL_ES)
 String_MoveType_Bottom:
 	db "│TIPO/└@"

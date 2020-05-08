@@ -102,6 +102,12 @@ if !DEF(_CRYSTAL_EU)
 	next ""
 ; (### FOUN)
 	next "D!@"
+elif DEF(_CRYSTAL_DE)
+; (Ergebnis)
+	db   "se"
+	next ""
+; (### gefu)
+	next "nden@"
 elif DEF(_CRYSTAL_ES)
 ; (RESULT. )
 	db   "BUSCA"

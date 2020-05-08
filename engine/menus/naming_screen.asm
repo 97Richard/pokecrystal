@@ -143,6 +143,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "'S@"
 	db "NICKNAME?@"
+elif DEF(_CRYSTAL_DE)
+	db "@"
+	db "ALIAS?@"
 elif DEF(_CRYSTAL_ES)
 	db "@"
 	db "¿APODO?@"
@@ -160,6 +163,8 @@ endc
 .PlayerNameString:
 if !DEF(_CRYSTAL_EU)
 	db "YOUR NAME?@"
+elif DEF(_CRYSTAL_DE)
+	db "DEIN NAME?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿TU NOMBRE?@"
 endc
@@ -177,6 +182,8 @@ endc
 .RivalNameString:
 if !DEF(_CRYSTAL_EU)
 	db "RIVAL'S NAME?@"
+elif DEF(_CRYSTAL_DE)
+	db "GEGNER-NAME?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿NOMBRE RIVAL?@"
 endc
@@ -194,6 +201,8 @@ endc
 .MomNameString:
 if !DEF(_CRYSTAL_EU)
 	db "MOTHER'S NAME?@"
+elif DEF(_CRYSTAL_DE)
+	db "MAMAs NAME?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿NOMBRE MATERNO?@"
 endc
@@ -221,6 +230,8 @@ endc
 
 .BoxNameString:
 if !DEF(_CRYSTAL_EU)
+	db "BOX NAME?@"
+elif DEF(_CRYSTAL_DE)
 	db "BOX NAME?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿NOMBRE CAJA?@"
@@ -1246,9 +1257,9 @@ INCBIN "gfx/icons/mail_big.2bpp"
 	ld b, [hl]
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	ld [hl], $9
-elif DEF(_CRYSTAL_ES)
+else
 	ld [hl], $c
 endc
 	ld hl, SPRITEANIMSTRUCT_0D
@@ -1327,16 +1338,16 @@ ComposeMail_AnimateCursor::
 	ret
 
 .LetterEntries:
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	db $00, $10, $20, $30, $40, $50, $60, $70, $80, $90
-elif DEF(_CRYSTAL_ES)
+else
 	db $18, $20, $28, $30, $38, $40, $48, $50, $58, $60, $68, $70, $78
 endc
 
 .CaseDelEnd:
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	db $00, $00, $00, $30, $30, $30, $60, $60, $60, $60
-elif DEF(_CRYSTAL_ES)
+else
 	db $00, $00, $00, $00, $30, $30, $30, $30, $60, $60, $60, $60, $60
 endc
 
@@ -1363,9 +1374,9 @@ endc
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	cp $9
-elif DEF(_CRYSTAL_ES)
+else
 	cp $c
 endc
 	jr nc, .wrap_around_letter_right
@@ -1407,9 +1418,9 @@ endc
 	ret
 
 .wrap_around_letter_left
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	ld [hl], $9
-elif DEF(_CRYSTAL_ES)
+else
 	ld [hl], $c
 endc
 	ret
@@ -1475,15 +1486,15 @@ ComposeMail_GetCursorPosition:
 	ld hl, SPRITEANIMSTRUCT_0C
 	add hl, bc
 	ld a, [hl]
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	cp $3
-elif DEF(_CRYSTAL_ES)
+else
 	cp $4
 endc
 	jr c, .case
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	cp $6
-elif DEF(_CRYSTAL_ES)
+else
 	cp $8
 endc
 	jr c, .del

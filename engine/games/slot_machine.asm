@@ -1783,7 +1783,7 @@ Slots_AskBet:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 10, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
-elif DEF(_CRYSTAL_ES)
+else
 	menu_coords 15, 6, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 5
 endc
 	dw .MenuData
@@ -1796,7 +1796,7 @@ if !DEF(_CRYSTAL_EU)
 	db " 3@"
 	db " 2@"
 	db " 1@"
-elif DEF(_CRYSTAL_ES)
+else
 	db "3@"
 	db "2@"
 	db "1@"

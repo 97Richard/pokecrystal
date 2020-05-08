@@ -5703,6 +5703,8 @@ Function1027eb:
 .Stats_Trade:
 if !DEF(_CRYSTAL_EU)
 	db "STATS     TRADE@"
+elif DEF(_CRYSTAL_DE)
+	db "STATUS    TAUSCH@"
 elif DEF(_CRYSTAL_ES)
 	db "ESTAD.    TRATO@"
 endc
@@ -6010,6 +6012,10 @@ String_102a26:
 if !DEF(_CRYSTAL_EU)
 	db   "TRADE"
 	next "CANCEL"
+	db   "@"
+elif DEF(_CRYSTAL_DE)
+	db   "TAUSCH"
+	next "ABBRECHEN"
 	db   "@"
 elif DEF(_CRYSTAL_ES)
 	db   "TRATO"
@@ -6523,6 +6529,8 @@ Function102e07:
 .waiting
 if !DEF(_CRYSTAL_EU)
 	db "Waiting...!@"
+elif DEF(_CRYSTAL_DE)
+	db "BITTE WARTEN…!@"
 elif DEF(_CRYSTAL_ES)
 	db "¡ESPERA.…!@"
 endc
@@ -6536,6 +6544,8 @@ Function102e3e:
 .CANCEL:
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ABBRECHEN@"
 elif DEF(_CRYSTAL_ES)
 	db "CANCELAR@"
 endc
@@ -6629,10 +6639,12 @@ String_102ef4:
 if !DEF(_CRYSTAL_EU)
 	db   "Too bad! The trade"
 	next "was canceled!@"
+elif DEF(_CRYSTAL_DE)
+	db   "Schade! Der Tausch"
+	next "wurde abgebrochen!@"
 elif DEF(_CRYSTAL_ES)
 	db   "¡Mal! ¡El trato"
-	next "está cancelado!"
-	db   "@"
+	next "está cancelado!@"
 endc
 
 Function102f15:
@@ -6655,6 +6667,8 @@ Function102f32:
 .TradeCompleted:
 if !DEF(_CRYSTAL_EU)
 	db "Trade completed!@"
+elif DEF(_CRYSTAL_DE)
+	db "TAUSCH VOLLZOGEN!@"
 elif DEF(_CRYSTAL_ES)
 	db "TRATO COMPLETADO@"
 endc

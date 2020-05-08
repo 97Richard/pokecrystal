@@ -566,6 +566,8 @@ MailboxPC:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 13, 9
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 16, 9
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 15, 9
 endc
@@ -580,6 +582,11 @@ if !DEF(_CRYSTAL_EU)
 	db "PUT IN PACK@"
 	db "ATTACH MAIL@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "LIES BRIEF@"
+	db "VERSTAUEN@"
+	db "BRIEF BEIFÜGEN@"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "LEER CARTA@"
 	db "A LA MOCHILA@"

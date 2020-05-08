@@ -29,7 +29,7 @@ _ResetClock::
 	cp $1
 	ret z
 	call ClockResetPassword
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	push af
 	hlcoord 7, 6
 	ld bc, 5
@@ -68,6 +68,8 @@ endc
 	db 0 ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 15, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -80,6 +82,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "NO@"
 	db "YES@"
+elif DEF(_CRYSTAL_DE)
+	db "NEIN@"
+	db "JA@"
 elif DEF(_CRYSTAL_ES)
 	db "NO@"
 	db "SÍ@"
@@ -135,7 +140,7 @@ ClockResetPassword:
 .updateIDdisplay
 if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 15
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 5
 endc
 	ld de, wStringBuffer2
@@ -149,7 +154,7 @@ endc
 	jr nz, .loop3
 if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 16
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 6
 endc
 	ld bc, 5
@@ -157,7 +162,7 @@ endc
 	call ByteFill
 if !DEF(_CRYSTAL_EU)
 	hlcoord 14, 16
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 6
 endc
 	ld a, [wStringBuffer2 + 5]

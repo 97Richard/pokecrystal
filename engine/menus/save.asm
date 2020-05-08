@@ -213,7 +213,7 @@ SaveTheGame_yesorno:
 	call LoadMenuTextbox
 if !DEF(_CRYSTAL_EU)
 	lb bc, 0, 7
-elif DEF(_CRYSTAL_ES)
+else
 	lb bc, 0, 9
 endc
 	call PlaceYesNoBox

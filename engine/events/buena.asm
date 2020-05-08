@@ -225,6 +225,8 @@ PrintBlueCardBalance:
 .Points_string:
 if !DEF(_CRYSTAL_EU)
 	db "Points@"
+elif DEF(_CRYSTAL_DE)
+	db "PUNKTE@"
 elif DEF(_CRYSTAL_ES)
 	db "Puntos@"
 endc

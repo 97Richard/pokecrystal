@@ -189,6 +189,8 @@ TownMapBubble:
 .Where:
 if !DEF(_CRYSTAL_EU)
 	db "Where?@"
+elif DEF(_CRYSTAL_DE)
+	db "WO?@"
 elif DEF(_CRYSTAL_ES)
 	db "¿Dónde?@"
 endc
@@ -493,6 +495,14 @@ if !DEF(_CRYSTAL_EU)
 	ld l, c
 	ld de, .String_SNest
 	call PlaceString
+elif DEF(_CRYSTAL_DE)
+	call GetPokemonName
+	hlcoord 1, 0
+	call PlaceString
+	ld h, b
+	ld l, c
+	ld de, .String_SNest
+	call PlaceString
 elif DEF(_CRYSTAL_ES)
 	hlcoord 1, 0
 	ld de, .String_SNest
@@ -507,6 +517,8 @@ endc
 .String_SNest:
 if !DEF(_CRYSTAL_EU)
 	db "'S NEST@"
+elif DEF(_CRYSTAL_DE)
+	db " FUNDORT@"
 elif DEF(_CRYSTAL_ES)
 	db "NIDO DE @"
 endc

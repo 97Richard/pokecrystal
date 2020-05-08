@@ -15,14 +15,14 @@ TownMap_ConvertLineBreakCharacters::
 	jr z, .line_feed
 	cp "¯"
 	jr z, .line_feed
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	cp "<¯>"
 	jr z, .hyphen_split
 endc
 	inc hl
 	jr .loop
 
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 .hyphen_split
 	ld [hl], "<->"
 	jr .end

@@ -16,6 +16,8 @@ AskRememberPassword::
 .DoMenu:
 if !DEF(_CRYSTAL_EU)
 	lb bc, 14, 7
+elif DEF(_CRYSTAL_DE)
+	lb bc, 13, 7
 elif DEF(_CRYSTAL_ES)
 	lb bc, 15, 7
 endc
@@ -27,6 +29,8 @@ endc
 	ld [wMenuBorderLeftCoord], a
 if !DEF(_CRYSTAL_EU)
 	add $5
+elif DEF(_CRYSTAL_DE)
+	add $6
 elif DEF(_CRYSTAL_ES)
 	add $4
 endc

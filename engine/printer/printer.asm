@@ -628,6 +628,8 @@ Unreferenced_Function847bd:
 String_PressBToCancel:
 if !DEF(_CRYSTAL_EU)
 	db "Press B to Cancel@"
+elif DEF(_CRYSTAL_DE)
+	db "  Abbr. B-KNOPF@"
 elif DEF(_CRYSTAL_ES)
 	db "B para cancelar@"
 endc
@@ -681,6 +683,8 @@ PrintPCBox_Page1:
 .String_PokemonList:
 if !DEF(_CRYSTAL_EU)
 	db "#MON LIST@"
+elif DEF(_CRYSTAL_DE)
+	db "#MON-LISTE@"
 elif DEF(_CRYSTAL_ES)
 	db "LISTA #MON@"
 endc

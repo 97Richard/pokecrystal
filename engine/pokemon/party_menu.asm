@@ -129,6 +129,8 @@ PlacePartyNicknames:
 .CANCEL:
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "SALIR@"
 endc
@@ -364,6 +366,9 @@ PlacePartyMonTMHMCompatibility:
 if !DEF(_CRYSTAL_EU)
 .string_able     db "ABLE@"
 .string_not_able db "NOT ABLE@"
+elif DEF(_CRYSTAL_DE)
+.string_able     db "OK@"
+.string_not_able db "NEIN@"
 elif DEF(_CRYSTAL_ES)
 .string_able     db "PUEDE@"
 .string_not_able db "NO PUEDE@"
@@ -446,6 +451,9 @@ PlacePartyMonEvoStoneCompatibility:
 if !DEF(_CRYSTAL_EU)
 .string_able     db "ABLE@"
 .string_not_able db "NOT ABLE@"
+elif DEF(_CRYSTAL_DE)
+.string_able     db "OK@"
+.string_not_able db "NEIN@"
 elif DEF(_CRYSTAL_ES)
 .string_able     db "PUEDE@"
 .string_not_able db "NO PUEDE@"
@@ -494,6 +502,10 @@ if !DEF(_CRYSTAL_EU)
 .male    db "♂…MALE@"
 .female  db "♀…FEMALE@"
 .unknown db "…UNKNOWN@"
+elif DEF(_CRYSTAL_DE)
+.male    db "♂…MÄNNL.@"
+.female  db "♀…WEIBL.@"
+.unknown db "…NEUTRUM@"
 elif DEF(_CRYSTAL_ES)
 .male    db "♂…MACHO@"
 .female  db "♀…HEMBRA@"
@@ -788,6 +800,16 @@ ChooseAFemalePKMNString: db "Choose a ♀<PK><MN>.@" ; unused
 ChooseAMalePKMNString:   db "Choose a ♂<PK><MN>.@" ; unused
 ToWhichPKMNString:       db "To which <PK><MN>?@"
 YouHaveNoPKMNString:     db "You have no <PK><MN>!@"
+elif DEF(_CRYSTAL_DE)
+ChooseAMonString:        db "#MON wählen.@"
+UseOnWhichPKMNString:    db "Welches <PKMN>?@"
+WhichPKMNString:         db "Welches #MON?@"
+TeachWhichPKMNString:    db "#MON wählen.@"
+MoveToWhereString:       db "Wohin verschieben?@"
+ChooseAFemalePKMNString: db "Wähle weibl. <PKMN>@"
+ChooseAMalePKMNString:   db "Wähle männl. <PKMN>@"
+ToWhichPKMNString:       db "Welchem <PKMN>?@"
+YouHaveNoPKMNString:     db "Du hast kein <PKMN>!@"
 elif DEF(_CRYSTAL_ES)
 ChooseAMonString:        db "Elige un #MON.@"
 UseOnWhichPKMNString:    db "¿Usar en qué <PK><MN>?@"

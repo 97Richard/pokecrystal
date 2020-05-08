@@ -26,7 +26,7 @@ BANK_MAP_ROUTE_35_NATIONAL_PARK_GATE   EQU $1a ; Route36NationalParkGate_MapEven
 BANK_MAP_CELADON_DEPT_STORE_1F         EQU $1c ; CeladonDeptStore6F_MapEvents -> CeladonDeptSotre1FElevatorButton
 if !DEF(_CRYSTAL_EU)
 BANK_MAP_BATTLE_TOWER                  EQU $27
-elif DEF(_CRYSTAL_ES)
+else
 BANK_MAP_BATTLE_TOWER                  EQU $76
 endc
 BANK_MAP_COLOSSEUM                     EQU $64 ; TradeCenter_MapEvents -> CableClubFriendScript

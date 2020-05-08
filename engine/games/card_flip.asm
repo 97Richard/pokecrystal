@@ -523,7 +523,7 @@ if !DEF(_CRYSTAL_EU)
 	hlcoord 10, 16
 	ld de, .CoinStr
 	call PlaceString
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 15
 	ld b, 1
 	ld c, 11
@@ -541,6 +541,8 @@ endc
 .CoinStr:
 if !DEF(_CRYSTAL_EU)
 	db "COIN@"
+elif DEF(_CRYSTAL_DE)
+	db "MÜNZEN@"
 elif DEF(_CRYSTAL_ES)
 	db "FICHAS@"
 endc

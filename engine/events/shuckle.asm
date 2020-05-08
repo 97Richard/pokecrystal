@@ -80,6 +80,9 @@ GiveShuckle::
 if !DEF(_CRYSTAL_EU)
 SpecialShuckleOT:   db "MANIA@"
 SpecialShuckleNick: db "SHUCKIE@"
+elif DEF(_CRYSTAL_DE)
+SpecialShuckleOT:   db "GABRIELE@"
+SpecialShuckleNick: db "MODRI@"
 elif DEF(_CRYSTAL_ES)
 SpecialShuckleOT:   db "MANÍA@"
 SpecialShuckleNick: db "SHUCKI@"

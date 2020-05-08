@@ -42,7 +42,13 @@ PokemonCenterPC::
 
 .TopMenu:
 	db MENU_BACKUP_TILES | MENU_NO_CLICK_SFX ; flags
+if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 12
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 16, 12
+elif DEF(_CRYSTAL_ES)
+	menu_coords 0, 0, 15, 12
+endc
 	dw .MenuData
 	db 1 ; default option
 
@@ -73,6 +79,12 @@ if !DEF(_CRYSTAL_EU)
 .String_OaksPC:     db "PROF.OAK's PC@"
 .String_HallOfFame: db "HALL OF FAME@"
 .String_TurnOff:    db "TURN OFF@"
+elif DEF(_CRYSTAL_DE)
+.String_PlayersPC:  db "PC VON <PLAYER>@"
+.String_BillsPC:    db "BILLs PC@"
+.String_OaksPC:     db "EICHs PC@"
+.String_HallOfFame: db "RUHMESHALLE@"
+.String_TurnOff:    db "AUSLOGGEN@"
 elif DEF(_CRYSTAL_ES)
 .String_PlayersPC:  db "PC DE <PLAYER>@"
 .String_BillsPC:    db "PC DE BILL@"
@@ -258,6 +270,8 @@ PlayersPCMenuData:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 12
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 16, 12
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 14, 12
 endc
@@ -297,6 +311,14 @@ if !DEF(_CRYSTAL_EU)
 .Decoration:   db "DECORATION@"
 .TurnOff:      db "TURN OFF@"
 .LogOff:       db "LOG OFF@"
+elif DEF(_CRYSTAL_DE)
+.WithdrawItem: db "ITEM AUFNEHMEN@"
+.DepositItem:  db "ITEM ABLEGEN@"
+.TossItem:     db "ITEM WEGWERFEN@"
+.MailBox:      db "BRIEFKASTEN@"
+.Decoration:   db "DEKORATION@"
+.TurnOff:      db "AUSLOGGEN@"
+.LogOff:       db "AUSLOGGEN@"
 elif DEF(_CRYSTAL_ES)
 .WithdrawItem: db "SACAR OBJETO@"
 .DepositItem:  db "DEJAR OBJETO@"

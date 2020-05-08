@@ -68,7 +68,7 @@ InitClock::
 .loop
 	ld hl, OakTimeWhatTimeIsItText
 	call PrintText
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 3, 7
 	ld b, 2
 	ld c, 15
@@ -79,7 +79,7 @@ if !DEF(_CRYSTAL_EU)
 	ld [hl], $2
 	hlcoord 4, 9
 	call DisplayHourOClock
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 1, 7
 	ld b, 2
 	ld c, 17
@@ -197,14 +197,14 @@ SetHour:
 	ld [hl], a
 
 .okay
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 4, 9
 	ld a, " "
 	ld bc, 15
 	call ByteFill
 	hlcoord 4, 9
 	call DisplayHourOClock
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 2, 9
 	ld a, " "
 	ld bc, 17
@@ -354,6 +354,8 @@ OakTimeWhatTimeIsItText:
 String_oclock:
 if !DEF(_CRYSTAL_EU)
 	db "o'clock@"
+elif DEF(_CRYSTAL_DE)
+	db "UHR@"
 elif DEF(_CRYSTAL_ES)
 	db "en punto@"
 endc
@@ -393,17 +395,14 @@ OakTimeWhoaMinutesText:
 	; Whoa!@ @
 	text_far _OakTimeWhoaMinutesText
 	text_asm
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 7, 14
-elif DEF(_CRYSTAL_ES)
+	call DisplayMinutesWithMinString
+else
 	hlcoord 8, 14
-endc
-if DEF(_CRYSTAL_ES)
 	ld [hl], "¿"
 	inc hl
-endc
 	call DisplayMinutesWithMinString
-if DEF(_CRYSTAL_ES)
 	ld a, "?"
 	ld [bc], a
 	inc bc
@@ -510,6 +509,7 @@ SetDayOfWeek::
 	call LoadStandardMenuHeader
 	ld hl, .OakTimeWhatDayIsItText
 	call PrintText
+if !DEF(_CRYSTAL_DE)
 	hlcoord 9, 3
 	ld b, 2
 	ld c, 9
@@ -520,6 +520,18 @@ SetDayOfWeek::
 	ld [hl], TIMESET_DOWN_ARROW
 	hlcoord 10, 5
 	call .PlaceWeekdayString
+else
+	hlcoord 8, 3
+	ld b, 2
+	ld c, 10
+	call Textbox
+	hlcoord 13, 3
+	ld [hl], TIMESET_UP_ARROW
+	hlcoord 13, 6
+	ld [hl], TIMESET_DOWN_ARROW
+	hlcoord 9, 5
+	call .PlaceWeekdayString
+endc
 	call ApplyTilemap
 	ld c, 10
 	call DelayFrames
@@ -586,12 +598,21 @@ SetDayOfWeek::
 .finish_dpad
 	xor a
 	ldh [hBGMapMode], a
+if !DEF(_CRYSTAL_DE)
 	hlcoord 10, 4
 	ld b, 2
 	ld c, 9
 	call ClearBox
 	hlcoord 10, 5
 	call .PlaceWeekdayString
+else
+	hlcoord 9, 4
+	ld b, 2
+	ld c, 10
+	call ClearBox
+	hlcoord 9, 5
+	call .PlaceWeekdayString
+endc
 	call WaitBGMap
 	and a
 	ret
@@ -630,6 +651,14 @@ if !DEF(_CRYSTAL_EU)
 .Thursday:  db "THURSDAY@"
 .Friday:    db " FRIDAY@"
 .Saturday:  db "SATURDAY@"
+elif DEF(_CRYSTAL_DE)
+.Sunday:    db "SONNTAG@"
+.Monday:    db "MONTAG@"
+.Tuesday:   db "DIENSTAG@"
+.Wednesday: db "MITTWOCH@"
+.Thursday:  db "DONNERSTAG@"
+.Friday:    db "FREITAG@"
+.Saturday:  db "SAMSTAG@"
 elif DEF(_CRYSTAL_ES)
 .Sunday:    db "DOMINGO@"
 .Monday:    db "LUNES@"
@@ -844,6 +873,10 @@ if !DEF(_CRYSTAL_EU)
 .nite_string: db "NITE@"
 .morn_string: db "MORN@"
 .day_string:  db "DAY@"
+elif DEF(_CRYSTAL_DE)
+.nite_string: db "NACHT@"
+.morn_string: db "VORMITTAG@"
+.day_string:  db "TAG@"
 elif DEF(_CRYSTAL_ES)
 .nite_string: db "NOCH@"
 .morn_string: db "MAÑ@"

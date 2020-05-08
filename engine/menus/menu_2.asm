@@ -119,9 +119,9 @@ DisplayMoneyAndCoinBalance::
 	hlcoord 6, 3
 	ld de, CoinString
 	call PlaceString
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 15, 3
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 14, 3
 endc
 	ld de, wCoins
@@ -132,6 +132,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 MoneyString: db "MONEY@"
 CoinString:  db "COIN@"
+elif DEF(_CRYSTAL_DE)
+MoneyString: db "GELD@"
+CoinString:  db "MÜNZEN@"
 elif DEF(_CRYSTAL_ES)
 MoneyString: db "DIN.@"
 CoinString:  db "FICHAS@"
@@ -183,7 +186,7 @@ StartMenu_DrawBugContestStatusBox::
 	ld b, 5
 if !DEF(_CRYSTAL_EU)
 	ld c, 17
-elif DEF(_CRYSTAL_ES)
+else
 	ld c, 18
 endc
 	call Textbox
@@ -198,9 +201,9 @@ StartMenu_PrintBugContestStatus::
 	hlcoord 1, 5
 	ld de, .Balls_EN
 	call PlaceString
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 8, 5
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 5
 endc
 	ld de, wParkBallsRemaining
@@ -219,6 +222,8 @@ endc
 .no_contest_mon
 if !DEF(_CRYSTAL_EU)
 	hlcoord 8, 1
+elif DEF(_CRYSTAL_DE)
+	hlcoord 9, 1
 elif DEF(_CRYSTAL_ES)
 	hlcoord 7, 1
 endc
@@ -248,6 +253,11 @@ if !DEF(_CRYSTAL_EU)
 .CAUGHT:   db "CAUGHT@"
 .Balls_EN: db "BALLS:@"
 .None:     db "None@"
+.LEVEL:    db "LEVEL@"
+elif DEF(_CRYSTAL_DE)
+.CAUGHT:   db "BESITZ:@"
+.Balls_EN: db "BÄLLE:@"
+.None:     db "KEINE@"
 .LEVEL:    db "LEVEL@"
 elif DEF(_CRYSTAL_ES)
 .CAUGHT:   db "ATR.:@"

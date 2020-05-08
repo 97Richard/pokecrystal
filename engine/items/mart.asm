@@ -833,6 +833,8 @@ MenuHeader_BuySell:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 7, 8
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 11, 8
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 14, 8
 endc
@@ -846,6 +848,10 @@ if !DEF(_CRYSTAL_EU)
 	db "BUY@"
 	db "SELL@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "KAUF@"
+	db "VERKAUF@"
+	db "TSCHÜSS!@"
 elif DEF(_CRYSTAL_ES)
 	db "COMPRAR@"
 	db "VENDER@"

@@ -247,7 +247,7 @@ Function48187:
 .String_TellLater:
 if !DEF(_CRYSTAL_EU)
 	db "Tell Later@"
-elif DEF(_CRYSTAL_ES)
+else
 	db "@"
 endc
 
@@ -308,7 +308,7 @@ Function48272:
 MobileString_PersonalInfo:
 if !DEF(_CRYSTAL_EU)
 	db "Personal Info@"
-elif DEF(_CRYSTAL_ES)
+else
 	db "@"
 endc
 
@@ -595,7 +595,7 @@ MobileDesc_Gender:           db "Boy or girl?@"
 MobileDesc_Age:              db "How old are you?@"
 MobileDesc_Address:          db "Where do you live?@"
 MobileDesc_ZipCode:          db "Your zip code?@"
-elif DEF(_CRYSTAL_ES)
+else
 MobileProfileString:         db "@"
 MobileString_Gender:         db "@"
 MobileString_Age:            db "@"
@@ -622,7 +622,7 @@ Strings_484fb:
 if !DEF(_CRYSTAL_EU)
 String_484fb: db "Boy@"
 String_484ff: db "Girl@"
-elif DEF(_CRYSTAL_ES)
+else
 String_484fb: db "@"
 String_484ff: db "@"
 endc
@@ -1327,8 +1327,9 @@ MenuHeader_0x48a9c:
 String_48aa1:
 if !DEF(_CRYSTAL_EU)
 	db   "Tell Now"
-	next "Tell Later@"
-elif DEF(_CRYSTAL_ES)
+	next "Tell Later"
+	db   "@"
+else
 	db   "@"
 endc
 

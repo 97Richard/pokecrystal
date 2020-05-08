@@ -387,6 +387,8 @@ TMHM_DisplayPocketItems:
 	ld [wTempTMHM], a
 if !DEF(_CRYSTAL_EU)
 	ld [hl], "H"
+elif DEF(_CRYSTAL_DE)
+	ld [hl], "V"
 elif DEF(_CRYSTAL_ES)
 	ld [hl], "O"
 endc
@@ -473,6 +475,8 @@ Unreferenced_Function2ca95:
 TMHM_String_Cancel:
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "SALIR@"
 endc

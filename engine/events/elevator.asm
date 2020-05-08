@@ -173,6 +173,8 @@ Elevator_GetCurrentFloorText:
 Elevator_CurrentFloorText:
 if !DEF(_CRYSTAL_EU)
 	db "Now on:@"
+elif DEF(_CRYSTAL_DE)
+	db "Im@"
 elif DEF(_CRYSTAL_ES)
 	db "Estás en@"
 endc

@@ -812,12 +812,12 @@ HeavyBallMultiplier:
 	jr nz, .SkipText
 
 	call GetPokedexEntryBank
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	push bc
 endc
 	inc hl
 	inc hl
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	call GetFarHalfword
 
 	srl h
@@ -1267,6 +1267,12 @@ if !DEF(_CRYSTAL_EU)
 .defense db "DEFENSE@"
 .speed   db "SPEED@"
 .special db "SPECIAL@"
+elif DEF(_CRYSTAL_DE)
+.health  db "GESU@"
+.attack  db "ANGRIFF@"
+.defense db "VERT@"
+.speed   db "INIT@"
+.special db "SPEZIAL@"
 elif DEF(_CRYSTAL_ES)
 .health  db "SALUD@"
 .attack  db "ATAQUE@"

@@ -37,6 +37,8 @@ _DeleteSaveData::
 	db 0 ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 15, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -49,6 +51,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "NO@"
 	db "YES@"
+elif DEF(_CRYSTAL_DE)
+	db "NEIN@"
+	db "JA@"
 elif DEF(_CRYSTAL_ES)
 	db "NO@"
 	db "SÍ@"

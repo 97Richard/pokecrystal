@@ -42,7 +42,7 @@ DisplayDexEntry::
 	inc hl
 	ld a, b
 	push af
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	push hl
 	call GetFarHalfword
 	ld d, l
@@ -60,7 +60,7 @@ endc
 	jr z, .skip_height
 ; Print the height, with two of the four digits in front of the decimal point
 	push hl
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	push de
 	ld hl, sp+$0
 	ld d, h
@@ -100,7 +100,7 @@ endc
 	ld hl, sp+$0
 	ld d, h
 	ld e, l
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 9
 	lb bc, 2, (4 << 4) | 5
 else
@@ -214,7 +214,7 @@ GetDexEntryPagePointer::
 	cp "@"
 	jr nz, .loop1
 ; skip height and weight
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 rept 4
 	inc hl
 endr

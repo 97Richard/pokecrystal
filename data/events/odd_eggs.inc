@@ -1,5 +1,7 @@
 if !DEF(_CRYSTAL_EU)
 ODD_EGG_NICK EQUS "\"EGG@@@@@@@@\""
+elif DEF(_CRYSTAL_DE)
+ODD_EGG_NICK EQUS "\"EI@@@@@@@@@\""
 elif DEF(_CRYSTAL_ES)
 ODD_EGG_NICK EQUS "\"HUEVO@@@@@@\""
 endc

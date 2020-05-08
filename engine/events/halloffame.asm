@@ -151,6 +151,8 @@ AnimateHallOfFame:
 .String_NewHallOfFamer:
 if !DEF(_CRYSTAL_EU)
 	db "New Hall of Famer!@"
+elif DEF(_CRYSTAL_DE)
+	db "RH-Einsteiger@"
 elif DEF(_CRYSTAL_ES)
 	db "¡Nuevo Hall Fama!@"
 endc
@@ -399,7 +401,7 @@ _HallOfFamePC::
 	call PlaceString
 if !DEF(_CRYSTAL_EU)
 	hlcoord 2, 2
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 1, 2
 endc
 	ld de, wHallOfFameTempWinCount
@@ -425,6 +427,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 .HOFMaster: db "    HOF Master!@"
 .TimeFamer: db "    -Time Famer@"
+elif DEF(_CRYSTAL_DE)
+.HOFMaster: db "RH-Meister@"
+.TimeFamer: db "   .RH-Eintrag@"
 elif DEF(_CRYSTAL_ES)
 .HOFMaster: db "¡Maestro HdF!@"
 .TimeFamer: db "    vez/veces HdF@"
@@ -542,7 +547,11 @@ else
 	ld a, "<ID>"
 	ld [hli], a
 endc
+if !DEF(_CRYSTAL_DE)
 	ld [hl], "/"
+else
+	ld [hl], "."
+endc
 	hlcoord 10, 16
 	ld de, wTempMonID
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
@@ -619,7 +628,11 @@ else
 	ld a, "<ID>"
 	ld [hli], a
 endc
+if !DEF(_CRYSTAL_DE)
 	ld [hl], "/"
+else
+	ld [hl], "."
+endc
 	hlcoord 4, 6
 	ld de, wPlayerID
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
@@ -643,6 +656,8 @@ endc
 .PlayTime:
 if !DEF(_CRYSTAL_EU)
 	db "PLAY TIME@"
+elif DEF(_CRYSTAL_DE)
+	db "SPIELZEIT@"
 elif DEF(_CRYSTAL_ES)
 	db "TIEMPO J.@"
 endc

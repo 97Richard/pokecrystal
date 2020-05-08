@@ -130,26 +130,46 @@ GBPrinterString_PrinterError1::
 	db   " Printer Error 1"
 	next ""
 	next "Check the Game Boy"
-	next "Printer Manual."
-	db   "@"
+	next "Printer Manual.@"
 GBPrinterString_PrinterError2::
 	db   " Printer Error 2"
 	next ""
 	next "Check the Game Boy"
-	next "Printer Manual."
-	db   "@"
+	next "Printer Manual.@"
 GBPrinterString_PrinterError3::
 	db   " Printer Error 3"
 	next ""
 	next "Check the Game Boy"
-	next "Printer Manual."
-	db   "@"
+	next "Printer Manual.@"
 GBPrinterString_PrinterError4::
 	db   " Printer Error 4"
 	next ""
 	next "Check the Game Boy"
-	next "Printer Manual."
-	db   "@"
+	next "Printer Manual.@"
+elif DEF(_CRYSTAL_DE)
+GBPrinterString_CheckingLink:: next "   PRÜFE LINK...@"
+GBPrinterString_Transmitting:: next "   ÜBERTRAGUNG@"
+GBPrinterString_Printing:: next "     DRUCKEN@"
+GBPrinterString_PrinterError1::
+	db   " Drucker fehler 1"
+	next ""
+	next " Lies das GAME BOY"
+	next " PRINTER-Handbuch.@"
+GBPrinterString_PrinterError2::
+	db   " Drucker fehler 2"
+	next ""
+	next " Lies das GAME BOY"
+	next " PRINTER-Handbuch.@"
+GBPrinterString_PrinterError3::
+	db   " Drucker fehler 3"
+	next ""
+	next " Lies das GAME BOY"
+	next " PRINTER-Handbuch.@"
+GBPrinterString_PrinterError4::
+	db   " Drucker fehler 4"
+	next ""
+	next " Lies das GAME BOY"
+	next " PRINTER-Handbuch.@"
 elif DEF(_CRYSTAL_ES)
 GBPrinterString_CheckingLink:: next "  COMPROBANDO...@"
 GBPrinterString_Transmitting:: next " TRANSMITIENDO...@"
@@ -158,26 +178,22 @@ GBPrinterString_PrinterError1::
 	db   "  Error 1 Impres."
 	next ""
 	next "Verifica el manual"
-	next "de impresora GB"
-	db   "@"
+	next "de impresora GB@"
 GBPrinterString_PrinterError2::
 	db   "  Error 2 Impres."
 	next ""
 	next "Verifica el manual"
-	next "de impresora GB"
-	db   "@"
+	next "de impresora GB@"
 GBPrinterString_PrinterError3::
 	db   "  Error 3 Impres."
 	next ""
 	next "Verifica el manual"
-	next "de impresora GB"
-	db   "@"
+	next "de impresora GB@"
 GBPrinterString_PrinterError4::
 	db   "  Error 4 Impres."
 	next ""
 	next "Verifica el manual"
-	next "de impresora GB"
-	db   "@"
+	next "de impresora GB@"
 endc
 
 
@@ -256,7 +272,11 @@ PrintPartyMonPage1::
 	ld de, wTempMonID
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	call PrintNum
+if !DEF(_CRYSTAL_DE)
 	hlcoord 1, 14
+else
+	hlcoord 1, 13
+endc
 	ld de, String1dc554
 	call PlaceString
 	hlcoord 7, 14
@@ -394,8 +414,23 @@ String1dc55d:
 	next "DEFENSE"
 	next "SPCL.ATK"
 	next "SPCL.DEF"
-	next "SPEED"
-	db   "@"
+	next "SPEED@"
+elif DEF(_CRYSTAL_DE)
+String1dc550:
+	db "OT/@"
+
+String1dc554:
+	db "ATTACKE/@"
+
+String1dc559:
+	db "<ID>№.@"
+
+String1dc55d:
+	db   "ANGR"
+	next "VER"
+	next "SPEZ.ANG"
+	next "SPEZ.VER"
+	next "INIT@"
 elif DEF(_CRYSTAL_ES)
 String1dc550:
 	db "EO/@"
@@ -411,8 +446,7 @@ String1dc55d:
 	next "DEFENSA"
 	next "AT. ESP"
 	next "DEF. ESP"
-	next "VELOCID."
-	db   "@"
+	next "VELOCID.@"
 endc
 
 String1dc584:

@@ -5,7 +5,7 @@ name = poke$(version)
 version := crystal
 
 # All of the available versions
-versions := crystal crystal11 crystal-au crystal-es
+versions := crystal crystal11 crystal-au crystal-de crystal-es
 
 
 # Variables used to locate the sources
@@ -137,8 +137,6 @@ deps := $(objects:.o=.d)
 RGBASMFLAGS := -L
 RGBFIXFLAGS := -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -p 0 -r 3 -t PM_CRYSTAL
 
-include $(dir_source)/version/$(version).mk
-
 
 ### Build targets
 
@@ -161,6 +159,7 @@ $(name).gbc: layout.link $(objects)
 
 include $(dir_source)/tools/tools.mk
 include $(dir_source)/gfx/gfx.mk
+include $(dir_source)/version/$(version).mk
 
 
 ### Dependency generation

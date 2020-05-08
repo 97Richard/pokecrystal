@@ -3903,6 +3903,29 @@ Strings_Ll0ToL40:
 
 String_119d8c:
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+Strings_L10ToL100:
+	db " L:10 @@"
+	db " L:20 @@"
+	db " L:30 @@"
+	db " L:40 @@"
+	db " L:50 @@"
+	db " L:60 @@"
+	db " L:70 @@"
+	db " L:80 @@"
+	db " L:90 @@"
+	db " L:100@@"
+	db "ZURÜCK@@"
+
+Strings_Ll0ToL40:
+	db " L:10 @@"
+	db " L:20 @@"
+	db " L:30 @@"
+	db " L:40 @@"
+	db "ZURÜCK@@"
+
+String_119d8c:
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 Strings_L10ToL100:
 	db " N:10 @@"
@@ -4552,6 +4575,8 @@ BattleTowerRoomMenu2_PlaceYesNoMenu:
 	call ApplyTilemap
 if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 8
+elif DEF(_CRYSTAL_DE)
+	hlcoord 15, 8
 elif DEF(_CRYSTAL_ES)
 	hlcoord 17, 8
 endc
@@ -4559,6 +4584,8 @@ endc
 	call PlaceString
 if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 10
+elif DEF(_CRYSTAL_DE)
+	hlcoord 15, 10
 elif DEF(_CRYSTAL_ES)
 	hlcoord 17, 10
 endc
@@ -4566,6 +4593,8 @@ endc
 	call PlaceString
 if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_DE)
+	hlcoord 14, 8
 elif DEF(_CRYSTAL_ES)
 	hlcoord 16, 8
 endc
@@ -4605,6 +4634,8 @@ BattleTowerRoomMenu2_UpdateYesNoMenu:
 	ld [wMobileInactivityTimerMinutes], a
 if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_DE)
+	hlcoord 14, 8
 elif DEF(_CRYSTAL_ES)
 	hlcoord 16, 8
 endc
@@ -4612,6 +4643,8 @@ endc
 	ld [hl], a
 if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 10
+elif DEF(_CRYSTAL_DE)
+	hlcoord 14, 10
 elif DEF(_CRYSTAL_ES)
 	hlcoord 16, 10
 endc
@@ -4630,6 +4663,8 @@ endc
 	ld [wMobileInactivityTimerMinutes], a
 if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 8
+elif DEF(_CRYSTAL_DE)
+	hlcoord 14, 8
 elif DEF(_CRYSTAL_ES)
 	hlcoord 16, 8
 endc
@@ -4637,6 +4672,8 @@ endc
 	ld [hl], a
 if !DEF(_CRYSTAL_EU)
 	hlcoord 15, 10
+elif DEF(_CRYSTAL_DE)
+	hlcoord 14, 10
 elif DEF(_CRYSTAL_ES)
 	hlcoord 16, 10
 endc
@@ -4682,6 +4719,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 String_11a2cf: db "YES@"
 String_11a2d3: db "NO@"
+elif DEF(_CRYSTAL_DE)
+String_11a2cf: db "JA@"
+String_11a2d3: db "NEIN@"
 elif DEF(_CRYSTAL_ES)
 String_11a2cf: db "SÍ@"
 String_11a2d3: db "NO@"
@@ -4691,6 +4731,8 @@ MenuHeader_11a2d6:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 6, SCREEN_WIDTH - 1, 10
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 6, SCREEN_WIDTH - 1, 10
 elif DEF(_CRYSTAL_ES)
 	menu_coords 15, 6, SCREEN_WIDTH - 1, 10
 endc
@@ -4701,6 +4743,8 @@ MenuHeader_11a2de:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 14, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 15, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -5588,6 +5632,110 @@ Text_ThisBattleRoomPleaseWait:
 	text "?"
 	cont "Please wait…"
 	done
+elif DEF(_CRYSTAL_DE)
+Text_SaveFileWillBeSent:
+	text "SPIELSTAND wird"
+	line "übertragen."
+	done
+
+Text_SentSaveFileReadingNews:
+	text "SPIELSTAND fertig."
+	line "Lade DATEN…"
+	done
+
+Text_ReadingNews:
+	text "Lade DATEN…"
+	done
+
+Text_ReceivedNews:
+	text "DATEN übertragen!"
+	done
+
+Text_QuitReadingNews:
+	text "DATEN nicht laden?"
+	done
+
+Text_CanceledSendingSaveFile:
+	text "SPIELSTAND-Über-"
+	line "trag abgebrochen."
+	done
+
+Text_ReceivedOddEgg:
+	text "KURIOS-EI"
+	line "erhalten!"
+	done
+
+Text_RegisteringRecord:
+	text "Deine Daten werden"
+	line "gesichert…"
+	done
+
+Text_BattleRoomVisitLimit:
+	text "Nur ein Besuch im"
+	line "KAMPFRAUM pro Tag!"
+	done
+
+Text_PartyMonTopsThisLevel:
+	text "Eines oder mehrere"
+	line "#MON in deinem"
+	cont "Team übersteigen"
+	cont "den Level."
+	done
+
+Text_UberRestriction:
+	text_ram wcd49
+	text " ist"
+	line "nur für KAMPFRÄUME"
+
+	para "ab LV 70 oder"
+	line "höher zugelassen."
+	done
+
+Text_CancelBattleRoomChallenge:
+	text "Die KAMPFRAUM-"
+	line "Herausforderung"
+	cont "abbrechen?"
+	done
+
+Text_ExitGymLeaderHonorRoll:
+	text "ARENALEITER-EHREN-"
+	line "LISTE verlassen?"
+	done
+
+Text_LinkingWithCenter:
+	text "Verbindung mit"
+	line "CENTER erstellen…"
+	done
+
+Text_WhatLevelDoYouWantToChallenge:
+	text "Welchen Level"
+	line "herausfordern?"
+	done
+
+Text_CheckBattleRoomListByMaxLevel:
+	text "KAMPFRAUM-Liste"
+	line "nach max. Level"
+	cont "überprüfen?"
+	done
+
+Text_EnterWhichBattleRoom:
+	text "Welchen KAMPFRAUM"
+	line "betreten?"
+	done
+
+Text_WhichBattleRoom:
+	text "Welchen KAMPFRAUM?"
+	done
+
+Text_ThisBattleRoomPleaseWait:
+	text_ram wStringBuffer3
+	text "s RAUM"
+	line "@"
+	text_ram wStringBuffer4
+	text "?"
+	cont "Bitte warten…"
+	done
+
 elif DEF(_CRYSTAL_ES)
 Text_SaveFileWillBeSent:
 	text "Se enviará el"

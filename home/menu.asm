@@ -448,6 +448,8 @@ _YesNoBox:
 	jr nz, .okay ; should this be "jr nc"?
 if !DEF(_CRYSTAL_EU)
 	ld a, SCREEN_WIDTH - 6
+elif DEF(_CRYSTAL_DE)
+	ld a, SCREEN_WIDTH - 7
 elif DEF(_CRYSTAL_ES)
 	ld a, SCREEN_WIDTH - 5
 endc
@@ -458,6 +460,8 @@ endc
 	ld [wMenuBorderLeftCoord], a
 if !DEF(_CRYSTAL_EU)
 	add 5
+elif DEF(_CRYSTAL_DE)
+	add 6
 elif DEF(_CRYSTAL_ES)
 	add 4
 endc
@@ -492,6 +496,8 @@ YesNoMenuHeader::
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 10, 5, 15, 9
+elif DEF(_CRYSTAL_DE)
+	menu_coords 10, 5, 16, 9
 elif DEF(_CRYSTAL_ES)
 	menu_coords 10, 5, 14, 9
 endc
@@ -504,6 +510,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "YES@"
 	db "NO@"
+elif DEF(_CRYSTAL_DE)
+	db "JA@"
+	db "NEIN@"
 elif DEF(_CRYSTAL_ES)
 	db "SÍ@"
 	db "NO@"

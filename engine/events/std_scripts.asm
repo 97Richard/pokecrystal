@@ -368,6 +368,14 @@ if !DEF(_CRYSTAL_EU)
 .ThursdayText:  db "THURSDAY@"
 .FridayText:    db "FRIDAY@"
 .SaturdayText:  db "SATURDAY@"
+elif DEF(_CRYSTAL_DE)
+.SundayText:    db "Sonntag@"
+.MondayText:    db "Montag@"
+.TuesdayText:   db "Dienstag@"
+.WednesdayText: db "Mittwoch@"
+.ThursdayText:  db "Donnerstag@"
+.FridayText:    db "Feitag@"
+.SaturdayText:  db "Samstag@"
 elif DEF(_CRYSTAL_ES)
 .SundayText:    db "DOMINGO@"
 .MondayText:    db "LUNES@"
@@ -2042,6 +2050,10 @@ if !DEF(_CRYSTAL_EU)
 	db " 50 :  ¥1000@"
 	db "500 : ¥10000@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db " 50 :  ¥1000@"
+	db "500 : ¥10000@"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db " 50 :  1000¥@"
 	db "500 : 10000¥@"

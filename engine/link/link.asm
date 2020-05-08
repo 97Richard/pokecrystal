@@ -50,6 +50,10 @@ if !DEF(_CRYSTAL_EU)
 	hlcoord 3, 8
 	ld b, 2
 	ld c, 12
+elif DEF(_CRYSTAL_DE)
+	hlcoord 2, 8
+	ld b, 2
+	ld c, 14
 elif DEF(_CRYSTAL_ES)
 	hlcoord 4, 8
 	ld b, 2
@@ -60,6 +64,8 @@ endc
 	farcall LinkTextbox2
 if !DEF(_CRYSTAL_EU)
 	hlcoord 4, 10
+elif DEF(_CRYSTAL_DE)
+	hlcoord 3, 10
 elif DEF(_CRYSTAL_ES)
 	hlcoord 5, 10
 endc
@@ -585,6 +591,8 @@ ExchangeBytes:
 String_PleaseWait:
 if !DEF(_CRYSTAL_EU)
 	db "PLEASE WAIT!@"
+elif DEF(_CRYSTAL_DE)
+	db "BITTE WARTEN…!@"
 elif DEF(_CRYSTAL_ES)
 	db "¡ESPERA.…!@"
 endc
@@ -1537,6 +1545,8 @@ Function28926:
 .String_Stats_Trade:
 if !DEF(_CRYSTAL_EU)
 	db "STATS     TRADE@"
+elif DEF(_CRYSTAL_DE)
+	db "STATUS    TAUSCH@"
 elif DEF(_CRYSTAL_ES)
 	db "ESTAD.    TRATO@"
 endc
@@ -1625,6 +1635,8 @@ Unreferenced_Function28b42:
 .Cancel:
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ABBRECHEN@"
 elif DEF(_CRYSTAL_ES)
 	db "CANCELAR@"
 endc
@@ -1634,7 +1646,7 @@ Function28b68:
 	hlcoord 6, 9
 	ld bc, SCREEN_WIDTH
 	call AddNTimes
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	ld [hl], "▷"
 else
 	ld [hl], "¯"
@@ -1697,7 +1709,7 @@ if !DEF(_CRYSTAL_EU)
 	hlcoord 10, 7
 	ld b, 3
 	ld c, 7
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 7, 7
 	ld b, 3
 	ld c, 10
@@ -1706,7 +1718,7 @@ endc
 	ld de, String28eab
 if !DEF(_CRYSTAL_EU)
 	hlcoord 12, 8
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 9, 8
 endc
 	call PlaceString
@@ -1714,7 +1726,7 @@ endc
 	ld [w2DMenuCursorInitY], a
 if !DEF(_CRYSTAL_EU)
 	ld a, 11
-elif DEF(_CRYSTAL_ES)
+else
 	ld a, 8
 endc
 	ld [w2DMenuCursorInitX], a
@@ -2018,6 +2030,9 @@ String28eab:
 if !DEF(_CRYSTAL_EU)
 	db   "TRADE"
 	next "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db   "TAUSCH"
+	next "ABBRECHEN@"
 elif DEF(_CRYSTAL_ES)
 	db   "TRATO"
 	next "CANCELAR@"
@@ -2030,6 +2045,8 @@ LinkAskTradeForText:
 String28ebd:
 if !DEF(_CRYSTAL_EU)
 	db   "Trade completed!@"
+elif DEF(_CRYSTAL_DE)
+	db   "TAUSCH VOLLZOGEN!@"
 elif DEF(_CRYSTAL_ES)
 	db   "TRATO COMPLETADO@"
 endc
@@ -2038,6 +2055,9 @@ String_TooBadTheTradeWasCanceled:
 if !DEF(_CRYSTAL_EU)
 	db   "Too bad! The trade"
 	next "was canceled!@"
+elif DEF(_CRYSTAL_DE)
+	db   "Schade! Der Tausch"
+	next "wurde abgebrochen!@"
 elif DEF(_CRYSTAL_ES)
 	db   "¡Mal! ¡El trato"
 	next "está cancelado!@"

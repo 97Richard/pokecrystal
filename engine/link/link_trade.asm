@@ -136,6 +136,8 @@ InitTradeSpeciesList::
 .CANCEL:
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ABBRECHEN@"
 elif DEF(_CRYSTAL_ES)
 	db "CANCELAR@"
 endc
@@ -183,6 +185,7 @@ Function16d6ce::
 	ret
 
 Function16d6e1:
+if !DEF(_CRYSTAL_DE)
 	hlcoord 4, 10
 	ld b, 1
 	ld c, 10
@@ -190,6 +193,15 @@ Function16d6e1:
 	hlcoord 5, 11
 	ld de, .Waiting
 	call PlaceString
+else
+	hlcoord 2, 10
+	ld b, 1
+	ld c, 14
+	predef LinkTextboxAtHL
+	hlcoord 3, 11
+	ld de, .Waiting
+	call PlaceString
+endc
 	call WaitBGMap
 	call WaitBGMap2
 	ld c, 50
@@ -198,6 +210,8 @@ Function16d6e1:
 .Waiting:
 if !DEF(_CRYSTAL_EU)
 	db "WAITING..!@"
+elif DEF(_CRYSTAL_DE)
+	db "BITTE WARTEN…!@"
 elif DEF(_CRYSTAL_ES)
 	db "¡ESPERA.…!@"
 endc

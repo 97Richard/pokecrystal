@@ -523,6 +523,8 @@ MenuHeader_ChallengeExplanationCancel:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 14, 7
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 18, 7
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 15, 7
 endc
@@ -536,6 +538,10 @@ if !DEF(_CRYSTAL_EU)
 	db "Challenge@"
 	db "Explanation@"
 	db "Cancel@"
+elif DEF(_CRYSTAL_DE)
+	db "Herausforderung@"
+	db "Erklärung@"
+	db "Abbrechen@"
 elif DEF(_CRYSTAL_ES)
 	db "Desafío@"
 	db "Explicación@"
@@ -1898,7 +1904,11 @@ Function17dc1f:
 	ld [wc709], a
 	add $4
 	ld [wc70b], a
+if !DEF(_CRYSTAL_DE)
 	ld a, $96
+else
+	ld a, $9d
+endc
 	ld [wc70d], a
 	ld a, $5c
 	ld [wc70e], a
@@ -4036,7 +4046,7 @@ Function17f220:
 if !DEF(_CRYSTAL_EU)
 .Boy:     db "Boy@"
 .Girl:    db "Girl@"
-elif DEF(_CRYSTAL_ES)
+else
 .Boy:     db "@"
 .Girl:    db "@"
 endc

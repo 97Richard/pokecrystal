@@ -685,6 +685,14 @@ if !DEF(_CRYSTAL_EU)
 .ExpPointStr: db "EXP POINTS@"
 .LevelUpStr:  db "LEVEL UP@"
 .ToStr:       db "TO@"
+elif DEF(_CRYSTAL_DE)
+.Status_Type:
+	db   "STATUS/"
+	next "TYP/@"
+.OK_str:      db "OK@"
+.ExpPointStr: db "EP-PUNKTE@"
+.LevelUpStr:  db "LEVEL UP@"
+.ToStr:       db "▶@"
 elif DEF(_CRYSTAL_ES)
 .Status_Type:
 	db   "ESTADO/"
@@ -736,6 +744,10 @@ if !DEF(_CRYSTAL_EU)
 .Item:        db "ITEM@"
 .ThreeDashes: db "---@"
 .Move:        db "MOVE@"
+elif DEF(_CRYSTAL_DE)
+.Item:        db "ITEM@"
+.ThreeDashes: db "---@"
+.Move:        db "ATTACKE@"
 elif DEF(_CRYSTAL_ES)
 .Item:        db "OBJETOS@"
 .ThreeDashes: db "---@"
@@ -797,6 +809,9 @@ endc
 	dw wBufferMonOT
 
 if !DEF(_CRYSTAL_EU)
+IDNoString: db "<ID>№.@"
+OTString:   db "OT/@"
+elif DEF(_CRYSTAL_DE)
 IDNoString: db "<ID>№.@"
 OTString:   db "OT/@"
 elif DEF(_CRYSTAL_ES)
@@ -1049,6 +1064,37 @@ EggALotMoreTimeString:
 	db   "This EGG needs a"
 	next "lot more time to"
 	next "hatch.@"
+elif DEF(_CRYSTAL_DE)
+EggString:
+	db "EI@"
+
+FiveQMarkString:
+	db "?????@"
+
+EggSoonString:
+	db   "Es sind schon"
+	next "Laute zu hören."
+	next "Es wird bald"
+	next "schlüpfen!@"
+
+EggCloseString:
+	db   "Es bewegt sich"
+	next "manchmal."
+	next "Es könnte bald"
+	next "schlüpfen!@"
+
+EggMoreTimeString:
+	db   "Was ist in"
+	next "dem EI?"
+	next "Gedulde dich noch"
+	next "ein wenig!@"
+
+EggALotMoreTimeString:
+	db   "Das Ei braucht"
+	next "noch eine ganze"
+	next "Weile,bis"
+	next "es schlüpft!@"
+
 elif DEF(_CRYSTAL_ES)
 EggString:
 	db "HUEVO@"

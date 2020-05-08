@@ -254,6 +254,51 @@ if !DEF(_CRYSTAL_EU)
 .QuitDesc:
 	db   "Quit and"
 	next "be judged.@"
+elif DEF(_CRYSTAL_DE)
+.PokedexString:  db "#DEX@"
+.PartyString:    db "#MON@"
+.PackString:     db "BEUTEL@"
+.StatusString:   db "<PLAYER>@"
+.SaveString:     db "SICHERN@"
+.OptionString:   db "OPTION@"
+.ExitString:     db "ZURÜCK@"
+.PokegearString: db "<POKE>COM@"
+.QuitString:     db "FERTIG@"
+
+.PokedexDesc:
+	db   "#MON-"
+	next "Datenbank@"
+
+.PartyDesc:
+	db   "<PKMN>-TEAM"
+	next "Status@"
+
+.PackDesc:
+	db   "Enthält"
+	next "Items@"
+
+.PokegearDesc:
+	db   "Wichtige"
+	next "Items@"
+
+.StatusDesc:
+	db   "Eigener"
+	next "Status@"
+
+.SaveDesc:
+	db   "Speichern@"
+
+.OptionDesc:
+	db   "Einstell."
+	next "ändern@"
+
+.ExitDesc:
+	db   "Menü"
+	next "schliessen@"
+
+.QuitDesc:
+	db   "Aufhören +"
+	next "Wertung.@"
 elif DEF(_CRYSTAL_ES)
 .PokedexString:  db "#DEX@"
 .PartyString:    db "#MON@"

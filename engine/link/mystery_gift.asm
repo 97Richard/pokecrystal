@@ -142,14 +142,17 @@ if !DEF(_CRYSTAL_EU)
 	db   "Press A to"
 	next "link IR-Device"
 	next "Press B to"
-	next "cancel it."
-	db   "@"
+	next "cancel it.@"
+elif DEF(_CRYSTAL_DE)
+	db   "A-KNOPF für"
+	next "IR-Aktivierung"
+	next "B-KNOPF für"
+	next "zurück.@"
 elif DEF(_CRYSTAL_ES)
 	db   "Pulsa A para"
 	next "enlace IR."
 	next "Pulsa B para"
-	next "cancelar."
-	db   "@"
+	next "cancelar.@"
 endc
 
 .MysteryGiftCanceledText:
@@ -361,6 +364,8 @@ Function104b49:
 	jp nz, Function104d32
 if !DEF(_CRYSTAL_EU)
 	ld a, $90
+elif DEF(_CRYSTAL_DE)
+	ld a, $9f
 elif DEF(_CRYSTAL_ES)
 	ld a, $96
 endc
@@ -411,6 +416,8 @@ Function104b88:
 	ldh a, [hPrintNumBuffer]
 if !DEF(_CRYSTAL_EU)
 	cp $90
+elif DEF(_CRYSTAL_DE)
+	cp $9f
 elif DEF(_CRYSTAL_ES)
 	cp $96
 endc

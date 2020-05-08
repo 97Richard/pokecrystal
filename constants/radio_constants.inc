@@ -23,6 +23,9 @@ INCLUDE "macros/enum.inc"
 ; internal indexes for channel segments
 	const OAKS_POKEMON_TALK_2    ; 0b
 	const OAKS_POKEMON_TALK_3    ; 0c
+if DEF(_CRYSTAL_DE)
+	const OAKS_POKEMON_TALK_3_2
+endc
 	const OAKS_POKEMON_TALK_4    ; 0d
 	const OAKS_POKEMON_TALK_5    ; 0e
 	const OAKS_POKEMON_TALK_6    ; 0f

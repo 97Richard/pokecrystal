@@ -36,7 +36,7 @@ PlayersHouse2F_MapScripts::
 	special ToggleMaptileDecorations
 	return
 
-Doll1Script:
+Doll1Script::
 	describedecoration DECODESC_LEFT_DOLL
 
 Doll2Script:

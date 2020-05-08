@@ -58,6 +58,8 @@ _PlayerDecorationMenu::
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 5, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 6, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 4, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 endc
@@ -90,6 +92,15 @@ if !DEF(_CRYSTAL_EU)
 .ornament db "ORNAMENT@"
 .big_doll db "BIG DOLL@"
 .exit     db "EXIT@"
+elif DEF(_CRYSTAL_DE)
+.bed      db "BETT@"
+.carpet   db "TEPPICH@"
+.plant    db "PFLANZE@"
+.poster   db "POSTER@"
+.game     db "KONSOLE@"
+.ornament db "ORNAMENT@"
+.big_doll db "RIESENPUPPE@"
+.exit     db "AUSGANG@"
 elif DEF(_CRYSTAL_ES)
 .bed      db "EDREDÓN@"
 .carpet   db "ALFOMBRA@"
@@ -940,6 +951,8 @@ MenuHeader_0x26eab:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 13, 7
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 9, 7
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 12, 7
 endc
@@ -953,6 +966,10 @@ if !DEF(_CRYSTAL_EU)
 	db "RIGHT SIDE@"
 	db "LEFT SIDE@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "RECHTS@"
+	db "LINKS@"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "DERECHA@"
 	db "IZQUIERDA@"

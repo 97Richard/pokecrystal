@@ -89,6 +89,22 @@ if !DEF(_CRYSTAL_EU)
 	db "FRAME<LF>"
 	db "        :TYPE<LF>"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "TEXT-TEMPO<LF>"
+	db "     :<LF>"
+	db "KAMPFANIMATION<LF>"
+	db "     :<LF>"
+	db "KAMPFSTIL<LF>"
+	db "     :<LF>"
+	db "SOUND<LF>"
+	db "     :<LF>"
+	db "DRUCKEN<LF>"
+	db "     :<LF>"
+	db "MENÜ-STEUERUNG<LF>"
+	db "     :<LF>"
+	db "RAHMEN<LF>"
+	db "     :TYP <LF>"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "VELOCIDAD TEXTO<LF>"
 	db "      :<LF>"
@@ -178,6 +194,8 @@ Options_TextSpeed:
 	ld d, [hl]
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 3
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 3
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 3
 endc
@@ -195,7 +213,7 @@ if !DEF(_CRYSTAL_EU)
 .Fast: db "FAST@"
 .Mid:  db "MID @"
 .Slow: db "SLOW@"
-elif DEF(_CRYSTAL_ES)
+else
 .Fast: db "3@"
 .Mid:  db "2@"
 .Slow: db "1@"
@@ -258,6 +276,8 @@ Options_BattleScene:
 .Display:
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 5
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 5
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 5
 endc
@@ -268,6 +288,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 .On:  db "ON @"
 .Off: db "OFF@"
+elif DEF(_CRYSTAL_DE)
+.On:  db "AN @"
+.Off  db "AUS@"
 elif DEF(_CRYSTAL_ES)
 .On:  db "SÍ@"
 .Off: db "NO@"
@@ -305,6 +328,8 @@ Options_BattleStyle:
 .Display:
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 7
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 7
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 7
 endc
@@ -315,6 +340,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 .Shift: db "SHIFT@"
 .Set:   db "SET  @"
+elif DEF(_CRYSTAL_DE)
+.Shift: db "WECHSEL@"
+.Set:   db "FOLGEND@"
 elif DEF(_CRYSTAL_ES)
 .Shift: db "CAMBIAR @"
 .Set:   db "MANTENER@"
@@ -359,6 +387,8 @@ Options_Sound:
 .Display:
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 9
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 9
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 9
 endc
@@ -367,6 +397,9 @@ endc
 	ret
 
 if !DEF(_CRYSTAL_EU)
+.Mono:   db "MONO  @"
+.Stereo: db "STEREO@"
+elif DEF(_CRYSTAL_DE)
 .Mono:   db "MONO  @"
 .Stereo: db "STEREO@"
 elif DEF(_CRYSTAL_ES)
@@ -422,6 +455,8 @@ Options_Print:
 	ld d, [hl]
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 11
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 11
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 11
 endc
@@ -443,6 +478,12 @@ if !DEF(_CRYSTAL_EU)
 .Normal:   db "NORMAL  @"
 .Darker:   db "DARKER  @"
 .Darkest:  db "DARKEST @"
+elif DEF(_CRYSTAL_DE)
+.Lightest: db "SEHR HELL  @"
+.Lighter:  db "HELL       @"
+.Normal:   db "NORMAL     @"
+.Darker:   db "DUNKEL     @"
+.Darkest:  db "SEHR DUNKEL@"
 elif DEF(_CRYSTAL_ES)
 .Lightest: db "MÁS CLARO @"
 .Lighter:  db "CLARO     @"
@@ -520,6 +561,8 @@ Options_MenuAccount:
 .Display:
 if !DEF(_CRYSTAL_EU)
 	hlcoord 11, 13
+elif DEF(_CRYSTAL_DE)
+	hlcoord 8, 13
 elif DEF(_CRYSTAL_ES)
 	hlcoord 9, 13
 endc
@@ -530,6 +573,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 .Off: db "OFF@"
 .On:  db "ON @"
+elif DEF(_CRYSTAL_DE)
+.Off: db "AUS@"
+.On:  db "AN @"
 elif DEF(_CRYSTAL_ES)
 .Off: db "NO@"
 .On:  db "SÍ@"
@@ -561,6 +607,8 @@ UpdateFrame:
 	ld a, [wTextboxFrame]
 if !DEF(_CRYSTAL_EU)
 	hlcoord 16, 15 ; where on the screen the number is drawn
+elif DEF(_CRYSTAL_DE)
+	hlcoord 13, 15 ; where on the screen the number is drawn
 elif DEF(_CRYSTAL_ES)
 	hlcoord 14, 15 ; where on the screen the number is drawn
 endc

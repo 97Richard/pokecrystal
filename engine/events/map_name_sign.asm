@@ -180,12 +180,12 @@ PlaceMapNameCenterAlign:
 	jr z, .stop
 	cp "%"
 	jr z, .loop
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	cp "<¯>"
 	jr z, .loop
 endc
 	inc c
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	cp " "
 	jr z, .space
 	cp "¯"

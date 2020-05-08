@@ -262,7 +262,7 @@ MoveFDDescription:
 MoveFEDescription:
 MoveFFDescription:
 Move00Description:
-	db "?@"
+	db   "?@"
 
 PoundDescription:
 	db   "Pounds with fore-"

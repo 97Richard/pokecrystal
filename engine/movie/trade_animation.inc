@@ -1,7 +1,7 @@
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 TRADEANIM_RIGHT_ARROW EQU "▶" ; $ed
 TRADEANIM_LEFT_ARROW  EQU "▼" ; $ee
-elif DEF(_CRYSTAL_ES)
+else
 TRADEANIM_RIGHT_ARROW EQU "▶" ; $ed
 TRADEANIM_LEFT_ARROW  EQU "▷" ; $ec
 endc
@@ -948,6 +948,11 @@ if !DEF(_CRYSTAL_EU)
 	next ""
 	next "OT/"
 	next "<ID>№.@"
+elif DEF(_CRYSTAL_DE)
+	db   "─── №."
+	next ""
+	next "OT/"
+	next "<ID>№.@"
 elif DEF(_CRYSTAL_ES)
 	db   "─── №."
 	next ""
@@ -973,6 +978,10 @@ TrademonStats_Egg:
 .EggData:
 if !DEF(_CRYSTAL_EU)
 	db   "EGG"
+	next "OT/?????"
+	next "<ID>№.?????@"
+elif DEF(_CRYSTAL_DE)
+	db   "EI"
 	next "OT/?????"
 	next "<ID>№.?????@"
 elif DEF(_CRYSTAL_ES)

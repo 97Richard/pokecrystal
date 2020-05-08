@@ -335,6 +335,19 @@ InitPokegearTilemap:
 	hlcoord 12, 1
 	ld de, .switch
 	call PlaceString
+if DEF(_CRYSTAL_DE)
+	; Make top-right bubble one tile wider
+	hlcoord 11, 0
+	ld [hl], $30 ; top-left corner
+	inc hl
+	ld [hl], " "
+	hlcoord 11, 1
+	ld [hl], " "
+	hlcoord 11, 2
+	ld [hl], $32 ; bottom-left corner
+	inc hl
+	ld [hl], " "
+endc
 	hlcoord 0, 12
 	lb bc, 4, 18
 	call Textbox
@@ -344,6 +357,8 @@ InitPokegearTilemap:
 .switch
 if !DEF(_CRYSTAL_EU)
 	db " SWITCH▶@"
+elif DEF(_CRYSTAL_DE)
+	db " WEITER▶@"
 elif DEF(_CRYSTAL_ES)
 	db " CAMBIO▶@"
 endc
@@ -1290,6 +1305,11 @@ if !DEF(_CRYSTAL_EU)
 	next "DELETE"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_DE)
+	db   "ANRUF"
+	next "LÖSCHEN"
+	next "ZURÜCK"
+	db   "@"
 elif DEF(_CRYSTAL_ES)
 	db   "LLAMAR"
 	next "BORRAR"
@@ -1308,6 +1328,10 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db   "CALL"
 	next "CANCEL"
+	db   "@"
+elif DEF(_CRYSTAL_DE)
+	db   "ANRUF"
+	next "ZURÜCK"
 	db   "@"
 elif DEF(_CRYSTAL_ES)
 	db   "LLAMAR"
@@ -1665,6 +1689,8 @@ LoadStation_BuenasPassword:
 
 if !DEF(_CRYSTAL_EU)
 BuenasPasswordName:    db "BUENA'S PASSWORD@"
+elif DEF(_CRYSTAL_DE)
+BuenasPasswordName:    db "BUENAs PASSWORT@"
 elif DEF(_CRYSTAL_ES)
 BuenasPasswordName:    db "CÓDIGO DE BUENA@"
 endc
@@ -1809,6 +1835,16 @@ UnownStationName:     db "?????@"
 PlacesAndPeopleName:  db "Places & People@"
 LetsAllSingName:      db "Let's All Sing!@"
 PokeFluteStationName: db "# FLUTE@"
+elif DEF(_CRYSTAL_DE)
+OaksPKMNTalkName:     db "EICHs <PKMN>-Talk@"
+PokedexShowName:      db "#DEX Show@"
+PokemonMusicName:     db "#MON-Musik@"
+LuckyChannelName:     db "Glückskanal@"
+UnownStationName:     db "?????@"
+
+PlacesAndPeopleName:  db "Orte & Personen@"
+LetsAllSingName:      db "Lasst uns singen@"
+PokeFluteStationName: db "#MON-FLÖTE@"
 elif DEF(_CRYSTAL_ES)
 OaksPKMNTalkName:     db "La Hora de OAK@"
 PokedexShowName:      db "Ver #DEX@"

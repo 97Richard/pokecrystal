@@ -490,7 +490,9 @@ endr
 	ret
 
 BT_ChrisName:
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
+	db "CHRIS@"
+elif DEF(_CRYSTAL_DE)
 	db "CHRIS@"
 elif DEF(_CRYSTAL_ES)
 	db "ANTONIO@"

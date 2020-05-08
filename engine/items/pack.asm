@@ -182,6 +182,8 @@ Pack::
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -194,6 +196,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "USE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "SALIR@"
@@ -206,6 +211,8 @@ endc
 .MenuHeader2:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
+	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
 	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
@@ -220,6 +227,10 @@ if !DEF(_CRYSTAL_EU)
 	db "USE@"
 	db "GIVE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "GIB@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "DAR@"
@@ -352,6 +363,8 @@ MenuHeader_UsableKeyItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 1, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 1, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 1, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -367,6 +380,12 @@ if !DEF(_CRYSTAL_EU)
 	db "TOSS@"
 	db "SEL@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "GIB@"
+	db "MÜLL@"
+	db "WAHL@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "DAR@"
@@ -386,6 +405,8 @@ MenuHeader_UsableItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -400,6 +421,11 @@ if !DEF(_CRYSTAL_EU)
 	db "GIVE@"
 	db "TOSS@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "GIB@"
+	db "MÜLL@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "DAR@"
@@ -417,6 +443,8 @@ MenuHeader_UnusableItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -429,6 +457,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "USE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "SALIR@"
@@ -441,6 +472,8 @@ Jumptable_UseQuit:
 MenuHeader_UnusableKeyItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
+	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
 	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
@@ -455,6 +488,10 @@ if !DEF(_CRYSTAL_EU)
 	db "USE@"
 	db "SEL@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "WAHL@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "SEL.@"
@@ -470,6 +507,8 @@ MenuHeader_HoldableKeyItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -484,6 +523,11 @@ if !DEF(_CRYSTAL_EU)
 	db "TOSS@"
 	db "SEL@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "GIB@"
+	db "MÜLL@"
+	db "WAHL@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "DAR@"
 	db "TIRAR@"
@@ -501,6 +545,8 @@ MenuHeader_HoldableItem:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -514,6 +560,10 @@ if !DEF(_CRYSTAL_EU)
 	db "GIVE@"
 	db "TOSS@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "GIB@"
+	db "MÜLL@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "DAR@"
 	db "TIRAR@"
@@ -909,6 +959,8 @@ TMHMSubmenu:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -921,6 +973,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "USE@"
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "OK@"
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "USAR@"
 	db "SALIR@"
@@ -934,6 +989,8 @@ endc
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 13, 9, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 13, 9, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 12, 9, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 endc
@@ -945,6 +1002,8 @@ endc
 	db 1 ; items
 if !DEF(_CRYSTAL_EU)
 	db "QUIT@"
+elif DEF(_CRYSTAL_DE)
+	db "ZUR.@"
 elif DEF(_CRYSTAL_ES)
 	db "SALIR@"
 endc

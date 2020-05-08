@@ -87,6 +87,8 @@ CatchTutorial::
 .Dude:
 if !DEF(_CRYSTAL_EU)
 	db "DUDE@"
+elif DEF(_CRYSTAL_DE)
+	db "KUMPEL@"
 elif DEF(_CRYSTAL_ES)
 	db "AMIGO@"
 endc

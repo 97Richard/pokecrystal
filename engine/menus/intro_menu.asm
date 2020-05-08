@@ -65,6 +65,18 @@ if !DEF(_CRYSTAL_EU)
 
 .Day:
 	db "DAY@"
+elif DEF(_CRYSTAL_DE)
+.Days:
+	db "SONNTAG@"
+	db "MONTAG@"
+	db "DIENSTAG@"
+	db "MITTWOCH@"
+	db "DONNERSTAG@"
+	db "FREITAG@"
+	db "SAMSTAG@"
+
+.Day:
+	db "@"
 elif DEF(_CRYSTAL_ES)
 .Days:
 	db "DOMINGO@"
@@ -297,13 +309,15 @@ SetDefaultBoxNames:
 .Box:
 if !DEF(_CRYSTAL_EU)
 	db "BOX@"
+elif DEF(_CRYSTAL_DE)
+	db "BOX@"
 elif DEF(_CRYSTAL_ES)
 	db "CAJA @"
 endc
 
 InitializeMagikarpHouse:
 	ld hl, wBestMagikarpLengthFeet
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	ld a, $3
 	ld [hli], a
 	ld a, $6
@@ -321,6 +335,8 @@ endc
 .Ralph:
 if !DEF(_CRYSTAL_EU)
 	db "RALPH@"
+elif DEF(_CRYSTAL_DE)
+	db "ANGELO@"
 elif DEF(_CRYSTAL_ES)
 	db "JOSERRA@"
 endc
@@ -351,6 +367,11 @@ if !DEF(_CRYSTAL_EU)
 .Red:    db "RED@"
 .Green:  db "GREEN@"
 .Mom:    db "MOM@"
+elif DEF(_CRYSTAL_DE)
+.Rival:  db "???@"
+.Red:    db "ROT@"
+.Green:  db "GRÜN@"
+.Mom:    db "MAMA@"
 elif DEF(_CRYSTAL_ES)
 .Rival:  db "¿¿??@"
 .Red:    db "ROJO@"
@@ -540,7 +561,7 @@ DisplaySaveInfoOnContinue:
 	jr z, .clock_ok
 if !DEF(_CRYSTAL_EU)
 	lb de, 4, 8
-elif DEF(_CRYSTAL_ES)
+else
 	lb de, 2, 8
 endc
 	call DisplayContinueDataWithRTCError
@@ -549,7 +570,7 @@ endc
 .clock_ok
 if !DEF(_CRYSTAL_EU)
 	lb de, 4, 8
-elif DEF(_CRYSTAL_ES)
+else
 	lb de, 2, 8
 endc
 	call DisplayNormalContinueData
@@ -558,7 +579,7 @@ endc
 DisplaySaveInfoOnSave::
 if !DEF(_CRYSTAL_EU)
 	lb de, 4, 0
-elif DEF(_CRYSTAL_ES)
+else
 	lb de, 2, 0
 endc
 	jr DisplayNormalContinueData
@@ -598,6 +619,8 @@ Continue_LoadMenuHeader:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 9
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 17, 9
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 17, 9
 endc
@@ -612,6 +635,11 @@ if !DEF(_CRYSTAL_EU)
 	db "BADGES@"
 	db "#DEX@"
 	db "TIME@"
+elif DEF(_CRYSTAL_DE)
+	db "SPIELER@"
+	db "ORDEN@"
+	db "#DEX@"
+	db "SPIELZEIT@"
 elif DEF(_CRYSTAL_ES)
 	db "JUGAD.@"
 	db "MEDALLAS@"
@@ -623,6 +651,8 @@ endc
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 0, 0, 15, 9
+elif DEF(_CRYSTAL_DE)
+	menu_coords 0, 0, 17, 9
 elif DEF(_CRYSTAL_ES)
 	menu_coords 0, 0, 17, 9
 endc
@@ -637,6 +667,11 @@ if !DEF(_CRYSTAL_EU)
 	db "BADGES@"
 	db " @"
 	db "TIME@"
+elif DEF(_CRYSTAL_DE)
+	db "SPIELER@"
+	db "ORDEN@"
+	db " @"
+	db "SPIELZEIT@"
 elif DEF(_CRYSTAL_ES)
 	db "JUGAD.@"
 	db "MEDALLAS@"
@@ -649,7 +684,7 @@ Continue_DisplayBadgesDexPlayerName:
 	push hl
 if !DEF(_CRYSTAL_EU)
 	decoord 13, 4, 0
-elif DEF(_CRYSTAL_ES)
+else
 	decoord 15, 4, 0
 endc
 	add hl, de
@@ -658,7 +693,7 @@ endc
 	push hl
 if !DEF(_CRYSTAL_EU)
 	decoord 12, 6, 0
-elif DEF(_CRYSTAL_ES)
+else
 	decoord 14, 6, 0
 endc
 	add hl, de
@@ -667,7 +702,7 @@ endc
 	push hl
 if !DEF(_CRYSTAL_EU)
 	decoord 8, 2, 0
-elif DEF(_CRYSTAL_ES)
+else
 	decoord 10, 2, 0
 endc
 	add hl, de
@@ -682,7 +717,7 @@ endc
 Continue_PrintGameTime:
 if !DEF(_CRYSTAL_EU)
 	decoord 9, 8, 0
-elif DEF(_CRYSTAL_ES)
+else
 	decoord 11, 8, 0
 endc
 	add hl, de
@@ -692,7 +727,7 @@ endc
 Continue_UnknownGameTime:
 if !DEF(_CRYSTAL_EU)
 	decoord 9, 8, 0
-elif DEF(_CRYSTAL_ES)
+else
 	decoord 11, 8, 0
 endc
 	add hl, de
@@ -701,9 +736,9 @@ endc
 	ret
 
 .three_question_marks
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	db " ???@"
-elif DEF(_CRYSTAL_ES)
+else
 	db " ¿?@"
 endc
 
@@ -898,6 +933,9 @@ NamePlayer:
 if !DEF(_CRYSTAL_EU)
 .Chris: db "CHRIS@@@@@@"
 .Kris:  db "KRIS@@@@@@@"
+elif DEF(_CRYSTAL_DE)
+.Chris: db "CHRIS@@@@@@"
+.Kris:  db "KRISTA@@@@@"
 elif DEF(_CRYSTAL_ES)
 .Chris: db "ANTONIO@@@@"
 .Kris:  db "CRIS@@@@@@@"

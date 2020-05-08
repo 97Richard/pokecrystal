@@ -417,6 +417,8 @@ ScrollingMenu_UpdateDisplay:
 .string_2485f
 if !DEF(_CRYSTAL_EU)
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "SALIR@"
 endc

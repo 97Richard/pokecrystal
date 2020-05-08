@@ -1,13 +1,11 @@
 ; http://forums.glitchcity.info/index.php?topic=7509.msg206449#msg206449
 
+INCLUDE "macros/data.inc"
+
 
 SECTION "mobile/news/news@Unreferenced_Function1f4003", ROMX
 
-if !DEF(_CRYSTAL_EU)
-	db $cc, $6b, $1e ; unused
-elif DEF(_CRYSTAL_ES)
-	db $1f, $6c, $1e ; unused
-endc
+	dab Doll1Script ; ???
 
 Unreferenced_Function1f4003:
 	ld a, $6

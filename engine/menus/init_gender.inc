@@ -22,6 +22,8 @@ InitGender::
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 6, 4, 12, 9
+elif DEF(_CRYSTAL_DE)
+	menu_coords 5, 4, 14, 9
 elif DEF(_CRYSTAL_ES)
 	menu_coords 6, 4, 13, 9
 endc
@@ -34,6 +36,9 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db "Boy@"
 	db "Girl@"
+elif DEF(_CRYSTAL_DE)
+	db "JUNGE@"
+	db "MÄDCHEN@"
 elif DEF(_CRYSTAL_ES)
 	db "Chico@"
 	db "Chica@"

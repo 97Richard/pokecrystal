@@ -447,11 +447,16 @@ if !DEF(_CRYSTAL_EU)
 	dwcoord 6, 17  ; AREA
 	dwcoord 11, 17 ; CRY
 	dwcoord 15, 17 ; PRNT
+elif DEF(_CRYSTAL_DE)
+	dwcoord 1, 17  ; S.
+	dwcoord 6, 17  ; GEB.
+	dwcoord 11, 17 ; RUF
+	dwcoord 15, 17 ; DRCK
 elif DEF(_CRYSTAL_ES)
-	dwcoord 1, 17  ; PAGE
-	dwcoord 5, 17  ; AREA
-	dwcoord 10, 17 ; CRY
-	dwcoord 15, 17 ; PRNT
+	dwcoord 1, 17  ; PÁG
+	dwcoord 5, 17  ; ÁREA
+	dwcoord 10, 17 ; GRIT
+	dwcoord 15, 17 ; IMPR
 endc
 
 DexEntryScreen_MenuActionJumptable:
@@ -1155,6 +1160,9 @@ Pokedex_DrawMainScreenBG:
 if !DEF(_CRYSTAL_EU)
 String_SEEN: db "SEEN", -1
 String_OWN:  db "OWN", -1
+elif DEF(_CRYSTAL_DE)
+String_SEEN: db "GES", -1
+String_OWN:  db "BES", -1
 elif DEF(_CRYSTAL_ES)
 String_SEEN: db "VIST", -1
 String_OWN:  db "TIEN", -1
@@ -1205,6 +1213,10 @@ if !DEF(_CRYSTAL_EU)
 .Height:    db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
 .Weight:    db "WT   ???lb", -1 ; WT   ???lb
 .MenuItems: db $3b, " PAGE AREA CRY PRNT", -1
+elif DEF(_CRYSTAL_DE)
+.Height:    db "GR.  ???m", -1
+.Weight:    db "GEW  ???kg", -1
+.MenuItems: db $3b, " S.   GEB. RUF DRCK", -1
 elif DEF(_CRYSTAL_ES)
 .Height:    db "AL   ¿? m", -1
 .Weight:    db "PE   ¿? kg", -1
@@ -1245,6 +1257,18 @@ if !DEF(_CRYSTAL_EU)
 
 .UnownMode:
 	db "UNOWN MODE@"
+elif DEF(_CRYSTAL_DE)
+.Title:
+	db $3b, " OPTIONEN ", $3c, -1
+
+.Modes:
+	db   "NEUER #DEX"
+	next "ALTER #DEX"
+	next "A bis Z"
+	db   "@"
+
+.UnownMode:
+	db "ICOGNITO INDEX@"
 elif DEF(_CRYSTAL_ES)
 .Title:
 	db $3b, " OPCIÓN ", $3c, -1
@@ -1297,6 +1321,22 @@ if !DEF(_CRYSTAL_EU)
 	db   "BEGIN SEARCH!!"
 	next "CANCEL"
 	db   "@"
+elif DEF(_CRYSTAL_DE)
+.Title:
+	db $3b, " SUCHE ", $3c, -1
+
+.TypeLeftRightArrows:
+	db $3d, "        ", $3e, -1
+
+.Types:
+	db   "TYP1"
+	next "TYP2"
+	db   "@"
+
+.Menu:
+	db   "SUCHE BEGINNEN!!"
+	next "ZURÜCK"
+	db   "@"
 elif DEF(_CRYSTAL_ES)
 .Title:
 	db $3b, " BUSCA ", $3c, -1
@@ -1327,9 +1367,9 @@ Pokedex_DrawSearchResultsScreenBG:
 	ld de, .BottomWindowText
 	call PlaceString
 	ld de, wDexSearchResultCount
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 1, 16
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 2, 16
 endc
 	lb bc, 1, 3
@@ -1353,13 +1393,15 @@ endc
 if !DEF(_CRYSTAL_EU)
 	db   "SEARCH RESULTS"
 	next "  TYPE"
-	next "    FOUND!"
-	db   "@"
+	next "    FOUND!@"
+elif DEF(_CRYSTAL_DE)
+	db   "Ergebnisse"
+	next "Element"
+	next "    gefunden@"
 elif DEF(_CRYSTAL_ES)
 	db   "RESULT. BUSCA"
 	next "  TIPO"
-	next "¡    HALLADO(S)!"
-	db   "@"
+	next "¡    HALLADO(S)!@"
 endc
 
 Pokedex_PlaceSearchResultsTypeStrings:
@@ -1823,6 +1865,22 @@ if !DEF(_CRYSTAL_EU)
 .UnownMode:
 	db   "UNOWN are listed"
 	next "in catching order.@"
+elif DEF(_CRYSTAL_DE)
+.NewMode:
+	db   "<PKMN> nach"
+	next "Evolution ordnen.@"
+
+.OldMode:
+	db   "<PKMN> traditionell"
+	next "ordnen.@"
+
+.ABCMode:
+	db   "<PKMN> nach"
+	next "Alphabet ordnen.@"
+
+.UnownMode:
+	db   "ICOGNITO in"
+	next "Fangreihenfolge.@"
 elif DEF(_CRYSTAL_ES)
 .NewMode:
 	db   "<PKMN> ordenados por"
@@ -1864,6 +1922,9 @@ String_ChangingModesPleaseWait:
 if !DEF(_CRYSTAL_EU)
 	db   "Changing modes."
 	next "Please wait.@"
+elif DEF(_CRYSTAL_DE)
+	db   "Moduswechsel."
+	next "Bitte warten.@"
 elif DEF(_CRYSTAL_ES)
 	db   "Cambiando modos."
 	next "Espera, por favor.@"
@@ -2069,6 +2130,9 @@ Pokedex_DisplayTypeNotFoundMessage:
 if !DEF(_CRYSTAL_EU)
 	db   "The specified type"
 	next "was not found.@"
+elif DEF(_CRYSTAL_DE)
+	db   "Gesuchtes Element"
+	next "nicht gefunden.@"
 elif DEF(_CRYSTAL_ES)
 	db   "Tipo especificado"
 	next "no encontrado.@"

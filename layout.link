@@ -374,7 +374,6 @@ ROMX $14
 	"engine/pokemon/mon_stats@PrintTempMonStats"
 	"engine/pokemon/mon_stats@GetGender"
 	"engine/pokemon/mon_stats@ListMovePP"
-	"engine/pokemon/mon_stats@Unreferenced_Function50cd0"
 	"engine/pokemon/mon_stats@Unused_PlaceEnemyHPLevel"
 	"engine/pokemon/mon_stats@PlaceStatusString"
 	"engine/pokemon/mon_stats@ListMoves"

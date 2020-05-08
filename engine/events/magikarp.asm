@@ -86,7 +86,7 @@ CheckMagikarpLength::
 	text_far _MagikarpGuruMeasureText
 	text_end
 
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 Magikarp_LoadFeetInchesChars:
 	ld hl, vTiles2 tile "′" ; $6e
 	ld de, .feetinchchars
@@ -280,7 +280,7 @@ CalcMagikarpLength::
 	ld e, l
 
 .done
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	; convert from mm to feet and inches
 	; in = mm / 25.4
 	; ft = in / 12

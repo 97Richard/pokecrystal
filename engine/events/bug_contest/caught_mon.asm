@@ -16,7 +16,7 @@ BugContest_SetCaughtContestMon::
 	farcall DisplayCaughtContestMonStats
 if !DEF(_CRYSTAL_EU)
 	lb bc, 14, 7
-elif DEF(_CRYSTAL_ES)
+else
 	lb bc, 14, 9
 endc
 	call PlaceYesNoBox

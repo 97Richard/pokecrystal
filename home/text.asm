@@ -145,7 +145,7 @@ SpeechTextbox::
 	ld c, TEXTBOX_INNERW
 	jp Textbox
 
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 TestText:
 	text "ゲームフりーク！"
 	done
@@ -209,7 +209,7 @@ if STRSUB("\2", 1, 1) == "\""
 ; Replace a character with another one
 	jr nz, ._\@
 	ld a, \2
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	jr .place
 endc
 ._\@:
@@ -252,7 +252,7 @@ ENDM
 	dict "<POKE>",    PlacePOKE
 	dict "%",         NextChar
 	dict "¯",         " "
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 	dict "<¯>",       NextChar
 	dict "<->",       PlaceHyphenSplit
 endc
@@ -262,7 +262,7 @@ endc
 	dict "<ENEMY>",   PlaceEnemysName
 	dict "<PLAY_G>",  PlaceGenderedPlayerName
 	dict "ﾟ",         .place ; should be .diacritic
-if !DEF(_CRYSTAL_ES)
+if !DEF(_CRYSTAL_EU)
 	dict "ﾞ",         .place ; should be .diacritic
 	jr .not_diacritic
 
@@ -336,7 +336,7 @@ PlaceKougeki: print_name KougekiText
 SixDotsChar:  print_name SixDotsCharText
 PlacePKMN:    print_name PlacePKMNText
 PlacePOKE:    print_name PlacePOKEText
-if DEF(_CRYSTAL_ES)
+if DEF(_CRYSTAL_EU)
 PlaceHyphenSplit:
 	ld [hl], "-"
 	jp LineFeedChar
@@ -445,6 +445,15 @@ PlacePOKeText:   db "POKé@"
 KougekiText:     db "こうげき@"
 SixDotsCharText: db "……@"
 EnemyText:       db "Enemy @"
+elif DEF(_CRYSTAL_DE)
+TMCharText:      db "TM@"
+TrainerCharText: db "TRAINER@"
+PCCharText:      db "PC@"
+RocketCharText:  db "ROCKET@"
+PlacePOKeText:   db "POKé@"
+KougekiText:     db "こうげき@"
+SixDotsCharText: db "……@"
+EnemyText:       db "Gegn. @"
 elif DEF(_CRYSTAL_ES)
 TMCharText:      db "MT@"
 TrainerCharText: db "ENTREN.@"
@@ -1152,6 +1161,15 @@ if !DEF(_CRYSTAL_EU)
 .Fri:    db "FRI@"
 .Satur:  db "SATUR@"
 .Day:    db "DAY@"
+elif DEF(_CRYSTAL_DE)
+.Sun:    db "SONNTAG@"
+.Mon:    db "MONTAG@"
+.Tues:   db "DIENSTAG@"
+.Wednes: db "MITTWOCH@"
+.Thurs:  db "DONNERSTAG@"
+.Fri:    db "FREITAG@"
+.Satur:  db "SAMSTAG@"
+.Day:    db "@"
 elif DEF(_CRYSTAL_ES)
 .Sun:    db "DOMINGO@"
 .Mon:    db "LUNES@"

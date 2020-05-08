@@ -42,6 +42,8 @@ BattleMenuHeader::
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 8, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 4, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 6, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 endc
@@ -53,6 +55,8 @@ MenuData_0x24f34:
 	dn 2, 2 ; rows, columns
 if !DEF(_CRYSTAL_EU)
 	db 6 ; spacing
+elif DEF(_CRYSTAL_DE)
+	db 7 ; spacing
 elif DEF(_CRYSTAL_ES)
 	db 8 ; spacing
 endc
@@ -65,6 +69,11 @@ if !DEF(_CRYSTAL_EU)
 	db "<PKMN>@"
 	db "PACK@"
 	db "RUN@"
+elif DEF(_CRYSTAL_DE)
+	db "KMPF@"
+	db "<PKMN>@"
+	db "BEUTEL@"
+	db "FLUCHT@"
 elif DEF(_CRYSTAL_ES)
 	db "LUCHA@"
 	db "<PKMN>@"
@@ -102,6 +111,8 @@ MenuHeader_0x24f89:
 	db MENU_BACKUP_TILES ; flags
 if !DEF(_CRYSTAL_EU)
 	menu_coords 2, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+elif DEF(_CRYSTAL_DE)
+	menu_coords 3, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 elif DEF(_CRYSTAL_ES)
 	menu_coords 6, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 endc
@@ -113,6 +124,8 @@ MenuData_0x24f91:
 	dn 2, 2 ; rows, columns
 if !DEF(_CRYSTAL_EU)
 	db 12 ; spacing
+elif DEF(_CRYSTAL_DE)
+	db 8 ; spacing
 elif DEF(_CRYSTAL_ES)
 	db 8 ; spacing
 endc
@@ -125,6 +138,11 @@ if !DEF(_CRYSTAL_EU)
 	db "<PKMN>@"
 	db "PARKBALL×  @"
 	db "RUN@"
+elif DEF(_CRYSTAL_DE)
+	db "KMPF@"
+	db "<PKMN>@"
+	db "BALL×  @"
+	db "FLUCHT@"
 elif DEF(_CRYSTAL_ES)
 	db "LUCHA@"
 	db "<PKMN>@"
@@ -133,7 +151,11 @@ elif DEF(_CRYSTAL_ES)
 endc
 
 Function24fb2:
+if !DEF(_CRYSTAL_DE)
 	hlcoord 13, 16
+else
+	hlcoord 10, 16
+endc
 	ld de, wParkBallsRemaining
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum

@@ -65,6 +65,13 @@ if !DEF(_CRYSTAL_EU)
 	db "MYSTERY GIFT@"
 	db "MOBILE@"
 	db "MOBILE STUDIUM@"
+elif DEF(_CRYSTAL_DE)
+	db "WEITER@"
+	db "NEUES SPIEL@"
+	db "OPTIONEN@"
+	db "GEHEIMGABE@"
+	db "MOBILE@"
+	db "MOBILE STUDIUM@"
 elif DEF(_CRYSTAL_ES)
 	db "CONTINUAR@"
 	db "JUEGO NUEVO@"
@@ -306,6 +313,8 @@ MainMenu_PrintCurrentTimeAndDay:
 .TimeNotSet:
 if !DEF(_CRYSTAL_EU)
 	db "TIME NOT SET@"
+elif DEF(_CRYSTAL_DE)
+	db "UHR NICHT GESTELLT@"
 elif DEF(_CRYSTAL_ES)
 	db "HORA NO FIJADA@"
 endc
@@ -340,6 +349,17 @@ if !DEF(_CRYSTAL_EU)
 	db "SATUR@"
 .Day:
 	db "DAY@"
+elif DEF(_CRYSTAL_DE)
+.Days:
+	db "SONNTAG@"
+	db "MONTAG@"
+	db "DIENSTAG@"
+	db "MITTWOCH@"
+	db "DONNERSTAG@"
+	db "FREITAG@"
+	db "SAMSTAG@"
+.Day:
+	db "@"
 elif DEF(_CRYSTAL_ES)
 .Days:
 	db "DOMINGO@"

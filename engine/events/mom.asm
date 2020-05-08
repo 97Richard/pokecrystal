@@ -484,9 +484,9 @@ Mom_WithdrawDepositMenuJoypad:
 	xor a
 	ldh [hBGMapMode], a
 	hlcoord 12, 6
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	ld bc, 7
-elif DEF(_CRYSTAL_ES)
+else
 	ld bc, 6
 endc
 	ld a, " "
@@ -498,9 +498,9 @@ endc
 	ldh a, [hVBlankCounter]
 	and $10
 	jr nz, .skip
-if !DEF(_CRYSTAL_EU)
+if !DEF(_CRYSTAL_ES)
 	hlcoord 13, 6
-elif DEF(_CRYSTAL_ES)
+else
 	hlcoord 12, 6
 endc
 	ld a, [wMomBankDigitCursorPosition]
@@ -674,6 +674,11 @@ Mom_SavedString:    db "SAVED@"
 Mon_WithdrawString: db "WITHDRAW@"
 Mom_DepositString:  db "DEPOSIT@"
 Mom_HeldString:     db "HELD@"
+elif DEF(_CRYSTAL_DE)
+Mom_SavedString:    db "ERSPARNISSE@"
+Mon_WithdrawString: db "ABHEBEN@"
+Mom_DepositString:  db "EINZAHLEN@"
+Mom_HeldString:     db "BESITZ@"
 elif DEF(_CRYSTAL_ES)
 Mom_SavedString:    db "GUARDADO@"
 Mon_WithdrawString: db "SACAR@"
@@ -695,6 +700,11 @@ if !DEF(_CRYSTAL_EU)
 	db "SAVE@"
 	db "CHANGE@"
 	db "CANCEL@"
+elif DEF(_CRYSTAL_DE)
+	db "ABHEBEN@"
+	db "SPAREN@"
+	db "ÄNDERN@"
+	db "ZURÜCK@"
 elif DEF(_CRYSTAL_ES)
 	db "COGER@"
 	db "GUARDA@"
